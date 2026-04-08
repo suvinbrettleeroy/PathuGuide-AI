@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="{{ language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PathGuide{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --pg-bg: #061222;
+            --pg-bg-soft: #0c1f34;
+            --pg-surface: rgba(14, 31, 50, 0.78);
+            --pg-surface-strong: rgba(12, 27, 44, 0.92);
+            --pg-border: rgba(112, 166, 255, 0.28);
+            --pg-text: #e8f0ff;
+            --pg-muted: #9db3d6;
+            --pg-primary: #4f8cff;
+            --pg-secondary: #2dd4bf;
+            --pg-danger: #ff6b8a;
+            --pg-warning: #f7c948;
+            --pg-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        body {
+            font-family: 'Manrope', 'Segoe UI', sans-serif;
+            color: var(--pg-text);
+            background:
+                radial-gradient(circle at 12% 20%, rgba(79, 140, 255, 0.24), transparent 42%),
+                radial-gradient(circle at 88% 8%, rgba(45, 212, 191, 0.2), transparent 38%),
+                linear-gradient(150deg, #061222 0%, #081a2d 55%, #0b2238 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(130, 180, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(130, 180, 255, 0.05) 1px, transparent 1px);
+            background-size: 42px 42px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar-custom {
+            background: var(--pg-surface-strong);
+            border-bottom: 1px solid var(--pg-border);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.35rem, 2vw, 1.75rem);
+            letter-spacing: -0.02em;
+            color: #dce8ff !important;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .card-custom,
+        .card,
+        .modal-content,
+        .dropdown-menu {
+            border-radius: 18px;
+            background: var(--pg-surface);
+            border: 1px solid var(--pg-border);
+            box-shadow: var(--pg-shadow);
+            color: var(--pg-text);
+            backdrop-filter: blur(18px);
+        }
+
+        .card-custom {
+            transition: transform 0.28s ease, box-shadow 0.28s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 56px rgba(6, 16, 30, 0.68);
+        }
+
+        .form-control,
+        .form-select,
+        .input-group-text {
+            background: rgba(10, 25, 42, 0.9);
+            border: 1px solid rgba(112, 166, 255, 0.28);
+            color: var(--pg-text);
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: rgba(79, 140, 255, 0.72);
+            box-shadow: 0 0 0 0.18rem rgba(79, 140, 255, 0.25);
+            background: rgba(9, 24, 40, 0.94);
+            color: #f5f9ff;
+        }
+
+        .form-control::placeholder {
+            color: rgba(157, 179, 214, 0.82);
+        }
+
+        .btn-custom {
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 700;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+        }
+
+        .path-card {
+            cursor: pointer;
+            border: 1px solid var(--pg-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        .path-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: linear-gradient(130deg, rgba(79, 140, 255, 0.25), rgba(45, 212, 191, 0.22));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .path-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 45px rgba(7, 18, 34, 0.65);
+        }
+
+        .path-card:hover::after {
+            opacity: 1;
+        }
+
+        .language-toggle {
+            display: inline-flex;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(10, 25, 42, 0.95);
+            border: 1px solid rgba(112, 166, 255, 0.24);
+            padding: 3px;
+        }
+
+        .language-toggle button {
+            border: none;
+            padding: 8px 16px;
+            background: transparent;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.83rem;
+            color: var(--pg-muted);
+            transition: all 0.25s ease;
+        }
+
+        .language-toggle button:hover:not(.active) {
+            color: #d9e6ff;
+            background: rgba(79, 140, 255, 0.12);
+        }
+
+        .language-toggle button.active {
+            background: linear-gradient(120deg, #2f6fff, #20c9b5);
+            color: #f8fcff;
+            box-shadow: 0 8px 20px rgba(47, 111, 255, 0.35);
+        }
+
+        .location-pill {
+            border: 1px solid rgba(94, 209, 255, 0.35);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            color: #d7f8ff;
+            background: linear-gradient(120deg, rgba(28, 112, 168, 0.5), rgba(29, 176, 148, 0.5));
+            box-shadow: 0 10px 25px rgba(8, 26, 45, 0.4);
+        }
+
+        .location-pill:hover,
+        .location-pill:focus,
+        .location-pill:active {
+            color: #eaffff !important;
+            background: linear-gradient(120deg, rgba(28, 112, 168, 0.66), rgba(29, 176, 148, 0.62)) !important;
+        }
+
+        .location-menu {
+            min-width: 310px;
+            border-radius: 16px;
+            border: 1px solid rgba(112, 166, 255, 0.28);
+            box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5);
+            background: rgba(9, 22, 38, 0.98);
+            backdrop-filter: blur(14px);
+        }
+
+        .location-status {
+            font-size: 0.78rem;
+            color: #c8daf6;
+            background: rgba(21, 42, 66, 0.8);
+            border: 1px solid rgba(112, 166, 255, 0.22);
+            border-radius: 8px;
+            padding: 6px 8px;
+        }
+
+        .admin-panel-btn {
+            background: linear-gradient(120deg, #2f6fff, #20c9b5);
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            box-shadow: 0 8px 22px rgba(47, 111, 255, 0.4);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .admin-panel-btn:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(47, 111, 255, 0.5);
+        }
+
+        .alert {
+            border-radius: 12px;
+            border-width: 1px;
+        }
+
+        .table {
+            color: var(--pg-text);
+        }
+
+        .table > :not(caption) > * > * {
+            background-color: rgba(9, 22, 38, 0.8);
+            border-bottom-color: rgba(112, 166, 255, 0.2);
+        }
+
+        .text-muted,
+        small.text-muted {
+            color: var(--pg-muted) !important;
+        }
+
+        footer {
+            color: #b7cceb !important;
+        }
+
+        .toast {
+            border-radius: 12px;
+        }
+
+        @keyframes pgFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container.mt-4 > * {
+            animation: pgFadeInUp 0.4s ease both;
+        }
+
+        @media (max-width: 992px) {
+            .navbar-custom .container {
+                gap: 0.65rem;
+            }
+
+            .top-controls {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="/">
+                <i class="fas fa-route"></i> PathGuide
+            </a>
+            
+            <div class="top-controls">
+                <!-- Language Toggle -->
+                <div class="language-toggle">
+                    <button onclick="setLanguage('en')" class="{{ 'active' if language == 'en' else '' }}">
+                        <i class="fas fa-globe me-1"></i> English
+                    </button>
+                    <button onclick="setLanguage('ta')" class="{{ 'active' if language == 'ta' else '' }}">
+                        <i class="fas fa-language me-1"></i> தமிழ்
+                    </button>
+                </div>
+
+                <!-- Live Location (between language and admin) -->
+                <div class="dropdown">
+                    <button class="btn btn-sm dropdown-toggle location-pill" type="button" id="navLocationMenuBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        <i class="fas fa-location-dot me-1"></i>
+                        <span id="navLocationText">{% if language == 'ta' %}நேரடி இடம்{% else %}Live Location{% endif %}</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end p-3 location-menu" aria-labelledby="navLocationMenuBtn">
+                        <div class="form-check form-switch d-flex align-items-center justify-content-between mb-2">
+                            <label class="form-check-label fw-semibold" for="navLocationSwitch">
+                                {% if language == 'ta' %}தானியங்கி கண்டறிதல்{% else %}Auto Detection{% endif %}
+                            </label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="navLocationSwitch" style="width: 2.6rem; height: 1.35rem;">
+                        </div>
+
+                        <div class="location-status mb-2" id="navLocationStatus">
+                            {% if language == 'ta' %}இடம் முடக்கப்பட்டுள்ளது{% else %}Location is off{% endif %}
+                        </div>
+
+                        <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2" id="navDetectNowBtn">
+                            <i class="fas fa-crosshairs me-1"></i>
+                            {% if language == 'ta' %}இப்போது கண்டறிக{% else %}Detect Now{% endif %}
+                        </button>
+
+                        <div class="small fw-semibold text-secondary mb-1">{% if language == 'ta' %}கைமுறை உள்ளீடு{% else %}Manual Entry{% endif %}</div>
+                        <input id="navDistrict" class="form-control form-control-sm mb-2" placeholder="{% if language == 'ta' %}மாவட்டம்{% else %}District{% endif %}">
+                        <input id="navCity" class="form-control form-control-sm mb-2" placeholder="{% if language == 'ta' %}நகரம்{% else %}City{% endif %}">
+                        <button type="button" class="btn btn-success btn-sm w-100" id="navSaveManualBtn">
+                            <i class="fas fa-save me-1"></i>
+                            {% if language == 'ta' %}இடத்தை சேமி{% else %}Save Location{% endif %}
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Admin Panel Button (always visible, gradient design) -->
+                <a href="/admin-login" class="btn btn-sm admin-panel-btn">
+                    <i class="fas fa-shield-alt me-1"></i> 
+                    {% if language == 'ta' %}
+                    நிர்வாக பலகம்
+                    {% else %}
+                    Admin Panel
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-white mt-5 pb-4">
+        <p class="mb-0">&copy; 2026 PathGuide. All rights reserved.</p>
+        <p class="small">
+            {% if language == 'ta' %}
+            உங்கள் தனிப்பட்ட தரவு மற்றும் இடம் விருப்பமானது மற்றும் வழிகாட்டுதலுக்கு மட்டுமே பயன்படுத்தப்படுகிறது.
+            {% else %}
+            Your personal data and location are optional and used only for guidance.
+            {% endif %}
+        </p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function setLanguage(lang) {
+            fetch('/set-language', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ language: lang })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                }
+            });
+        }
+
+        function showLocationToast(message, ok = true) {
+            const toastEl = document.getElementById('locationToast');
+            const toastBody = document.getElementById('locationToastBody');
+            if (!toastEl || !toastBody) {
+                alert(message);
+                return;
+            }
+
+            toastBody.textContent = message;
+            toastEl.classList.toggle('text-bg-success', ok);
+            toastEl.classList.toggle('text-bg-danger', !ok);
+            const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 2500 });
+            toast.show();
+        }
+
+        async function persistLocation(payload) {
+            await fetch('/set-location', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+        }
+
+        function updateLocationPillLabel(city, district) {
+            const label = document.getElementById('navLocationText');
+            if (!label) return;
+            if (city || district) {
+                label.textContent = `${city || 'Unknown'}, ${district || 'Tamil Nadu'}`;
+            } else {
+                label.textContent = '{% if language == "ta" %}நேரடி இடம்{% else %}Live Location{% endif %}';
+            }
+        }
+
+        async function detectLocationFromNavbar() {
+            const status = document.getElementById('navLocationStatus');
+            const switchEl = document.getElementById('navLocationSwitch');
+            const districtInput = document.getElementById('navDistrict');
+            const cityInput = document.getElementById('navCity');
+
+            if (!navigator.geolocation) {
+                status.textContent = '{% if language == "ta" %}உங்கள் உலாவி இடத்தை ஆதரிக்கவில்லை{% else %}Geolocation is not supported in this browser{% endif %}';
+                showLocationToast('{% if language == "ta" %}இடம் கண்டறிய முடியவில்லை{% else %}Unable to detect location{% endif %}', false);
+                switchEl.checked = false;
+                return;
+            }
+
+            status.textContent = '{% if language == "ta" %}இடம் கண்டறிகிறது...{% else %}Detecting your location...{% endif %}';
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    try {
+                        const response = await fetch(`/reverse-geocode?lat=${position.coords.latitude}&lng=${position.coords.longitude}`);
+                        const data = await response.json();
+                        if (data.success) {
+                            const district = data.district || '';
+                            const city = data.city || '';
+
+                            districtInput.value = district;
+                            cityInput.value = city;
+                            await persistLocation({ enabled: true, district, city });
+                            updateLocationPillLabel(city, district);
+                            status.textContent = `{% if language == "ta" %}கண்டறியப்பட்டது:{% else %}Detected:{% endif %} ${city || 'Unknown'}, ${district || 'Tamil Nadu'}`;
+                            showLocationToast('{% if language == "ta" %}இடம் வெற்றிகரமாக கண்டறியப்பட்டது{% else %}Location detected successfully{% endif %}', true);
+                        } else {
+                            status.textContent = '{% if language == "ta" %}தானியங்கி கண்டறிதல் தோல்வி. கைமுறையாக உள்ளிடவும்.{% else %}Auto detection failed. Please enter manually.{% endif %}';
+                            showLocationToast('{% if language == "ta" %}கைமுறையாக இடத்தை உள்ளிடவும்{% else %}Enter location manually{% endif %}', false);
+                            switchEl.checked = false;
+                        }
+                    } catch (err) {
+                        status.textContent = '{% if language == "ta" %}கண்டறிதலில் பிழை. கைமுறையாக உள்ளிடவும்.{% else %}Detection error. Please enter manually.{% endif %}';
+                        showLocationToast('{% if language == "ta" %}இடம் கண்டறிதல் தோல்வி{% else %}Location detection failed{% endif %}', false);
+                        switchEl.checked = false;
+                    }
+                },
+                () => {
+                    status.textContent = '{% if language == "ta" %}அனுமதி மறுக்கப்பட்டது. கைமுறையாக உள்ளிடவும்.{% else %}Permission denied. Please enter manually.{% endif %}';
+                    showLocationToast('{% if language == "ta" %}இட அனுமதி மறுக்கப்பட்டது{% else %}Location permission denied{% endif %}', false);
+                    switchEl.checked = false;
+                }
+            );
+        }
+
+        function initNavbarLocationControl() {
+            const switchEl = document.getElementById('navLocationSwitch');
+            const detectBtn = document.getElementById('navDetectNowBtn');
+            const saveBtn = document.getElementById('navSaveManualBtn');
+            const districtInput = document.getElementById('navDistrict');
+            const cityInput = document.getElementById('navCity');
+            const status = document.getElementById('navLocationStatus');
+
+            if (!switchEl || !detectBtn || !saveBtn || !districtInput || !cityInput || !status) return;
+
+            switchEl.addEventListener('change', async () => {
+                if (switchEl.checked) {
+                    await detectLocationFromNavbar();
+                } else {
+                    await persistLocation({ enabled: false, district: '', city: '' });
+                    updateLocationPillLabel('', '');
+                    status.textContent = '{% if language == "ta" %}இடம் முடக்கப்பட்டுள்ளது{% else %}Location is off{% endif %}';
+                    showLocationToast('{% if language == "ta" %}இடம் முடக்கப்பட்டது{% else %}Location turned off{% endif %}', true);
+                }
+            });
+
+            detectBtn.addEventListener('click', async () => {
+                switchEl.checked = true;
+                await detectLocationFromNavbar();
+            });
+
+            saveBtn.addEventListener('click', async () => {
+                const district = districtInput.value.trim();
+                const city = cityInput.value.trim();
+                if (!district) {
+                    showLocationToast('{% if language == "ta" %}மாவட்டத்தை உள்ளிடவும்{% else %}Please enter district{% endif %}', false);
+                    return;
+                }
+
+                await persistLocation({ enabled: true, district, city });
+                switchEl.checked = true;
+                updateLocationPillLabel(city, district);
+                status.textContent = `{% if language == "ta" %}கைமுறையாக சேமிக்கப்பட்டது:{% else %}Saved manually:{% endif %} ${city || 'Unknown'}, ${district}`;
+                showLocationToast('{% if language == "ta" %}இடம் சேமிக்கப்பட்டது{% else %}Location saved{% endif %}', true);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initNavbarLocationControl);
+    </script>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+        <div id="locationToast" class="toast text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="locationToastBody">Location updated</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

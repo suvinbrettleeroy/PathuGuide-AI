@@ -1,0 +1,36 @@
+# PathGuide - Requirements
+# Python 3.8+
+
+# Web Framework
+Flask==2.3.0
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.2
+Flask-WTF==1.1.1
+WTForms==3.0.1
+Flask-CORS==4.0.0
+
+# Database
+SQLAlchemy==2.0.20
+alembic==1.11.1
+
+# Machine Learning
+scikit-learn==1.3.0
+numpy==1.24.3
+pandas==1.5.3
+joblib==1.3.2
+
+# Data Processing
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Security
+werkzeug==2.3.0
+cryptography==41.0.3
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# Development
+pytest==7.4.0
+pytest-flask==1.2.0

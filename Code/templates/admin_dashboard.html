@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - PathGuide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --header-height: 60px;
+            --primary-color: #4f8cff;
+            --secondary-color: #20c9b5;
+            --surface-color: rgba(14, 31, 50, 0.84);
+            --panel-color: rgba(9, 22, 38, 0.94);
+            --border-color: rgba(112, 166, 255, 0.24);
+            --text-color: #e8f0ff;
+            --muted-color: #9db3d6;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: 'Manrope', 'Segoe UI', sans-serif;
+            color: var(--text-color);
+            background:
+                radial-gradient(circle at 10% 8%, rgba(79, 140, 255, 0.2), transparent 36%),
+                radial-gradient(circle at 90% 3%, rgba(32, 201, 181, 0.16), transparent 32%),
+                linear-gradient(150deg, #061222 0%, #081a2d 55%, #0b2238 100%);
+        }
+
+        /* Admin Header */
+        .admin-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            height: var(--header-height);
+            background: rgba(12, 27, 44, 0.88);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(16px);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38);
+            z-index: 1000;
+        }
+
+        .admin-header h4 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--panel-color);
+            color: white;
+            overflow-y: auto;
+            z-index: 1001;
+            border-right: 1px solid var(--border-color);
+            box-shadow: 10px 0 26px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-sidebar .logo {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(120deg, rgba(47, 111, 255, 0.2), rgba(32, 201, 181, 0.22));
+        }
+
+        .admin-sidebar .logo h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .admin-sidebar .nav-section {
+            padding: 1rem 0;
+        }
+
+        .admin-sidebar .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--muted-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .admin-sidebar .nav-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .admin-sidebar .nav-item:hover {
+            background: rgba(79, 140, 255, 0.14);
+            border-left-color: var(--primary-color);
+        }
+
+        .admin-sidebar .nav-item.active {
+            background: linear-gradient(90deg, rgba(47, 111, 255, 0.3), rgba(32, 201, 181, 0.2));
+            border-left-color: var(--primary-color);
+        }
+
+        .admin-sidebar .nav-item i {
+            width: 20px;
+            margin-right: 0.75rem;
+        }
+
+        /* Main Content */
+        .admin-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--header-height);
+            padding: 2rem;
+            min-height: calc(100vh - var(--header-height));
+            background: transparent;
+        }
+
+        /* Dashboard Cards */
+        .stat-card {
+            border-radius: 10px;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.45);
+        }
+
+        .stat-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .stat-card .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .management-card {
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: var(--surface-color);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .management-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+            transform: translateY(-3px);
+        }
+
+        .management-card .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #d9e7ff;
+        }
+
+        /* Feature Toggle */
+        .feature-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--surface-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-switch .form-check-input {
+            width: 3rem;
+            height: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Editable Content */
+        .editable-content {
+            position: relative;
+            padding: 1rem;
+            border: 2px dashed transparent;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .editable-content:hover {
+            border-color: var(--primary-color);
+            background: rgba(79, 140, 255, 0.12);
+        }
+
+        .edit-button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .editable-content:hover .edit-button {
+            opacity: 1;
+        }
+
+        /* Modal Enhancements */
+        .modal-header {
+            background: linear-gradient(120deg, #2f6fff, #20c9b5);
+            color: white;
+        }
+
+        .card,
+        .table,
+        .list-group-item,
+        .accordion-item,
+        .modal-content,
+        .dropdown-menu,
+        .form-control,
+        .form-select,
+        .input-group-text,
+        .btn-light {
+            background-color: var(--surface-color) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        .card-header,
+        .card-header.bg-white {
+            background: rgba(20, 45, 72, 0.86) !important;
+            color: #deebff !important;
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+
+        .text-muted,
+        small.text-muted {
+            color: var(--muted-color) !important;
+        }
+
+        .dropdown-item,
+        .form-check-label,
+        .table td,
+        .table th,
+        .accordion-button,
+        .list-group-item p,
+        .list-group-item small,
+        p,
+        li,
+        label,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        span {
+            color: var(--text-color);
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: rgba(47, 111, 255, 0.18) !important;
+        }
+
+        .btn-outline-primary,
+        .btn-outline-success,
+        .btn-outline-warning,
+        .btn-outline-info,
+        .btn-outline-danger {
+            border-color: rgba(112, 166, 255, 0.32);
+            color: #d5e7ff;
+        }
+
+        .btn-outline-primary:hover,
+        .btn-outline-success:hover,
+        .btn-outline-warning:hover,
+        .btn-outline-info:hover,
+        .btn-outline-danger:hover {
+            background: rgba(47, 111, 255, 0.22);
+            color: #ffffff;
+        }
+
+        .table-responsive {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: rgba(10, 24, 40, 0.92);
+        }
+
+        .table {
+            --bs-table-bg: rgba(10, 24, 40, 0.92);
+            --bs-table-color: #e8f0ff;
+            --bs-table-border-color: rgba(112, 166, 255, 0.24);
+            --bs-table-striped-bg: rgba(21, 43, 69, 0.72);
+            --bs-table-hover-bg: rgba(39, 68, 102, 0.7);
+            --bs-table-hover-color: #ffffff;
+            color: #e8f0ff !important;
+        }
+
+        .table thead th {
+            background: rgba(23, 48, 76, 0.95) !important;
+            color: #deebff !important;
+            border-bottom: 1px solid rgba(112, 166, 255, 0.36);
+            font-weight: 700;
+        }
+
+        .table tbody td,
+        .table tbody th {
+            background: rgba(10, 24, 40, 0.92) !important;
+            color: #e8f0ff !important;
+            border-color: rgba(112, 166, 255, 0.24) !important;
+        }
+
+        .table-hover > tbody > tr:hover > * {
+            background: rgba(39, 68, 102, 0.7) !important;
+            color: #ffffff !important;
+        }
+
+        /* Content Hidden Class */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Badge Styles */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Scrollbar */
+        .admin-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .admin-sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .admin-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+        <div class="logo">
+            <h3><i class="fas fa-shield-alt me-2"></i>PathGuide</h3>
+            <small>Admin Control Panel</small>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Main</div>
+            <div class="nav-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Dashboard Home
+            </div>
+            <div class="nav-item" onclick="showSection('system-overview')">
+                <i class="fas fa-chart-line"></i> System Overview
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Content Management</div>
+            <div class="nav-item" onclick="showSection('dashboard-management')">
+                <i class="fas fa-home"></i> Dashboard Management
+            </div>
+            <div class="nav-item" onclick="showSection('career-management')">
+                <i class="fas fa-briefcase"></i> Career Path
+            </div>
+            <div class="nav-item" onclick="showSection('exam-management')">
+                <i class="fas fa-graduation-cap"></i> Government Exams
+            </div>
+            <div class="nav-item" onclick="showSection('job-panel-management')">
+                <i class="fas fa-list"></i> Job Details Panel
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">System Control</div>
+            <div class="nav-item" onclick="showSection('feature-control')">
+                <i class="fas fa-toggle-on"></i> Feature Control
+            </div>
+            <div class="nav-item" onclick="showSection('language-management')">
+                <i class="fas fa-language"></i> Language Management
+            </div>
+            <div class="nav-item" onclick="showSection('analytics')">
+                <i class="fas fa-chart-pie"></i> Analytics & Reports
+            </div>
+            <div class="nav-item" onclick="showSection('privacy-management')">
+                <i class="fas fa-lock"></i> Privacy & Data
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Settings</div>
+            <div class="nav-item" onclick="showSection('system-settings')">
+                <i class="fas fa-cog"></i> System Settings
+            </div>
+            <div class="nav-item" onclick="showSection('audit-logs')">
+                <i class="fas fa-history"></i> Audit Logs
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="admin-header">
+        <div>
+            <h4 id="current-section-title"><i class="fas fa-tachometer-alt me-2"></i>Dashboard Home</h4>
+        </div>
+        <div class="user-info">
+            <span><i class="fas fa-clock me-2"></i><span id="current-time"></span></span>
+            <div class="dropdown">
+                <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-user-shield me-2"></i>{{ session.get('admin_username', 'Admin') }}
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="/"><i class="fas fa-home me-2"></i>View Site</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="{{ url_for('admin_logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-content">
+
+        <!-- Dashboard Home -->
+        <div id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h2>Welcome to PathGuide Admin Panel</h2>
+                <p class="text-muted mb-0">Manage all aspects of PathGuide from this central control panel</p>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-muted mb-1">Total Users</p>
+                                    <h3 class="mb-0">{{ stats.total_users }}</h3>
+                                    <small class="text-success"><i class="fas fa-arrow-up me-1"></i>+12% this week</small>
+                                </div>
+                                <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-muted mb-1">Career Path</p>
+                                    <h3 class="mb-0">{{ stats.career_users }}</h3>
+                                    <small class="text-info">{{ stats.career_percentage }}% of total</small>
+                                </div>
+                                <div class="stat-icon bg-success bg-opacity-10 text-success">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-muted mb-1">Govt Exams</p>
+                                    <h3 class="mb-0">{{ stats.exam_users }}</h3>
+                                    <small class="text-info">{{ stats.exam_percentage }}% of total</small>
+                                </div>
+                                <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p class="text-muted mb-1">System Status</p>
+                                    <h3 class="mb-0 text-success"><i class="fas fa-check-circle"></i></h3>
+                                    <small class="text-muted">All systems online</small>
+                                </div>
+                                <div class="stat-icon bg-danger bg-opacity-10 text-danger">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0"><i class="fas fa-chart-area me-2"></i>User Activity (Last 7 Days)</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="activityChart" height="80"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="showSection('dashboard-management')">
+                                    <i class="fas fa-edit me-2"></i>Edit Dashboard
+                                </button>
+                                <button class="btn btn-outline-success" onclick="showSection('career-management')">
+                                    <i class="fas fa-plus me-2"></i>Add Career Role
+                                </button>
+                                <button class="btn btn-outline-warning" onclick="showSection('exam-management')">
+                                    <i class="fas fa-graduation-cap me-2"></i>Manage Exams
+                                </button>
+                                <button class="btn btn-outline-info" onclick="showSection('analytics')">
+                                    <i class="fas fa-download me-2"></i>Export Reports
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-3">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0"><i class="fas fa-bell me-2"></i>Recent Activity</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <small class="text-muted">2 minutes ago</small>
+                                    <p class="mb-0 small">Welcome banner updated</p>
+                                </div>
+                                <div class="list-group-item">
+                                    <small class="text-muted">1 hour ago</small>
+                                    <p class="mb-0 small">New exam added: TRB 2024</p>
+                                </div>
+                                <div class="list-group-item">
+                                    <small class="text-muted">3 hours ago</small>
+                                    <p class="mb-0 small">System backup completed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Overview Section -->
+        <div id="system-overview" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-line me-2"></i>System Overview</h2>
+                <p class="text-muted mb-0">Comprehensive system statistics and health monitoring</p>
+            </div>
+
+            <!-- User Metrics -->
+            <h4 class="mb-3"><i class="fas fa-users me-2"></i>User Metrics</h4>
+            <div class="row g-4 mb-5">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h2 class="text-primary">{{ stats.total_users }}</h2>
+                            <p class="mb-0">Total Users</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h2 class="text-success">{{ stats.active_today }}</h2>
+                            <p class="mb-0">Active Today</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h2 class="text-warning">{{ stats.new_this_week }}</h2>
+                            <p class="mb-0">New This Week</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h2 class="text-info">{{ stats.career_percentage }}%</h2>
+                            <p class="mb-0">Career Path</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Metrics -->
+            <h4 class="mb-3"><i class="fas fa-database me-2"></i>Content Metrics</h4>
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Career Roles</h5>
+                            <h2 class="text-primary">{{ stats.total_career_roles }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Total Govt Jobs</h5>
+                            <h2 class="text-success">{{ stats.total_govt_jobs }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Active Coaching Centers</h5>
+                            <h2 class="text-warning">{{ stats.coaching_centers }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Health -->
+            <h4 class="mb-3"><i class="fas fa-heartbeat me-2"></i>System Health</h4>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="mb-2"><strong>Server Status:</strong></p>
+                            <span class="badge bg-success">Online ✅</span>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-2"><strong>Last Backup:</strong></p>
+                            <span>{{ stats.last_backup }}</span>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-2"><strong>Pending Updates:</strong></p>
+                            <span class="badge bg-info">{{ stats.pending_updates }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Management Section -->
+        <div id="dashboard-management" class="content-section">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="fas fa-home me-2"></i>Dashboard Management</h2>
+                        <p class="text-muted mb-0">Control every aspect of the main dashboard (Module 1)</p>
+                    </div>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
+                        <i class="fas fa-plus me-2"></i>Add Announcement
+                    </button>
+                </div>
+            </div>
+
+            <!-- Edit Welcome Banner -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Welcome Banner</h5>
+                </div>
+                <div class="card-body">
+                    <form id="welcomeBannerForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Title (English)</label>
+                                <input type="text" class="form-control" id="title_en" value="{{ config.welcome_title_en or 'Welcome to PathGuide' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Title (Tamil)</label>
+                                <input type="text" class="form-control" id="title_ta" value="{{ config.welcome_title_ta or 'PathGuide க்கு வரவேற்கிறோம்' }}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description (English)</label>
+                                <textarea class="form-control" id="desc_en" rows="2">{{ config.welcome_desc_en or 'Choose your path: Career Guidance or Tamil Nadu Government Exams' }}</textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Description (Tamil)</label>
+                                <textarea class="form-control" id="desc_ta" rows="2">{{ config.welcome_desc_ta or 'உங்கள் பாதையைத் தேர்வு செய்யவும்: தொழில் வழிகாட்டுதல் அல்லது தமிழ்நாடு அரசு தேர்வுகள்' }}</textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary" onclick="saveWelcomeBanner()">
+                                    <i class="fas fa-save me-2"></i>Save Changes
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" onclick="previewWelcomeBanner()">
+                                    <i class="fas fa-eye me-2"></i>Preview
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Feature Toggles -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-toggle-on me-2"></i>Enable / Disable Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Language Toggle</strong>
+                            <p class="text-muted mb-0 small">Allow users to switch between Tamil and English</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="languageToggle" checked onchange="toggleFeature('language_toggle', this.checked)">
+                        </div>
+                    </div>
+
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Live Location</strong>
+                            <p class="text-muted mb-0 small">Auto-detect user location for personalized guidance</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="liveLocation" checked onchange="toggleFeature('live_location', this.checked)">
+                        </div>
+                    </div>
+
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Saved Profiles</strong>
+                            <p class="text-muted mb-0 small">Allow users to save multiple profiles (max 5)</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="savedProfiles" checked onchange="toggleFeature('saved_profiles', this.checked)">
+                        </div>
+                    </div>
+
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Resume Last Activity</strong>
+                            <p class="text-muted mb-0 small">Show resume button for last incomplete session</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="resumeActivity" checked onchange="toggleFeature('resume_activity', this.checked)">
+                        </div>
+                    </div>
+
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Privacy Notice</strong>
+                            <p class="text-muted mb-0 small">Display privacy policy and data deletion options</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="privacyNotice" checked onchange="toggleFeature('privacy_notice', this.checked)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Management Section -->
+        <div id="career-management" class="content-section">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="fas fa-briefcase me-2"></i>Career Path Management</h2>
+                        <p class="text-muted mb-0">Manage career roles, courses, and roadmaps</p>
+                    </div>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCareerRoleModal">
+                        <i class="fas fa-plus me-2"></i>Add Career Role
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Career Path Management:</strong> Add, edit, or remove career roles, manage dropdown mappings (Degree → Department → Domain → Role), edit course recommendations, project suggestions, salary ranges, and company lists.
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-sitemap me-2"></i>Career Structure</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Manage the hierarchical career path structure:</p>
+                    <ul>
+                        <li><strong>Degrees:</strong> B.E/B.Tech, B.Sc, M.E/M.Tech, etc.</li>
+                        <li><strong>Departments:</strong> Mapped to each degree (e.g., CSE, ECE for B.E)</li>
+                        <li><strong>Domains:</strong> Mapped to departments (e.g., Software Dev, AI for CSE)</li>
+                        <li><strong>Roles:</strong> Mapped to domains (e.g., Frontend Dev, Data Scientist)</li>
+                    </ul>
+                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#manageHierarchyModal">
+                        <i class="fas fa-edit me-2"></i>Manage Hierarchy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Management Section -->
+        <div id="exam-management" class="content-section">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="fas fa-graduation-cap me-2"></i>Government Exams Management</h2>
+                        <p class="text-muted mb-0">Manage exams, jobs, syllabus, and coaching centers</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#addExamModal">
+                            <i class="fas fa-plus me-2"></i>Add Exam
+                        </button>
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addJobModal">
+                            <i class="fas fa-briefcase me-2"></i>Add Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Exam Categories</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group">
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    TNPSC Exams
+                                    <span class="badge bg-primary rounded-pill">28 jobs</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    TNUSRB
+                                    <span class="badge bg-primary rounded-pill">7 jobs</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    Teaching (TRB/TET)
+                                    <span class="badge bg-primary rounded-pill">6 jobs</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    Medical (MRB)
+                                    <span class="badge bg-primary rounded-pill">4 jobs</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    Revenue
+                                    <span class="badge bg-primary rounded-pill">3 jobs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-building me-2"></i>Coaching Centers</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Manage coaching center database</p>
+                            <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#manageCoachingModal">
+                                <i class="fas fa-edit me-2"></i>Manage Coaching Centers
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-book me-2"></i>Syllabus Editor</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Edit exam syllabus and study materials</p>
+                            <button class="btn btn-outline-success w-100" data-bs-toggle="modal" data-bs-target="#syllabusEditorModal">
+                                <i class="fas fa-edit me-2"></i>Edit Syllabus
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Panel Management Section -->
+        <div id="job-panel-management" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list me-2"></i>Job Details Panel Management</h2>
+                <p class="text-muted mb-0">Control the job details side panel feature</p>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-toggle-on me-2"></i>Panel Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="feature-toggle">
+                        <div>
+                            <strong>Enable Job Details Panel</strong>
+                            <p class="text-muted mb-0 small">Show/hide the entire job details panel</p>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="jobPanelEnabled" checked>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Default State</label>
+                            <select class="form-select">
+                                <option value="collapsed">Collapsed</option>
+                                <option value="expanded" selected>Expanded</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Panel Position</label>
+                            <select class="form-select">
+                                <option value="right" selected>Right Side</option>
+                                <option value="left">Left Side</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Manage job categories, reorder jobs, edit job descriptions, salary ranges, benefits, and physical requirements.
+            </div>
+        </div>
+
+        <!-- Feature Control Section -->
+        <div id="feature-control" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-toggle-on me-2"></i>Feature Control Panel</h2>
+                <p class="text-muted mb-0">Global feature toggles for the entire system</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Location Features</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="feature-toggle mb-3">
+                                <div>
+                                    <strong>Live Location Detection</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Default State</label>
+                                <select class="form-select">
+                                    <option value="off">OFF (Manual Entry)</option>
+                                    <option value="on">ON (Auto-detect)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-heartbeat me-2"></i>Fitness Module</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="feature-toggle mb-3">
+                                <div>
+                                    <strong>Fitness Eligibility Module</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                            <p class="text-muted small">Show fitness requirements for applicable government jobs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>ML Features</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="feature-toggle mb-3">
+                                <div>
+                                    <strong>Success Rate Prediction</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Confidence Threshold</label>
+                                <input type="range" class="form-range" min="50" max="100" value="75">
+                                <small class="text-muted">75%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-calendar-day me-2"></i>Study Plans</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="feature-toggle mb-3">
+                                <div>
+                                    <strong>Daily Study Plan Generator</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Update Time</label>
+                                <input type="time" class="form-control" value="00:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Language Management Section -->
+        <div id="language-management" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-language me-2"></i>Language & Content Management</h2>
+                <p class="text-muted mb-0">Manage Tamil and English content across the system</p>
+            </div>
+
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Translation Quality Check:</strong> Ensure both language versions are complete and accurate before publishing.
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-globe me-2"></i>Language Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="feature-toggle">
+                                <div>
+                                    <strong>Tamil Language</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-toggle">
+                                <div>
+                                    <strong>English Language</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Default Language</label>
+                            <select class="form-select">
+                                <option value="en">English</option>
+                                <option value="ta">Tamil</option>
+                                <option value="auto">Auto-detect from Browser</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Force Language (No Toggle)</label>
+                            <select class="form-select">
+                                <option value="none">Allow User Choice</option>
+                                <option value="en">Force English</option>
+                                <option value="ta">Force Tamil</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div id="analytics" class="content-section">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="fas fa-chart-pie me-2"></i>Analytics & Reports</h2>
+                        <p class="text-muted mb-0">Monitor system usage and generate insights</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="exportReport()">
+                        <i class="fas fa-download me-2"></i>Export Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Path Selection Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pathDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-language me-2"></i>Language Preference</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="languageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Most Popular Selections</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Top Career Domains</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>Data Science</div>
+                                    <span class="badge bg-primary rounded-pill">1,234</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>Software Development</div>
+                                    <span class="badge bg-primary rounded-pill">987</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>AI & Machine Learning</div>
+                                    <span class="badge bg-primary rounded-pill">765</span>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="text-muted">Top Government Exams</h6>
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>TNPSC Group IV</div>
+                                    <span class="badge bg-success rounded-pill">2,345</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>TNPSC Group II</div>
+                                    <span class="badge bg-success rounded-pill">1,876</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div>TRB</div>
+                                    <span class="badge bg-success rounded-pill">1,234</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Management Section -->
+        <div id="privacy-management" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-lock me-2"></i>Privacy & Data Management</h2>
+                <p class="text-muted mb-0">Ensure user privacy and data compliance</p>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-shield-alt me-2"></i>
+                <strong>Privacy Principles:</strong> Minimal data collection, user consent for everything, transparent usage, easy deletion, no third-party sharing, secure storage.
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-file-alt me-2"></i>Privacy Policy</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Edit privacy policy content</p>
+                            <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#editPrivacyPolicyModal">
+                                <i class="fas fa-edit me-2"></i>Edit Privacy Policy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-file-contract me-2"></i>Terms of Service</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Edit terms of service content</p>
+                            <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#editTermsModal">
+                                <i class="fas fa-edit me-2"></i>Edit Terms
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-database me-2"></i>Data Retention Policy</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Active User Data</label>
+                                    <select class="form-select">
+                                        <option value="indefinite" selected>Retain Indefinitely</option>
+                                        <option value="1year">1 Year</option>
+                                        <option value="2years">2 Years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Inactive Users (Delete After)</label>
+                                    <select class="form-select">
+                                        <option value="6months">6 Months</option>
+                                        <option value="1year" selected>1 Year</option>
+                                        <option value="2years">2 Years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Deleted Profiles Grace Period</label>
+                                    <select class="form-select">
+                                        <option value="7days">7 Days</option>
+                                        <option value="30days" selected>30 Days</option>
+                                        <option value="90days">90 Days</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Settings Section -->
+        <div id="system-settings" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-cog me-2"></i>System Settings</h2>
+                <p class="text-muted mb-0">General system configuration and maintenance</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-wrench me-2"></i>General Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Application Name</label>
+                                <input type="text" class="form-control" value="PathGuide">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tagline</label>
+                                <input type="text" class="form-control" value="Your Career & Exam Guide">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" placeholder="admin@pathguide.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-database me-2"></i>Backup & Restore</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Last Backup: {{ stats.last_backup }}</p>
+                            <button class="btn btn-primary w-100 mb-2" onclick="triggerBackup()">
+                                <i class="fas fa-save me-2"></i>Create Backup Now
+                            </button>
+                            <button class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-download me-2"></i>Download Latest Backup
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Maintenance Mode</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="feature-toggle">
+                                <div>
+                                    <strong>Enable Maintenance Mode</strong>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Logs Section -->
+        <div id="audit-logs" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-history me-2"></i>Audit Logs</h2>
+                <p class="text-muted mb-0">Track all administrative actions and changes</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Recent Activity</h5>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-outline-primary" onclick="exportAuditLogs()">
+                                <i class="fas fa-download me-2"></i>Export Logs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Admin</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                    <th>IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-01-20 14:30:25</td>
+                                    <td>Darkknignt</td>
+                                    <td><span class="badge bg-success">Updated</span></td>
+                                    <td>Welcome banner title changed</td>
+                                    <td>192.168.0.101</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-20 13:15:10</td>
+                                    <td>Darkknignt</td>
+                                    <td><span class="badge bg-primary">Created</span></td>
+                                    <td>New exam added: TRB 2024</td>
+                                    <td>192.168.0.101</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-20 11:45:00</td>
+                                    <td>System</td>
+                                    <td><span class="badge bg-info">Backup</span></td>
+                                    <td>Automated database backup completed</td>
+                                    <td>127.0.0.1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Announcement Modal -->
+    <div class="modal fade" id="addAnnouncementModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-bullhorn me-2"></i>Add Announcement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-control" placeholder="Announcement title">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Content</label>
+                            <textarea class="form-control" rows="3" placeholder="Announcement content"></textarea>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Start Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">End Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Priority</label>
+                                <select class="form-select">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Target Audience</label>
+                                <select class="form-select">
+                                    <option value="all">All Users</option>
+                                    <option value="career">Career Path Only</option>
+                                    <option value="exam">Govt Exam Only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAnnouncement()">
+                        <i class="fas fa-save me-2"></i>Save & Publish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Section Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update active nav item
+            event.target.closest('.nav-item').classList.add('active');
+
+            // Update header title
+            const titles = {
+                'dashboard': '<i class="fas fa-tachometer-alt me-2"></i>Dashboard Home',
+                'system-overview': '<i class="fas fa-chart-line me-2"></i>System Overview',
+                'dashboard-management': '<i class="fas fa-home me-2"></i>Dashboard Management',
+                'career-management': '<i class="fas fa-briefcase me-2"></i>Career Path Management',
+                'exam-management': '<i class="fas fa-graduation-cap me-2"></i>Government Exams Management',
+                'job-panel-management': '<i class="fas fa-list me-2"></i>Job Details Panel Management',
+                'feature-control': '<i class="fas fa-toggle-on me-2"></i>Feature Control Panel',
+                'language-management': '<i class="fas fa-language me-2"></i>Language Management',
+                'analytics': '<i class="fas fa-chart-pie me-2"></i>Analytics & Reports',
+                'privacy-management': '<i class="fas fa-lock me-2"></i>Privacy & Data Management',
+                'system-settings': '<i class="fas fa-cog me-2"></i>System Settings',
+                'audit-logs': '<i class="fas fa-history me-2"></i>Audit Logs'
+            };
+            document.getElementById('current-section-title').innerHTML = titles[sectionId];
+        }
+
+        // Charts
+        const activityCtx = document.getElementById('activityChart');
+        if (activityCtx) {
+            new Chart(activityCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Active Users',
+                        data: [65, 72, 80, 78, 95, 88, 92],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        const pathDistCtx = document.getElementById('pathDistributionChart');
+        if (pathDistCtx) {
+            new Chart(pathDistCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Career Path', 'Government Exams'],
+                    datasets: [{
+                        data: [55, 45],
+                        backgroundColor: ['#667eea', '#764ba2']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+        }
+
+        const languageCtx = document.getElementById('languageChart');
+        if (languageCtx) {
+            new Chart(languageCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Tamil', 'English'],
+                    datasets: [{
+                        data: [45, 55],
+                        backgroundColor: ['#f39c12', '#3498db']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+        }
+
+        // Feature Toggle
+        function toggleFeature(feature, enabled) {
+            fetch('/admin/toggle-feature', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    feature: feature,
+                    enabled: enabled
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Success', `Feature ${enabled ? 'enabled' : 'disabled'} successfully`, 'success');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error', 'Failed to toggle feature', 'danger');
+            });
+        }
+
+        // Save Welcome Banner
+        function saveWelcomeBanner() {
+            const data = {
+                title_en: document.getElementById('title_en').value,
+                title_ta: document.getElementById('title_ta').value,
+                desc_en: document.getElementById('desc_en').value,
+                desc_ta: document.getElementById('desc_ta').value
+            };
+
+            fetch('/admin/save-welcome-banner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Success', 'Welcome banner updated successfully', 'success');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error', 'Failed to save changes', 'danger');
+            });
+        }
+
+        // Preview Welcome Banner
+        function previewWelcomeBanner() {
+            window.open('/', '_blank');
+        }
+
+        // Export Reports
+        function exportReport() {
+            window.location.href = '/admin/export-report';
+        }
+
+        // Export Audit Logs
+        function exportAuditLogs() {
+            window.location.href = '/admin/export-audit-logs';
+        }
+
+        // Trigger Backup
+        function triggerBackup() {
+            if (confirm('Create a manual backup now?')) {
+                fetch('/admin/trigger-backup', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showAlert('Success', 'Backup created successfully', 'success');
+                    }
+                });
+            }
+        }
+
+        // Save Announcement
+        function saveAnnouncement() {
+            showAlert('Success', 'Announcement published successfully', 'success');
+            bootstrap.Modal.getInstance(document.getElementById('addAnnouncementModal')).hide();
+        }
+
+        // Alert Helper
+        function showAlert(title, message, type) {
+            // Create alert element
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
+            alertDiv.style.zIndex = '9999';
+            alertDiv.innerHTML = `
+                <strong>${title}:</strong> ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alertDiv);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

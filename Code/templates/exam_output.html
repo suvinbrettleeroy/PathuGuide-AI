@@ -1,0 +1,2866 @@
+{% extends "base.html" %}
+
+{% block title %}PathGuide - {{ 'தமிழ்நாடு அரசு தேர்வு வழிகாட்டி' if language == 'ta' else 'Tamil Nadu Government Exam Preparation Plan' }}{% endblock %}
+
+{% block content %}
+<!-- Job Details Toggle Button -->
+<button class="btn btn-success job-details-toggle" onclick="toggleJobPanel()" id="jobToggleBtn">
+    <i class="fas fa-briefcase me-2"></i>📋 {% if language == 'ta' %}வேலை விவரங்கள்{% else %}Job Details{% endif %}
+</button>
+
+<!-- Job Details Side Panel -->
+<div class="job-details-panel" id="jobDetailsPanel">
+    <div class="job-panel-header">
+        <h5 class="mb-0">
+            <i class="fas fa-briefcase me-2"></i>
+            {% if language == 'ta' %}தமிழ்நாடு அரசு வேலைகள்{% else %}Tamil Nadu Government Jobs{% endif %}
+        </h5>
+        <button class="btn-close" onclick="toggleJobPanel()"></button>
+    </div>
+    
+    <div class="job-panel-body">
+        <!-- Selected Job Highlight -->
+        <div class="alert alert-success mb-3">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-check-circle fa-2x me-3"></i>
+                <div>
+                    <strong>{% if language == 'ta' %}தேர்ந்தெடுக்கப்பட்டது:{% else %}Your Selection:{% endif %}</strong>
+                    <div class="fw-bold text-success">Deputy Collector</div>
+                    <small class="text-muted">{% if language == 'ta' %}மற்ற வேலைகளை ஆராயலாம்{% else %}Explore other jobs below{% endif %}</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TNPSC Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#tnpscJobs">
+                <i class="fas fa-landmark text-success me-2"></i>
+                <strong>TNPSC Exams</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="tnpscJobs">
+                
+                <!-- Group I -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group1Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group I - Combined Civil Services
+                </div>
+                <div class="collapse show" id="group1Jobs">
+                    <div class="job-item selected-job" data-bs-toggle="collapse" data-bs-target="#job-dc">
+                        <div class="job-title">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            Deputy Collector
+                        </div>
+                    </div>
+                    <div class="collapse job-details-content show" id="job-dc">
+                        <div class="p-3 bg-success bg-opacity-10">
+                            <div class="badge bg-success mb-2">Currently Selected</div>
+                            <p><strong>Role:</strong> Chief revenue officer of a taluk/sub-division managing land records, revenue collection, disaster management, and welfare schemes</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, vehicle, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-dsp">
+                        <div class="job-title">Deputy Superintendent of Police (DSP)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-dsp">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Law enforcement officer managing police stations in a sub-division, crime investigation, and maintaining law & order</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month + Police Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, quarters, vehicle, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ac">
+                        <div class="job-title">Assistant Commissioner</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ac">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Commercial tax administration, GST compliance, tax collection, and business audit</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-dr">
+                        <div class="job-title">District Registrar</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-dr">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Managing property registration, document verification, and maintaining land records</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ad">
+                        <div class="job-title">Assistant Director</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ad">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Program implementation, policy execution, and administrative coordination in various departments</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IA -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group1aJobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IA - Forest Service
+                </div>
+                <div class="collapse" id="group1aJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-acf">
+                        <div class="job-title">Assistant Conservator of Forests</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-acf">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Forest conservation, wildlife protection, environmental planning, and managing forest divisions</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month + Forest Allowances</p>
+                            <p><strong>Benefits:</strong> Forest quarters, vehicle, medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview + Forest Knowledge Test</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group II -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group2Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group II - Non-Interview Posts
+                </div>
+                <div class="collapse" id="group2Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aso2">
+                        <div class="job-title">Assistant Section Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aso2">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Office management, file processing, correspondence, and administrative support</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, job security</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-mc">
+                        <div class="job-title">Municipal Commissioner (Grade II)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-mc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Urban administration, civic services, sanitation, and municipal governance</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-po">
+                        <div class="job-title">Probation Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-po">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Juvenile justice, counseling, rehabilitation, and social welfare</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-il">
+                        <div class="job-title">Inspector of Labour</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-il">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Labour law enforcement, factory inspection, worker welfare, and compliance monitoring</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sr2">
+                        <div class="job-title">Sub-Registrar (Grade II)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sr2">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Property registration, document verification, stamp duty collection</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, job security</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IIA -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group2aJobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IIA
+                </div>
+                <div class="collapse" id="group2aJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aso2a">
+                        <div class="job-title">Assistant Section Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aso2a">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Clerical work, file management, office administration</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aa">
+                        <div class="job-title">Audit Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aa">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Financial auditing, account verification, record maintenance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jeo">
+                        <div class="job-title">Junior Employment Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jeo">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Employment registration, job fairs, career counseling</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group III -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group3Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group III - Technical Posts
+                </div>
+                <div class="collapse" id="group3Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jics">
+                        <div class="job-title">Junior Inspector of Cooperative Societies</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jics">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Cooperative society audit, compliance verification, financial monitoring</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sk">
+                        <div class="job-title">Store Keeper</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Inventory management, stock maintenance, procurement assistance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-as">
+                        <div class="job-title">Assistant Supervisor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-as">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Field supervision, project monitoring, quality control</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IV -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group4Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IV - Clerical Posts
+                </div>
+                <div class="collapse" id="group4Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-vao">
+                        <div class="job-title">Village Administrative Officer (VAO)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-vao">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Village-level administration, land records, revenue collection, welfare scheme implementation</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Housing allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ja">
+                        <div class="job-title">Junior Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ja">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Office support, file maintenance, clerical work, data entry</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-typ">
+                        <div class="job-title">Typist</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-typ">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Typing official documents, correspondence, data entry</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type + Typing Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-steno">
+                        <div class="job-title">Steno-Typist</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-steno">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Shorthand dictation, typing, secretarial support</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type + Shorthand + Typing Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-bc">
+                        <div class="job-title">Bill Collector</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-bc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Revenue collection, bill generation, account reconciliation</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CES -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#cesJobs">
+                    <i class="fas fa-angle-right me-2"></i>Combined Engineering Services (CES)
+                </div>
+                <div class="collapse" id="cesJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aecivil">
+                        <div class="job-title">Assistant Engineer (Civil)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aecivil">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Infrastructure projects, construction supervision, quality control</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aemech">
+                        <div class="job-title">Assistant Engineer (Mechanical)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aemech">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Mechanical equipment maintenance, project implementation</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aeelec">
+                        <div class="job-title">Assistant Engineer (Electrical)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aeelec">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Electrical systems, power distribution, project execution</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aeagri">
+                        <div class="job-title">Assistant Engineer (Agriculture)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aeagri">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Irrigation projects, agricultural engineering, water management</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AAO -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#aaoJobs">
+                    <i class="fas fa-angle-right me-2"></i>Assistant Agricultural Officer (AAO)
+                </div>
+                <div class="collapse" id="aaoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aao">
+                        <div class="job-title">Assistant Agricultural Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aao">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Farmer guidance, crop planning, agricultural extension services</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AHO -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#ahoJobs">
+                    <i class="fas fa-angle-right me-2"></i>Assistant Horticultural Officer (AHO)
+                </div>
+                <div class="collapse" id="ahoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aho">
+                        <div class="job-title">Assistant Horticultural Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aho">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Horticulture development, fruit/flower cultivation, farmer training</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- TNUSRB Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#tnusrbJobs">
+                <i class="fas fa-shield-alt text-primary me-2"></i>
+                <strong>TNUSRB - Police & Services</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="tnusrbJobs">
+                
+                <!-- Sub-Inspector -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#siJobs">
+                    <i class="fas fa-angle-right me-2"></i>Sub-Inspector (SI)
+                </div>
+                <div class="collapse" id="siJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sitaluk">
+                        <div class="job-title">Sub-Inspector of Police (Taluk)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sitaluk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Police station in-charge, crime investigation, law enforcement, FIR registration</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Police Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-siarmed">
+                        <div class="job-title">Sub-Inspector of Police (Armed Reserve)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-siarmed">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Armed force operations, VIP security, riot control, special duty</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Special Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, weapon allowance, risk pay, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sispecial">
+                        <div class="job-title">Sub-Inspector of Police (Special Police)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sispecial">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Special branch operations, intelligence gathering, VIP protection</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Special Pay</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Police Constable -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#pcJobs">
+                    <i class="fas fa-angle-right me-2"></i>Grade II Police Constable
+                </div>
+                <div class="collapse" id="pcJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pc">
+                        <div class="job-title">Grade II Police Constable</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-pc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Law enforcement, patrol duty, crime prevention, public safety</p>
+                            <p><strong>Salary:</strong> ₹21,700 - ₹69,010/month + Special Pay</p>
+                            <p><strong>Benefits:</strong> Uniform allowance, risk allowance, medical, pension</p>
+                            <p><strong>Physical:</strong> Height (Men: 170cm, Women: 159cm), Chest (Men: 81-86cm)</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jail Warder -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#jailJobs">
+                    <i class="fas fa-angle-right me-2"></i>Jail Warder
+                </div>
+                <div class="collapse" id="jailJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jw">
+                        <div class="job-title">Jail Warder</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jw">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Prison security, inmate supervision, discipline enforcement</p>
+                            <p><strong>Salary:</strong> ₹21,700 - ₹69,010/month</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, medical, pension</p>
+                            <p><strong>Physical:</strong> Height and physical fitness requirements</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fireman -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#fireJobs">
+                    <i class="fas fa-angle-right me-2"></i>Fireman
+                </div>
+                <div class="collapse" id="fireJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-fireman">
+                        <div class="job-title">Fireman</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-fireman">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Fire fighting, rescue operations, emergency response, disaster management</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month + Special Allowance</p>
+                            <p><strong>Benefits:</strong> Risk allowance, uniform, medical, pension</p>
+                            <p><strong>Physical:</strong> High physical fitness, running (1.6km in 6 mins), climbing</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical Efficiency Test + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Teaching Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#teachingJobs">
+                <i class="fas fa-chalkboard-teacher text-warning me-2"></i>
+                <strong>Teaching Exams</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="teachingJobs">
+                
+                <!-- TET -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#tetJobs">
+                    <i class="fas fa-angle-right me-2"></i>TET (Teacher Eligibility Test)
+                </div>
+                <div class="collapse" id="tetJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-primary">
+                        <div class="job-title">Primary School Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-primary">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 1-5, basic education, child development</p>
+                            <p><strong>Salary:</strong> ₹23,700 - ₹75,200/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> TET Paper I (Classes 1-5)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-upperprimary">
+                        <div class="job-title">Upper Primary School Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-upperprimary">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 6-8, subject teaching, student guidance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> TET Paper II (Classes 6-8)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TRB -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#trbJobs">
+                    <i class="fas fa-angle-right me-2"></i>TRB Exams
+                </div>
+                <div class="collapse" id="trbJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ap">
+                        <div class="job-title">Assistant Professor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ap">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> College-level teaching, research, academic guidance</p>
+                            <p><strong>Salary:</strong> ₹57,700 - ₹1,82,400/month (UGC Pay Scale)</p>
+                            <p><strong>Benefits:</strong> Summer vacation, medical, pension, research grants</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview + NET/SET</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-poly">
+                        <div class="job-title">Polytechnic Lecturer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-poly">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Technical education, practical training, diploma students</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Vacation, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secondary Grade -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#sgJobs">
+                    <i class="fas fa-angle-right me-2"></i>Secondary Grade Teacher
+                </div>
+                <div class="collapse" id="sgJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sgt">
+                        <div class="job-title">Secondary Grade Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sgt">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 9-10, subject specialization, exam preparation</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation, medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PG Assistant -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#pgaJobs">
+                    <i class="fas fa-angle-right me-2"></i>Post Graduate Assistant
+                </div>
+                <div class="collapse" id="pgaJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pga">
+                        <div class="job-title">Post Graduate Assistant Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-pga">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Higher secondary teaching (Classes 11-12), board exam preparation</p>
+                            <p><strong>Subjects:</strong> Tamil, English, Mathematics, Physics, Chemistry, Biology, Computer Science, Commerce, etc.</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Medical Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#mrbJobs">
+                <i class="fas fa-heartbeat text-danger me-2"></i>
+                <strong>MRB - Medical & Health</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="mrbJobs">
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-nurse">
+                    <div class="job-title">Staff Nurse</div>
+                </div>
+                <div class="collapse job-details-content" id="job-nurse">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Patient care, medication administration, health monitoring, emergency response</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, shift allowance (night duty extra), pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Certificate Verification</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pharma">
+                    <div class="job-title">Pharmacist</div>
+                </div>
+                <div class="collapse job-details-content" id="job-pharma">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Medicine dispensing, inventory management, patient counseling</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Certificate Verification</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-lab">
+                    <div class="job-title">Lab Technician</div>
+                </div>
+                <div class="collapse job-details-content" id="job-lab">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Laboratory testing, sample analysis, report generation, equipment maintenance</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, pension, job security</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-radio">
+                    <div class="job-title">Radiographer</div>
+                </div>
+                <div class="collapse job-details-content" id="job-radio">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> X-ray imaging, CT scan, MRI operations, radiation safety</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, radiation allowance, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Revenue & Local Administration -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#revenueJobs">
+                <i class="fas fa-landmark text-secondary me-2"></i>
+                <strong>Revenue & Local Administration</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="revenueJobs">
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ri">
+                    <div class="job-title">Revenue Inspector</div>
+                </div>
+                <div class="collapse job-details-content" id="job-ri">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Land survey, revenue collection, boundary disputes, land records</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-surveyor">
+                    <div class="job-title">Surveyor</div>
+                </div>
+                <div class="collapse job-details-content" id="job-surveyor">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Land measurement, survey mapping, boundary demarcation</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-draught">
+                    <div class="job-title">Draughtsman</div>
+                </div>
+                <div class="collapse job-details-content" id="job-draught">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Technical drawing, survey maps, land records documentation</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Public Sector / Boards -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#publicJobs">
+                <i class="fas fa-building text-info me-2"></i>
+                <strong>Public Sector / Boards</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="publicJobs">
+                
+                <!-- Cooperative Bank -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#coopJobs">
+                    <i class="fas fa-angle-right me-2"></i>Cooperative Bank
+                </div>
+                <div class="collapse" id="coopJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-clerk">
+                        <div class="job-title">Clerk</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-clerk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Cash handling, customer service, account management</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-assistant">
+                        <div class="job-title">Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-assistant">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Loan processing, account management, customer relations</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-manager">
+                        <div class="job-title">Manager</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-manager">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Branch management, operations, business development</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, vehicle, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transport Corporation -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#transportJobs">
+                    <i class="fas fa-angle-right me-2"></i>Transport Corporation
+                </div>
+                <div class="collapse" id="transportJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-driver">
+                        <div class="job-title">Driver</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-driver">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Bus operation, passenger safety, route driving</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Uniform, medical, pension, travel concession</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Driving Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-conductor">
+                        <div class="job-title">Conductor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-conductor">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Ticket collection, passenger assistance, revenue handling</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Uniform, medical, pension, travel concession</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-je-trans">
+                        <div class="job-title">Junior Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-je-trans">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Vehicle maintenance, workshop management, technical support</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, technical allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-am-trans">
+                        <div class="job-title">Assistant Manager</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-am-trans">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Depot operations, staff management, revenue oversight</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, management allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TANGEDCO / TNEB -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#tangedcoJobs">
+                    <i class="fas fa-angle-right me-2"></i>TANGEDCO / TNEB
+                </div>
+                <div class="collapse" id="tangedcoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ae-tang">
+                        <div class="job-title">Assistant Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ae-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Power distribution, grid management, project execution</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension, vehicle</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-je-tang">
+                        <div class="job-title">Junior Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-je-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Field operations, maintenance, fault rectification</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-tech-tang">
+                        <div class="job-title">Technical Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-tech-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Technical support, meter reading, customer service</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Practical</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="report-shell">
+<div class="row justify-content-center output-grid">
+    <div class="col-lg-11 content-column">
+        
+        <!-- Header Card -->
+        <div class="card card-custom bg-gradient hero-frame mb-4 text-white">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-graduation-cap fa-4x mb-3"></i>
+                <h2 class="fw-bold">
+                    {% if language == 'ta' %}
+                    தமிழ்நாடு அரசு தேர்வு தயாரிப்பு திட்டம்
+                    {% else %}
+                    Tamil Nadu Government Exam Preparation Plan
+                    {% endif %}
+                </h2>
+                <p class="lead">
+                    {% if language == 'ta' %}
+                    உங்கள் வெற்றிக்கான முழுமையான வழிகாட்டி
+                    {% else %}
+                    Your Complete Success Roadmap
+                    {% endif %}
+                </p>
+                <div class="mt-3">
+                    <button class="btn btn-light btn-lg me-2" onclick="window.print()">
+                        <i class="fas fa-download me-2"></i>Download PDF
+                    </button>
+                    <button class="btn btn-outline-light btn-lg" onclick="savePlan()">
+                        <i class="fas fa-save me-2"></i>Save Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. Selected Exam & Job Summary -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-bullseye me-2"></i>
+                    {% if language == 'ta' %}தேர்ந்தெடுக்கப்பட்ட தேர்வு & வேலை விவரம்{% else %}Selected Exam & Job Summary{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h5 class="text-primary">TNPSC Group I</h5>
+                        <p class="text-muted">Combined Civil Services Examination</p>
+                        <div class="mt-3">
+                            <span class="badge bg-success me-2">Job Role: Deputy Collector</span>
+                            <span class="badge bg-info">Department: Revenue Administration</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">Quick Facts:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-level-up-alt text-success me-2"></i><strong>Level:</strong> State Level</li>
+                            <li><i class="fas fa-users text-primary me-2"></i><strong>Conducting Body:</strong> Tamil Nadu Public Service Commission (TNPSC)</li>
+                            <li><i class="fas fa-file-alt text-warning me-2"></i><strong>Exam Pattern:</strong> Preliminary + Main + Interview</li>
+                            <li><i class="fas fa-briefcase text-info me-2"></i><strong>Total Posts:</strong> ~175 positions (varies yearly)</li>
+                            <li><i class="fas fa-calendar-alt text-danger me-2"></i><strong>Frequency:</strong> Once a year</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Job Role Explanation -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-tie me-2"></i>
+                    {% if language == 'ta' %}வேலை பங்கு விளக்கம்{% else %}Job Role Explanation{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <h5 class="fw-bold text-success">What is a Deputy Collector?</h5>
+                <p class="lead">
+                    A Deputy Collector is a senior administrative officer responsible for managing revenue administration, 
+                    land records, disaster management, and overall development of a taluk or sub-division within a district.
+                </p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h6 class="fw-bold text-primary"><i class="fas fa-tasks me-2"></i>Key Responsibilities:</h6>
+                        <ul>
+                            <li>Land revenue collection and management</li>
+                            <li>Maintaining land records and mutation</li>
+                            <li>Implementation of government welfare schemes</li>
+                            <li>Disaster management and relief operations</li>
+                            <li>Election duties as Assistant Returning Officer</li>
+                            <li>Law and order support in the taluk</li>
+                            <li>Grievance redressal and public welfare</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="fw-bold text-success"><i class="fas fa-chart-line me-2"></i>Career Growth:</h6>
+                        <ul>
+                            <li><strong>Entry:</strong> Deputy Collector / SDM (Sub-Divisional Magistrate)</li>
+                            <li><strong>Mid-Level:</strong> Additional Collector / Joint Commissioner</li>
+                            <li><strong>Senior:</strong> District Collector / Commissioner</li>
+                            <li><strong>Top-Level:</strong> Principal Secretary / Chief Secretary</li>
+                        </ul>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            <strong>Why this suits you:</strong> Ideal for candidates with strong administrative skills, 
+                            public service motivation, and ability to handle diverse responsibilities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Success Prediction & Readiness -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-bullseye me-2"></i>
+                    {% if language == 'ta' %}வெற்றி முன்கணிப்பு{% else %}Success Prediction & Readiness{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                {% set sp = success_prediction or {'total': 80, 'education': 20, 'commitment': 24, 'timeline': 20, 'competition': 16} %}
+                {% set success_rate = sp.total %}
+                {% set stroke_offset = 565 - (565 * success_rate / 100) %}
+                
+                <div class="text-center mb-4">
+                    <div class="position-relative d-inline-block">
+                        <svg width="200" height="200" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="#e0e0e0" stroke-width="15"/>
+                            <circle cx="100" cy="100" r="90" fill="none" stroke="{% if success_rate >= 75 %}#28a745{% elif success_rate >= 60 %}#ffc107{% else %}#dc3545{% endif %}" stroke-width="15" 
+                                    stroke-dasharray="565" stroke-dashoffset="{{ stroke_offset }}" transform="rotate(-90 100 100)"/>
+                        </svg>
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <h1 class="display-3 fw-bold {% if success_rate >= 75 %}text-success{% elif success_rate >= 60 %}text-warning{% else %}text-danger{% endif %} mb-0">{{ success_rate }}%</h1>
+                            <p class="text-muted">{% if language == 'ta' %}வெற்றி விகிதம்{% else %}Success Rate{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert {% if success_rate >= 75 %}alert-success{% elif success_rate >= 60 %}alert-warning{% else %}alert-danger{% endif %}">
+                    <i class="fas {% if success_rate >= 75 %}fa-thumbs-up{% elif success_rate >= 60 %}fa-info-circle{% else %}fa-exclamation-triangle{% endif %} me-2"></i>
+                    {% if success_rate >= 75 %}
+                    <strong>{% if language == 'ta' %}சிறப்பு!{% else %}Excellent!{% endif %}</strong> {% if language == 'ta' %}உங்கள் தகுதி மற்றும் அர்ப்பணிப்புடன், இந்த தேர்வில் வெற்றி பெறுவதற்கான உயர் வாய்ப்பு உள்ளது.{% else %}With your qualification and commitment, you have a high probability of clearing this exam.{% endif %}
+                    {% elif success_rate >= 60 %}
+                    <strong>{% if language == 'ta' %}நல்ல திறன்!{% else %}Good potential!{% endif %}</strong> {% if language == 'ta' %}சிறந்த முடிவுகளுக்கு படிப்பு நேரத்தை அதிகரிக்கவும் அல்லது தயாரிப்பு காலத்தை நீட்டிக்கவும்.{% else %}Consider increasing study hours or extending preparation duration for better results.{% endif %}
+                    {% else %}
+                    <strong>{% if language == 'ta' %}மேம்பாடு தேவை!{% else %}Needs improvement!{% endif %}</strong> {% if language == 'ta' %}உங்கள் தயாரிப்பு திட்டத்தை சரிசெய்ய பரிந்துரைக்கப்படுகிறது.{% else %}Your preparation plan needs adjustment. Consider extending timeline or increasing daily study hours.{% endif %}
+                    {% endif %}
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-success h-100">
+                            <div class="card-body">
+                                <h6 class="text-success"><i class="fas fa-graduation-cap me-2"></i>{% if language == 'ta' %}கல்வி தகுதி{% else %}Educational Background{% endif %}</h6>
+                                <div class="progress mb-2" style="height: 25px;">
+                                    <div class="progress-bar bg-success" style="width: {{ (sp.education / 25 * 100)|int }}%">
+                                        <strong>{{ (sp.education / 25 * 100)|int }}%</strong>
+                                    </div>
+                                </div>
+                                <p class="small mb-0">{% if language == 'ta' %}உங்கள் தகுதி இந்த தேர்வுக்கு{% else %}Your qualification is{% endif %} <strong>{% if sp.education >= 23 %}{% if language == 'ta' %}மிகவும் பொருத்தமானது{% else %}highly suitable{% endif %}{% elif sp.education >= 20 %}{% if language == 'ta' %}பொருத்தமானது{% else %}suitable{% endif %}{% else %}{% if language == 'ta' %}ஏற்றுக்கொள்ளக்கூடியது{% else %}acceptable{% endif %}{% endif %}</strong> {% if language == 'ta' %}{% else %}for this exam{% endif %}</p>
+                                <p class="small text-muted mb-0">{% if language == 'ta' %}மதிப்பெண்:{% else %}Score:{% endif %} {{ sp.education }}/25 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-primary h-100">
+                            <div class="card-body">
+                                <h6 class="text-primary"><i class="fas fa-clock me-2"></i>{% if language == 'ta' %}படிப்பு அர்ப்பணிப்பு{% else %}Study Commitment{% endif %}</h6>
+                                <div class="progress mb-2" style="height: 25px;">
+                                    <div class="progress-bar bg-primary" style="width: {{ (sp.commitment / 30 * 100)|int }}%">
+                                        <strong>{{ (sp.commitment / 30 * 100)|int }}%</strong>
+                                    </div>
+                                </div>
+                                <p class="small mb-0">{% if language == 'ta' %}உங்கள் தினசரி படிப்பு நேரம்{% else %}Your daily study hours are{% endif %} <strong>{% if sp.commitment >= 28 %}{% if language == 'ta' %}சிறப்பானது{% else %}excellent{% endif %}{% elif sp.commitment >= 22 %}{% if language == 'ta' %}நல்லது{% else %}good{% endif %}{% elif sp.commitment >= 18 %}{% if language == 'ta' %}மிதமானது{% else %}moderate{% endif %}{% else %}{% if language == 'ta' %}மேம்பாடு தேவை{% else %}needs improvement{% endif %}{% endif %}</strong></p>
+                                <p class="small text-muted mb-0">{% if language == 'ta' %}மதிப்பெண்:{% else %}Score:{% endif %} {{ sp.commitment }}/30 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-warning h-100">
+                            <div class="card-body">
+                                <h6 class="text-warning"><i class="fas fa-calendar-alt me-2"></i>{% if language == 'ta' %}தயாரிப்பு காலம்{% else %}Preparation Duration{% endif %}</h6>
+                                <div class="progress mb-2" style="height: 25px;">
+                                    <div class="progress-bar bg-warning" style="width: {{ (sp.timeline / 25 * 100)|int }}%">
+                                        <strong>{{ (sp.timeline / 25 * 100)|int }}%</strong>
+                                    </div>
+                                </div>
+                                <p class="small mb-0">{% if language == 'ta' %}உங்கள் தயாரிப்பு காலம்{% else %}Your preparation duration is{% endif %} <strong>{% if sp.timeline >= 23 %}{% if language == 'ta' %}யதார்த்தமானது{% else %}realistic{% endif %}{% elif sp.timeline >= 18 %}{% if language == 'ta' %}சாத்தியமானது{% else %}achievable{% endif %}{% else %}{% if language == 'ta' %}மிகவும் குறுகியது{% else %}very tight{% endif %}{% endif %}</strong></p>
+                                <p class="small text-muted mb-0">{% if language == 'ta' %}மதிப்பெண்:{% else %}Score:{% endif %} {{ sp.timeline }}/25 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-info h-100">
+                            <div class="card-body">
+                                <h6 class="text-info"><i class="fas fa-users me-2"></i>{% if language == 'ta' %}போட்டி நிலை{% else %}Competition Level{% endif %}</h6>
+                                <div class="progress mb-2" style="height: 25px;">
+                                    <div class="progress-bar bg-info" style="width: {{ (sp.competition / 20 * 100)|int }}%">
+                                        <strong>{{ (sp.competition / 20 * 100)|int }}%</strong>
+                                    </div>
+                                </div>
+                                <p class="small mb-0">{% if language == 'ta' %}இந்த தேர்வு{% else %}This exam has{% endif %} <strong>{% if sp.competition <= 15 %}{% if language == 'ta' %}அதிக போட்டி{% else %}very high competition{% endif %}{% elif sp.competition <= 17 %}{% if language == 'ta' %}மிதமான போட்டி{% else %}moderate competition{% endif %}{% else %}{% if language == 'ta' %}மேலாண்மை செய்யக்கூடிய போட்டி{% else %}manageable competition{% endif %}{% endif %}</strong> {% if language == 'ta' %}உள்ளது{% else %}{% endif %}</p>
+                                <p class="small text-muted mb-0">{% if language == 'ta' %}மதிப்பெண்:{% else %}Score:{% endif %} {{ sp.competition }}/20 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-light mt-3">
+                    <div class="card-body">
+                        <h6 class="fw-bold"><i class="fas fa-rocket me-2 text-success"></i>{% if language == 'ta' %}வெற்றிக்கான உதவிக்குறிப்புகள்:{% else %}How to Maximize Your Success:{% endif %}</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="mb-0">
+                                    <li>{% if language == 'ta' %}தினசரி 50-100 MCQ பயிற்சி{% else %}Practice 50-100 MCQs daily{% endif %}</li>
+                                    <li>{% if language == 'ta' %}வாராந்திர முழு நீள தேர்வு{% else %}Take weekly full-length mock tests{% endif %}</li>
+                                    <li>{% if language == 'ta' %}செய்தித்தாள் தினசரி வாசிப்பு{% else %}Read newspaper daily (The Hindu/Indian Express){% endif %}</li>
+                                    <li>{% if language == 'ta' %}பாடத்திட்டம் 3 முறை திருத்தம்{% else %}Revise entire syllabus 3 times{% endif %}</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="mb-0">
+                                    <li>{% if language == 'ta' %}NCERT புத்தகங்கள் படிக்கவும்{% else %}Complete NCERT books (6-12){% endif %}</li>
+                                    <li>{% if language == 'ta' %}30+ முழு நீள தேர்வுகள்{% else %}Attempt 30+ full-length tests{% endif %}</li>
+                                    <li>{% if language == 'ta' %}முந்தைய வருட கேள்வித்தாள்கள்{% else %}Analyze previous year papers (last 10 years){% endif %}</li>
+                                    <li>{% if language == 'ta' %}குறுகிய குறிப்புகள் தயாரிக்கவும்{% else %}Make short notes for quick revision{% endif %}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Complete Syllabus -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0">
+                    <i class="fas fa-book me-2"></i>
+                    {% if language == 'ta' %}முழுமையான பாடத்திட்டம்{% else %}Complete Syllabus{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Paper 1: Preliminary -->
+                <h5 class="fw-bold text-primary mb-3">
+                    <i class="fas fa-file-alt me-2"></i>Paper I: Preliminary Examination (General Studies)
+                </h5>
+                <div class="accordion" id="syllabusAccordion">
+                    
+                    <!-- Science & Technology -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#science">
+                                <i class="fas fa-flask text-danger me-2"></i>Science & Technology (Weightage: 15%)
+                            </button>
+                        </h2>
+                        <div id="science" class="accordion-collapse collapse show" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Physics: Mechanics, Heat, Light, Sound, Electricity, Magnetism</li>
+                                    <li>Chemistry: Acids, Bases, Salts, Metals, Non-metals, Carbon compounds</li>
+                                    <li>Biology: Human body, Diseases, Nutrition, Plant science</li>
+                                    <li>Recent developments in Science & Technology</li>
+                                    <li>Space science and satellite technology</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Events -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#current">
+                                <i class="fas fa-newspaper text-info me-2"></i>Current Events (Weightage: 20%)
+                            </button>
+                        </h2>
+                        <div id="current" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>National and International affairs</li>
+                                    <li>Sports, Awards, and Honors</li>
+                                    <li>Important Books and Authors</li>
+                                    <li>Government schemes and programs (Central & State)</li>
+                                    <li>Economic developments</li>
+                                    <li>Environmental issues</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geography -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#geography">
+                                <i class="fas fa-globe text-success me-2"></i>Geography (Weightage: 12%)
+                            </button>
+                        </h2>
+                        <div id="geography" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Physical Geography: Earth, Atmosphere, Climate, Natural resources</li>
+                                    <li>World Geography: Continents, Oceans, Mountains, Rivers</li>
+                                    <li>Indian Geography: Physical features, Climate, Soil, Agriculture</li>
+                                    <li>Tamil Nadu Geography: Districts, Rivers, Dams, Industries</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History & Culture -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#history">
+                                <i class="fas fa-landmark text-warning me-2"></i>History & Culture (Weightage: 15%)
+                            </button>
+                        </h2>
+                        <div id="history" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Ancient India: Indus Valley, Vedic period, Mauryas, Guptas</li>
+                                    <li>Medieval India: Delhi Sultanate, Mughal Empire, Regional kingdoms</li>
+                                    <li>Modern India: British rule, Freedom struggle, Post-independence</li>
+                                    <li>Tamil Nadu History: Sangam age, Chola, Pandya, Pallava dynasties</li>
+                                    <li>Art, Architecture, Literature, and Cultural heritage</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Indian Polity -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#polity">
+                                <i class="fas fa-balance-scale text-primary me-2"></i>Indian Polity (Weightage: 15%)
+                            </button>
+                        </h2>
+                        <div id="polity" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Constitution of India: Preamble, Fundamental Rights, Duties</li>
+                                    <li>Union Government: President, Prime Minister, Parliament</li>
+                                    <li>State Government: Governor, Chief Minister, Assembly</li>
+                                    <li>Judiciary: Supreme Court, High Courts, Subordinate Courts</li>
+                                    <li>Local Self Government: Panchayati Raj, Municipalities</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Economics -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#economics">
+                                <i class="fas fa-chart-pie text-danger me-2"></i>Economics (Weightage: 10%)
+                            </button>
+                        </h2>
+                        <div id="economics" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Basic Economics: Demand, Supply, Market, Inflation</li>
+                                    <li>Indian Economy: Agriculture, Industry, Services</li>
+                                    <li>Five-Year Plans and Economic reforms</li>
+                                    <li>Banking, Currency, and Taxation</li>
+                                    <li>Tamil Nadu Economy: Industries, Agriculture, Trade</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tamil & English -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#language">
+                                <i class="fas fa-language text-info me-2"></i>Tamil & English (Weightage: 13%)
+                            </button>
+                        </h2>
+                        <div id="language" class="accordion-collapse collapse" data-bs-parent="#syllabusAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Tamil: Grammar, Comprehension, Literature, Translation</li>
+                                    <li>English: Grammar, Vocabulary, Comprehension, Error correction</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paper 2: Main Examination -->
+                <h5 class="fw-bold text-success mb-3 mt-5">
+                    <i class="fas fa-file-alt me-2"></i>Paper II: Main Examination (Aptitude & Mental Ability)
+                </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Mental Ability & Reasoning</li>
+                            <li>Numerical Ability & Quantitative Aptitude</li>
+                            <li>Data Interpretation & Analysis</li>
+                            <li>Logical Reasoning</li>
+                            <li>Problem Solving</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Verbal Reasoning</li>
+                            <li>Non-verbal Reasoning</li>
+                            <li>Analytical Ability</li>
+                            <li>Decision Making</li>
+                            <li>Critical Thinking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Paper 3: Interview -->
+                <h5 class="fw-bold text-warning mb-3 mt-4">
+                    <i class="fas fa-comments me-2"></i>Interview (Personality Test)
+                </h5>
+                <p>Assessment of personality, leadership qualities, communication skills, general awareness, and suitability for administrative services.</p>
+            </div>
+        </div>
+
+        <!-- 4. Study Roadmap -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-route me-2"></i>
+                    {% if language == 'ta' %}படிப்பு திட்டம்{% else %}Study Roadmap{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Duration Tabs -->
+                <ul class="nav nav-tabs mb-4" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#roadmap12">12 Months Plan</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#roadmap18">18 Months Plan</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#roadmap24">24 Months Plan</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <!-- 12 Months Plan -->
+                    <div class="tab-pane fade show active" id="roadmap12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Subjects</th>
+                                        <th>Study Strategy</th>
+                                        <th>Resources</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1-2</strong></td>
+                                        <td>History (Ancient & Medieval), Geography (Physical)</td>
+                                        <td>Foundation building, Note-making, Daily 6-7 hours</td>
+                                        <td>NCERT Books, Tamil Nadu Textbooks</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3-4</strong></td>
+                                        <td>Polity, Economics (Basic concepts)</td>
+                                        <td>Understanding Constitution, Economic concepts</td>
+                                        <td>Laxmikanth, TNPSC materials</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>5-6</strong></td>
+                                        <td>Science & Technology, Current Affairs</td>
+                                        <td>Daily current affairs reading, Science basics</td>
+                                        <td>Newspapers, Monthly magazines</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>7-8</strong></td>
+                                        <td>Revision + Aptitude & Reasoning</td>
+                                        <td>Complete revision of all subjects, Practice tests</td>
+                                        <td>Previous year papers, Mock tests</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>9-10</strong></td>
+                                        <td>Full-length Mock Tests, Weak areas</td>
+                                        <td>Daily 2-3 mock tests, Error analysis</td>
+                                        <td>Test series, Online platforms</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>11-12</strong></td>
+                                        <td>Final Revision + Interview Preparation</td>
+                                        <td>Quick revision, Current affairs update</td>
+                                        <td>Notes, Current affairs compilations</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 18 Months Plan -->
+                    <div class="tab-pane fade" id="roadmap18">
+                        <div class="alert alert-success">
+                            <i class="fas fa-info-circle me-2"></i>18-month plan allows for deeper understanding and more revision cycles
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Phase</th>
+                                        <th>Duration</th>
+                                        <th>Focus Areas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Foundation</strong></td>
+                                        <td>Month 1-6</td>
+                                        <td>Complete all subjects once with thorough understanding</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Consolidation</strong></td>
+                                        <td>Month 7-12</td>
+                                        <td>Second reading, Note-making, Topic-wise tests</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Revision</strong></td>
+                                        <td>Month 13-15</td>
+                                        <td>Complete revision, Current affairs integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Test & Improve</strong></td>
+                                        <td>Month 16-18</td>
+                                        <td>Full mock tests, Interview prep, Final revision</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 24 Months Plan -->
+                    <div class="tab-pane fade" id="roadmap24">
+                        <div class="alert alert-primary">
+                            <i class="fas fa-star me-2"></i>24-month plan is ideal for comprehensive preparation with multiple revision cycles
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Year 1: Building Phase</h6>
+                                <ul>
+                                    <li>Month 1-3: History & Geography</li>
+                                    <li>Month 4-6: Polity & Economics</li>
+                                    <li>Month 7-9: Science & Current Affairs</li>
+                                    <li>Month 10-12: First Complete Revision</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Year 2: Mastery Phase</h6>
+                                <ul>
+                                    <li>Month 13-16: Second revision + Test series</li>
+                                    <li>Month 17-19: Mock tests + Error analysis</li>
+                                    <li>Month 20-22: Final revision + Interview prep</li>
+                                    <li>Month 23-24: Last-minute revision + Exam strategy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Coaching Guidance -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-chalkboard-teacher me-2"></i>
+                    {% if language == 'ta' %}பயிற்சி வழிகாட்டுதல்{% else %}Coaching Guidance{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Location-based Centers -->
+                <h5 class="fw-bold text-primary mb-3">
+                    <i class="fas fa-map-marker-alt me-2"></i>Coaching Centers in Chennai
+                </h5>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold">Shankar IAS Academy - Chennai</h6>
+                                <p class="mb-1"><i class="fas fa-map-marker-alt text-danger me-2"></i>Address: 28, South Mada Street, Mylapore, Chennai - 600004</p>
+                                <p class="mb-1"><i class="fas fa-rupee-sign text-success me-2"></i>Fees: ₹75,000 - ₹1,20,000 (Full course)</p>
+                                <p class="mb-1"><i class="fas fa-phone text-primary me-2"></i>Contact: 044-2846 5511</p>
+                                <span class="badge bg-success">Highly Recommended</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold">RACE Institute - Chennai</h6>
+                                <p class="mb-1"><i class="fas fa-map-marker-alt text-danger me-2"></i>Address: Multiple branches across Chennai</p>
+                                <p class="mb-1"><i class="fas fa-rupee-sign text-success me-2"></i>Fees: ₹50,000 - ₹90,000</p>
+                                <p class="mb-1"><i class="fas fa-phone text-primary me-2"></i>Contact: 044-2852 5000</p>
+                                <span class="badge bg-info">Tamil Medium Available</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-success">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold">Veranda TNPSC - Chennai</h6>
+                                <p class="mb-1"><i class="fas fa-map-marker-alt text-danger me-2"></i>Address: Anna Nagar, T.Nagar branches</p>
+                                <p class="mb-1"><i class="fas fa-rupee-sign text-success me-2"></i>Fees: ₹45,000 - ₹80,000</p>
+                                <p class="mb-1"><i class="fas fa-phone text-primary me-2"></i>Contact: 1800-419-1050</p>
+                                <span class="badge bg-primary">Online + Offline</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-warning">
+                            <div class="card-body">
+                                <h6 class="card-title fw-bold">ALS IAS Academy - Chennai</h6>
+                                <p class="mb-1"><i class="fas fa-map-marker-alt text-danger me-2"></i>Address: Nandanam, Chennai - 600035</p>
+                                <p class="mb-1"><i class="fas fa-rupee-sign text-success me-2"></i>Fees: ₹60,000 - ₹1,00,000</p>
+                                <p class="mb-1"><i class="fas fa-phone text-primary me-2"></i>Contact: 044-2432 2244</p>
+                                <span class="badge bg-warning text-dark">Expert Faculty</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Online Platforms -->
+                <h5 class="fw-bold text-success mb-3 mt-4">
+                    <i class="fas fa-laptop me-2"></i>Online Learning Platforms
+                </h5>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Platform</th>
+                                <th>Features</th>
+                                <th>Fees</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Unacademy TNPSC</strong></td>
+                                <td>Live classes, Recorded videos, Test series, Tamil medium</td>
+                                <td>₹3,999 - ₹15,000/year</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BYJU's Exam Prep</strong></td>
+                                <td>Video lessons, Mock tests, Current affairs, Study material</td>
+                                <td>₹5,000 - ₹20,000/year</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ClearIAS (State)</strong></td>
+                                <td>Free + Paid content, Test series, Notes</td>
+                                <td>Free - ₹10,000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>StudyIQ</strong></td>
+                                <td>Daily current affairs, Video courses, Tamil content</td>
+                                <td>₹2,999 - ₹12,000/year</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Self-Study Guidance -->
+                <div class="alert alert-warning mt-4">
+                    <h6 class="fw-bold"><i class="fas fa-book-reader me-2"></i>Self-Study Strategy (No Coaching)</h6>
+                    <ul class="mb-0">
+                        <li>Follow NCERT books for basics (Classes 6-12)</li>
+                        <li>Use standard reference books (Laxmikanth for Polity, Ramesh Singh for Economics)</li>
+                        <li>Read daily newspapers (The Hindu, Indian Express, Dinamalar)</li>
+                        <li>Join free Telegram/WhatsApp study groups</li>
+                        <li>Watch free YouTube channels (StudyIQ, Unacademy Free)</li>
+                        <li>Download TNPSC previous year papers from official website</li>
+                        <li>Take free mock tests online</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Notes & Resources -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-book-open me-2"></i>
+                    {% if language == 'ta' %}குறிப்புகள் & ஆதாரங்கள்{% else %}Notes & Resources{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Subject-wise Books -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h6 class="fw-bold text-primary">📚 History & Culture</h6>
+                        <ul>
+                            <li><strong>Books:</strong> NCERT Class 6-12, Tamil Nadu State Board, Old NCERT by R.S. Sharma, Bipin Chandra</li>
+                            <li><strong>Online:</strong> ClearIAS notes, Unacademy videos</li>
+                            <li><strong>PDFs:</strong> Download from tnpsc.gov.in/resources</li>
+                        </ul>
+
+                        <h6 class="fw-bold text-success mt-3">🌍 Geography</h6>
+                        <ul>
+                            <li><strong>Books:</strong> NCERT Geography (6-12), Tamil Nadu Geography by Arunan</li>
+                            <li><strong>Online:</strong> PMF IAS Geography notes</li>
+                        </ul>
+
+                        <h6 class="fw-bold text-danger mt-3">⚖️ Indian Polity</h6>
+                        <ul>
+                            <li><strong>Books:</strong> M. Laxmikanth (Indian Polity), TNPSC Polity materials</li>
+                            <li><strong>Online:</strong> Constitution of India PDF (from official website)</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <h6 class="fw-bold text-warning">💰 Economics</h6>
+                        <ul>
+                            <li><strong>Books:</strong> Ramesh Singh (Indian Economy), NCERT Economics</li>
+                            <li><strong>Online:</strong> Economic Survey summary (annual)</li>
+                        </ul>
+
+                        <h6 class="fw-bold text-info mt-3">🔬 Science & Technology</h6>
+                        <ul>
+                            <li><strong>Books:</strong> NCERT Science (6-10), Lucent's General Science</li>
+                            <li><strong>Online:</strong> PIB (Press Information Bureau) for tech news</li>
+                        </ul>
+
+                        <h6 class="fw-bold text-secondary mt-3">📰 Current Affairs</h6>
+                        <ul>
+                            <li><strong>Newspapers:</strong> The Hindu (English), Dinamalar/Dinamani (Tamil)</li>
+                            <li><strong>Magazines:</strong> Pratiyogita Darpan, Yojana (Tamil)</li>
+                            <li><strong>Apps:</strong> Daily Current Affairs by Affairscloud, GK Today</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Previous Year Papers -->
+                <div class="alert alert-primary">
+                    <h6 class="fw-bold"><i class="fas fa-file-download me-2"></i>Previous Year Question Papers (Last 10 Years)</h6>
+                    <p class="mb-2">Download from official TNPSC website: <a href="https://www.tnpsc.gov.in" target="_blank">www.tnpsc.gov.in</a></p>
+                    <ul class="mb-0">
+                        <li>Group I: 2014, 2016, 2019, 2021 papers</li>
+                        <li>Group II & IIA: 2015, 2017, 2019, 2022 papers</li>
+                        <li>Practice minimum 3 times each paper</li>
+                        <li>Analyze error patterns and weak topics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Mock Test Plan -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-clipboard-check me-2"></i>
+                    {% if language == 'ta' %}மாதிரி தேர்வு திட்டம்{% else %}Mock Test Plan{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Phase-wise Plan -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h6 class="mb-0">Phase 1: Subject-wise Tests</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>History: 5 tests</li>
+                                    <li>Geography: 4 tests</li>
+                                    <li>Polity: 5 tests</li>
+                                    <li>Economics: 4 tests</li>
+                                    <li>Science: 4 tests</li>
+                                    <li>Current Affairs: Weekly tests</li>
+                                </ul>
+                                <span class="badge bg-info">Duration: 3-4 months</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-success">
+                            <div class="card-header bg-success text-white">
+                                <h6 class="mb-0">Phase 2: Combined Tests</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>2-3 subjects combined</li>
+                                    <li>Preliminary exam pattern</li>
+                                    <li>Time-bound practice</li>
+                                    <li>15-20 combined tests</li>
+                                    <li>Weekly analysis</li>
+                                </ul>
+                                <span class="badge bg-warning text-dark">Duration: 2-3 months</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-danger">
+                            <div class="card-header bg-danger text-white">
+                                <h6 class="mb-0">Phase 3: Full-Length Exams</h6>
+                            </div>
+                            <div class="card-body">
+                                <ul class="small">
+                                    <li>Complete TNPSC pattern</li>
+                                    <li>200 questions, 3 hours</li>
+                                    <li>30+ full tests</li>
+                                    <li>Simulate exam conditions</li>
+                                    <li>Score analysis & improvement</li>
+                                </ul>
+                                <span class="badge bg-primary">Duration: 2-3 months</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platforms for Mock Tests -->
+                <h6 class="fw-bold text-primary mt-4 mb-3">🎯 Mock Test Platforms</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-success">Free Platforms:</h6>
+                        <ul>
+                            <li>Gradeup (Free daily quizzes)</li>
+                            <li>Testbook (Limited free tests)</li>
+                            <li>TNPSC official app (Free mock tests)</li>
+                            <li>ClearIAS prelims test series (Free)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-warning">Paid Platforms:</h6>
+                        <ul>
+                            <li>RACE Institute Test Series (₹5,000)</li>
+                            <li>Shankar IAS Test Series (₹8,000)</li>
+                            <li>Unacademy Plus (₹10,000)</li>
+                            <li>BYJU's Test Series (₹7,000)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Practice Strategy -->
+                <div class="alert alert-success mt-4">
+                    <h6 class="fw-bold"><i class="fas fa-lightbulb me-2"></i>Effective Practice Strategy</h6>
+                    <ol class="mb-0">
+                        <li>Take test in exam-like environment (no distractions, time-bound)</li>
+                        <li>Attempt all questions (negative marking practice)</li>
+                        <li>Analyze score immediately after test</li>
+                        <li>Identify weak topics and revise</li>
+                        <li>Maintain error log (topics you frequently get wrong)</li>
+                        <li>Track score improvement over time</li>
+                        <li>Target: 70%+ accuracy consistently</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Application Process -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-file-signature me-2"></i>
+                    {% if language == 'ta' %}விண்ணப்ப செயல்முறை{% else %}Application Process{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- 8-Step Process -->
+                <div class="timeline">
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-primary">Step 1: Watch for Notification</h6>
+                            <p>TNPSC releases notifications on official website: <a href="https://www.tnpsc.gov.in" target="_blank">www.tnpsc.gov.in</a></p>
+                            <ul>
+                                <li>Check website weekly</li>
+                                <li>Subscribe to TNPSC email alerts</li>
+                                <li>Follow TNPSC official Twitter account</li>
+                                <li>Notification usually in December/January</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-success"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-success">Step 2: Check Eligibility</h6>
+                            <ul>
+                                <li><strong>Age:</strong> 21-32 years (relaxation for reserved categories)</li>
+                                <li><strong>Education:</strong> Any degree from recognized university</li>
+                                <li><strong>Nationality:</strong> Indian citizen</li>
+                                <li><strong>Physical Fitness:</strong> Medically fit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-info"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-info">Step 3: Online Application</h6>
+                            <p>Apply through TNPSC online portal within deadline (usually 30 days)</p>
+                            <ul>
+                                <li>Register on TNPSC website</li>
+                                <li>Fill personal, educational, and other details</li>
+                                <li>Upload photo, signature, certificates (scanned copies)</li>
+                                <li>Pay application fee (₹150 for general, exemption for reserved categories)</li>
+                                <li>Payment via Net Banking/Debit Card/Credit Card</li>
+                                <li>Take printout of application for future reference</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-warning"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-warning">Step 4: Download Hall Ticket</h6>
+                            <p>Hall ticket available 10-15 days before exam on TNPSC website</p>
+                            <ul>
+                                <li>Login with registration number</li>
+                                <li>Download and print hall ticket</li>
+                                <li>Verify all details (name, photo, exam center)</li>
+                                <li>Carry hall ticket + photo ID to exam</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-danger"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-danger">Step 5: Exam Stages</h6>
+                            <ol>
+                                <li><strong>Preliminary Exam:</strong> 200 MCQs, 3 hours, General Studies</li>
+                                <li><strong>Main Exam:</strong> For qualified candidates, 200 MCQs, Aptitude + General Studies</li>
+                                <li><strong>Interview:</strong> Personality test (100 marks)</li>
+                                <li><strong>Physical Measurement:</strong> (If applicable for certain posts)</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-secondary"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-secondary">Step 6: Results</h6>
+                            <ul>
+                                <li><strong>Preliminary Result:</strong> 2-3 months after exam</li>
+                                <li><strong>Main Result:</strong> 3-4 months after main exam</li>
+                                <li><strong>Final Result:</strong> After interview (merit list)</li>
+                                <li>Check results on TNPSC website with registration number</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-primary">Step 7: Document Verification</h6>
+                            <p>Selected candidates called for certificate verification</p>
+                            <ul>
+                                <li>10th, 12th, Degree certificates</li>
+                                <li>Community certificate (if applicable)</li>
+                                <li>Transfer certificate</li>
+                                <li>Conduct certificate</li>
+                                <li>Aadhar card, PAN card</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item mb-4">
+                        <div class="timeline-marker bg-success"></div>
+                        <div class="timeline-content">
+                            <h6 class="fw-bold text-success">Step 8: Appointment & Training</h6>
+                            <ul>
+                                <li>Appointment letter issued by respective department</li>
+                                <li>Training period: 1-2 years (depends on post)</li>
+                                <li>Probation period: 2 years</li>
+                                <li>Posting based on rank and availability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. Daily Study Plan -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-calendar-day me-2"></i>
+                    {% if language == 'ta' %}இன்றைய படிப்பு திட்டம்{% else %}Daily Study Plan Generator{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                
+                <!-- Today's Date -->
+                <div class="alert alert-info">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h5 class="mb-0">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                <span id="todayDate"></span>
+                            </h5>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <span class="badge bg-success fs-6">Week Progress: 5/7 Days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Today's Focus -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0"><i class="fas fa-bullseye me-2"></i>Today's Focus Subject: Indian Polity</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="fw-bold text-success mb-3">Topics to Cover:</h6>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>📖 Fundamental Rights (Articles 12-35)</span>
+                                        <span class="badge bg-primary">60 mins</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>📖 Fundamental Duties (Article 51A)</span>
+                                        <span class="badge bg-primary">30 mins</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>📝 Practice Questions (50 MCQs)</span>
+                                        <span class="badge bg-warning text-dark">45 mins</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>📰 Current Affairs - Constitutional Amendments</span>
+                                        <span class="badge bg-info">30 mins</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Duration Breakdown -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-sun fa-2x text-warning mb-2"></i>
+                                <h6 class="fw-bold">Morning (6 AM - 10 AM)</h6>
+                                <p class="mb-1 small">Theory Reading - Polity</p>
+                                <span class="badge bg-warning">4 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-cloud-sun fa-2x text-info mb-2"></i>
+                                <h6 class="fw-bold">Afternoon (2 PM - 5 PM)</h6>
+                                <p class="mb-1 small">Practice Questions + Revision</p>
+                                <span class="badge bg-info">3 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-moon fa-2x text-primary mb-2"></i>
+                                <h6 class="fw-bold">Night (7 PM - 9 PM)</h6>
+                                <p class="mb-1 small">Current Affairs + Notes</p>
+                                <span class="badge bg-primary">2 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources for Today -->
+                <div class="alert alert-warning">
+                    <h6 class="fw-bold"><i class="fas fa-book me-2"></i>Resources for Today:</h6>
+                    <ul class="mb-0">
+                        <li><strong>Book:</strong> M. Laxmikanth - Indian Polity (Chapter 4 & 5)</li>
+                        <li><strong>Online:</strong> Unacademy video - Fundamental Rights (30 mins)</li>
+                        <li><strong>Practice:</strong> Previous year TNPSC questions on Polity</li>
+                        <li><strong>Newspaper:</strong> The Hindu - Editorial on Constitutional matters</li>
+                    </ul>
+                </div>
+
+                <!-- Daily Goal -->
+                <div class="card border-success mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="fas fa-flag-checkered me-2"></i>Today's Goal</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2">✅ Complete reading of Fundamental Rights and Duties</p>
+                        <p class="mb-2">✅ Solve 50 MCQs on Polity with 80%+ accuracy</p>
+                        <p class="mb-0">✅ Make concise notes for quick revision</p>
+                    </div>
+                </div>
+
+                <!-- Self Assessment -->
+                <div class="card border-info mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="mb-0"><i class="fas fa-check-circle me-2"></i>Self-Assessment Checklist</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="task1">
+                            <label class="form-check-label" for="task1">
+                                Completed Fundamental Rights reading
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="task2">
+                            <label class="form-check-label" for="task2">
+                                Completed Fundamental Duties reading
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="task3">
+                            <label class="form-check-label" for="task3">
+                                Solved 50 practice questions
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="task4">
+                            <label class="form-check-label" for="task4">
+                                Read current affairs on Constitution
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="task5">
+                            <label class="form-check-label" for="task5">
+                                Made notes for revision
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yesterday Review & Tomorrow Preview -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-secondary">
+                            <div class="card-header bg-secondary text-white">
+                                <h6 class="mb-0"><i class="fas fa-arrow-left me-2"></i>Yesterday's Review</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-1"><strong>Subject:</strong> Indian History</p>
+                                <p class="mb-1"><strong>Topics:</strong> Mughal Empire, Maratha Empire</p>
+                                <p class="mb-0 text-success">✅ Completed successfully</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h6 class="mb-0"><i class="fas fa-arrow-right me-2"></i>Tomorrow's Preview</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-1"><strong>Subject:</strong> Indian Economy</p>
+                                <p class="mb-1"><strong>Topics:</strong> Banking System, RBI Functions</p>
+                                <p class="mb-0 text-info">📚 Prepare today</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Tips -->
+                <div class="alert alert-success">
+                    <h6 class="fw-bold"><i class="fas fa-lightbulb me-2"></i>Smart Study Tips for Today:</h6>
+                    <ul class="mb-0">
+                        <li>Start with difficult topics in the morning when mind is fresh</li>
+                        <li>Take 5-minute breaks every 45 minutes (Pomodoro technique)</li>
+                        <li>Make mind maps or flowcharts for better retention</li>
+                        <li>Teach concepts to yourself aloud for better understanding</li>
+                        <li>Don't skip current affairs - it's crucial for TNPSC</li>
+                        <li>Revise previous day's topics for 15 minutes before starting new</li>
+                    </ul>
+                </div>
+
+                <!-- Weekend Adjustment -->
+                <div class="alert alert-primary">
+                    <h6 class="fw-bold"><i class="fas fa-info-circle me-2"></i>Weekend Adjustment:</h6>
+                    <p class="mb-0">Since today is a weekday, follow the above schedule. On weekends, add:</p>
+                    <ul class="mb-0">
+                        <li>Full-length mock test (Sunday morning)</li>
+                        <li>Weekly revision of all subjects covered</li>
+                        <li>Analysis of previous week's performance</li>
+                        <li>Plan next week's topics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    // Display today's date
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('todayDate').textContent = today.toLocaleDateString('en-US', options);
+    });
+
+    function savePlan() {
+        alert('Plan saved successfully! You can access it from your dashboard.');
+    }
+    
+    // Job Details Panel Toggle
+    function toggleJobPanel() {
+        const panel = document.getElementById('jobDetailsPanel');
+        const btn = document.getElementById('jobToggleBtn');
+        
+        if (panel.classList.contains('active')) {
+            panel.classList.remove('active');
+            btn.classList.remove('active');
+        } else {
+            panel.classList.add('active');
+            btn.classList.add('active');
+        }
+    }
+</script>
+
+<style>
+:root {
+    --pg-primary: #4f8cff;
+    --pg-primary-dark: #2f6fff;
+    --pg-accent: #1dc9b8;
+    --pg-success: #2bb673;
+    --pg-warning: #f6c652;
+    --pg-danger: #f4698d;
+
+    --pg-bg: #061222;
+    --pg-surface: rgba(14, 31, 50, 0.78);
+    --pg-surface-soft: rgba(12, 27, 44, 0.88);
+    --pg-border: rgba(112, 166, 255, 0.28);
+
+    --pg-text: #e8f0ff;
+    --pg-heading: #d4e6ff;
+    --pg-muted: #9db3d6;
+
+    --pg-shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.34);
+    --pg-shadow-md: 0 20px 48px rgba(0, 0, 0, 0.45);
+    --pg-radius: 12px;
+    --pg-radius-lg: 16px;
+}
+
+body {
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    color: var(--pg-text);
+    background: radial-gradient(circle at 14% 10%, rgba(79, 140, 255, 0.24), transparent 42%),
+        radial-gradient(circle at 86% 3%, rgba(29, 201, 184, 0.18), transparent 36%),
+        linear-gradient(150deg, #061222 0%, #081a2d 55%, #0b2238 100%);
+    overflow-x: hidden;
+}
+
+.report-shell {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 18px 12px 96px;
+}
+
+.output-grid {
+    margin: 0;
+}
+
+.content-column {
+    max-width: 1320px;
+}
+
+.row.justify-content-center > .col-lg-11 {
+    animation: govFadeIn 0.45s ease;
+}
+
+.card.card-custom {
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius);
+    background: var(--pg-surface);
+    box-shadow: var(--pg-shadow-sm);
+    overflow: hidden;
+    margin-bottom: 14px !important;
+    transform: translateY(10px);
+    opacity: 0;
+    animation: govFadeIn 0.45s ease forwards;
+}
+
+/* Match career output hero blue gradient for exam hero card */
+.card.card-custom.hero-frame,
+.card.card-custom.bg-gradient {
+    background: linear-gradient(125deg, var(--pg-primary), #3b6fb3 56%, #6e95ce) !important;
+    border-color: #5d86c5 !important;
+}
+
+.card.card-custom.hero-frame {
+    position: relative;
+}
+
+.card.card-custom.hero-frame::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--pg-warning), #ffffff, var(--pg-success));
+}
+
+.card.card-custom.hero-frame .card-body,
+.card.card-custom.bg-gradient .card-body {
+    color: #ffffff;
+}
+
+.card.card-custom.bg-gradient .btn-light {
+    background: #ffffff;
+    color: var(--pg-primary-dark);
+    border-color: #ffffff;
+}
+
+.card.card-custom.bg-gradient .btn-outline-light {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.75);
+}
+
+.card.card-custom.bg-gradient .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.container,
+.container-fluid {
+    animation: govFadeIn 0.5s ease;
+}
+
+.card {
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius);
+    background: var(--pg-surface);
+    box-shadow: var(--pg-shadow-sm);
+}
+
+.card-header {
+    background: linear-gradient(90deg, #edf4ff, #f7faff);
+    color: var(--pg-heading);
+    border-bottom: 1px solid var(--pg-border);
+    font-weight: 700;
+}
+
+.card.card-custom > .card-header,
+.card.card-custom > .card-header.bg-primary,
+.card.card-custom > .card-header.bg-success,
+.card.card-custom > .card-header.bg-warning,
+.card.card-custom > .card-header.bg-danger,
+.card.card-custom > .card-header.bg-info,
+.card.card-custom > .card-header.bg-secondary,
+.card.card-custom > .card-header.bg-dark {
+    background: linear-gradient(90deg, #edf4ff, #f7faff) !important;
+    color: var(--pg-heading) !important;
+    border-bottom: 1px solid var(--pg-border) !important;
+}
+
+.card.card-custom > .card-body {
+    padding: 16px;
+    color: var(--pg-text);
+    background: var(--pg-surface);
+}
+
+/* Keep hero content readable on gradient background */
+.card.card-custom.hero-frame > .card-body,
+.card.card-custom.bg-gradient > .card-body {
+    background: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Replace old hardcoded purple inline header gradient with same gov theme */
+div.card-header[style*="667eea"],
+div.card-header[style*="764ba2"] {
+    background: linear-gradient(90deg, #edf4ff, #f7faff) !important;
+    color: var(--pg-heading) !important;
+    border-bottom: 1px solid var(--pg-border) !important;
+}
+
+.table {
+    color: var(--pg-text);
+}
+
+.table-responsive {
+    border: 1px solid #d7e5f8;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: #edf4ff;
+    color: var(--pg-heading);
+    border-color: var(--pg-border);
+}
+
+.table td,
+.table th {
+    border-color: #d9e5f6;
+}
+
+.alert {
+    border-radius: 10px;
+    border: 1px solid var(--pg-border);
+}
+
+.alert-success {
+    color: #0c5c36;
+    background: #edf9f1;
+    border-color: #bfe7ce;
+}
+
+.alert-primary {
+    color: #103c73;
+    background: #edf4ff;
+    border-color: #bed5f4;
+}
+
+.alert-warning {
+    color: #6d5200;
+    background: #fff8e1;
+    border-color: #f2dd9e;
+}
+
+.badge.bg-success {
+    background-color: var(--pg-success) !important;
+}
+
+.btn-success,
+.btn-primary {
+    background: var(--pg-primary);
+    border-color: var(--pg-primary);
+}
+
+.btn-success:hover,
+.btn-primary:hover {
+    background: var(--pg-primary-dark);
+    border-color: var(--pg-primary-dark);
+}
+
+/* Visibility-focused utility overrides to match career output readability */
+.text-muted {
+    color: var(--pg-muted) !important;
+}
+
+.text-secondary {
+    color: #3f5f86 !important;
+}
+
+.text-primary {
+    color: var(--pg-primary-dark) !important;
+}
+
+.text-success {
+    color: #0c6d3f !important;
+}
+
+.text-warning {
+    color: #8a6200 !important;
+}
+
+.text-danger {
+    color: #a23838 !important;
+}
+
+.bg-light,
+.card.bg-light {
+    background: #f3f8ff !important;
+    color: var(--pg-text) !important;
+    border-color: #d8e5f7 !important;
+}
+
+.bg-primary,
+.card-header.bg-primary,
+.badge.bg-primary,
+.btn.bg-primary {
+    background: var(--pg-primary) !important;
+    color: #fff !important;
+    border-color: var(--pg-primary) !important;
+}
+
+.bg-success,
+.card-header.bg-success,
+.badge.bg-success,
+.btn.bg-success {
+    background: #0f7b48 !important;
+    color: #fff !important;
+    border-color: #0f7b48 !important;
+}
+
+.bg-warning,
+.card-header.bg-warning,
+.badge.bg-warning,
+.btn.bg-warning {
+    background: #f2a900 !important;
+    color: #2c2200 !important;
+    border-color: #e3a000 !important;
+}
+
+.bg-danger,
+.card-header.bg-danger,
+.badge.bg-danger,
+.btn.bg-danger {
+    background: #c94b4b !important;
+    color: #fff !important;
+    border-color: #b84444 !important;
+}
+
+.bg-info,
+.card-header.bg-info,
+.badge.bg-info,
+.btn.bg-info {
+    background: var(--pg-accent) !important;
+    color: #fff !important;
+    border-color: #0f6b79 !important;
+}
+
+.bg-secondary,
+.card-header.bg-secondary,
+.badge.bg-secondary,
+.btn.bg-secondary {
+    background: #4f6886 !important;
+    color: #fff !important;
+    border-color: #455d78 !important;
+}
+
+.bg-dark,
+.card-header.bg-dark,
+.badge.bg-dark,
+.btn.bg-dark,
+.table-dark,
+.table thead.table-dark th {
+    background: #143a66 !important;
+    color: #ffffff !important;
+    border-color: #204b7f !important;
+}
+
+.progress {
+    background: #dfe9f8;
+}
+
+.progress-bar.bg-warning {
+    color: #2c2200;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #f8fbff;
+    color: var(--pg-text);
+}
+
+/* Job details toggle button */
+.job-details-toggle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    border-radius: 10px 0 0 10px;
+    padding: 12px 15px;
+    font-weight: 600;
+    box-shadow: var(--pg-shadow-md);
+    transition: all 0.25s ease;
+}
+
+.job-details-toggle:hover {
+    padding-right: 20px;
+}
+
+.job-details-toggle.active {
+    right: 400px;
+}
+
+/* Job details side panel */
+.job-details-panel {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    width: 400px;
+    height: 100vh;
+    background: var(--pg-surface);
+    box-shadow: -3px 0 15px rgba(13, 44, 84, 0.2);
+    z-index: 1000;
+    transition: right 0.35s ease;
+    overflow-y: auto;
+    border-left: 1px solid var(--pg-border);
+}
+
+.job-details-panel.active {
+    right: 0;
+}
+
+.job-panel-header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(125deg, var(--pg-primary), #3b6fb3 56%, #6e95ce);
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    box-shadow: var(--pg-shadow-sm);
+}
+
+.job-panel-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.job-panel-body {
+    padding: 16px;
+    background: var(--pg-surface-soft);
+}
+
+/* Job categories */
+.job-category {
+    margin-bottom: 14px;
+    border: 1px solid var(--pg-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--pg-surface);
+}
+
+.job-category-header {
+    background: linear-gradient(90deg, #edf4ff, #f7faff);
+    padding: 11px 14px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--pg-heading);
+    transition: background-color 0.2s ease;
+}
+
+.job-category-header:hover {
+    background: #e7f1ff;
+}
+
+.job-category-header i.fa-chevron-down {
+    transition: transform 0.25s ease;
+}
+
+.job-category-header[aria-expanded="true"] i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Job items */
+.job-group-header {
+    border-top: 1px solid #dfeaf8;
+    background: #f8fbff;
+    color: #1f3f66;
+    padding: 10px 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.job-item {
+    border-top: 1px solid #e3edf9;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.job-item:hover {
+    background: #f2f7ff;
+}
+
+.job-item.selected-job {
+    background: #eaf3ff;
+    border-left: 4px solid var(--pg-primary);
+}
+
+.job-title {
+    font-weight: 500;
+    color: #1e3858;
+}
+
+.job-details-content {
+    background: #f7faff;
+    border-top: 1px solid #d7e4f6;
+}
+
+.job-details-content p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--pg-text);
+}
+
+.job-details-content strong {
+    color: var(--pg-primary-dark);
+}
+
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #c8d8ee;
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -35px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px #aac3e6;
+}
+
+.timeline-content {
+    padding: 15px;
+    background: #f7faff;
+    border-radius: 10px;
+    border: 1px solid #dbe7f8;
+    box-shadow: var(--pg-shadow-sm);
+}
+
+/* Readability lock: ensure all titles, topics, paragraphs and details stay visible */
+.card-header,
+.card.card-custom > .card-header,
+.card.card-custom > .card-header.bg-primary,
+.card.card-custom > .card-header.bg-success,
+.card.card-custom > .card-header.bg-warning,
+.card.card-custom > .card-header.bg-danger,
+.card.card-custom > .card-header.bg-info,
+.card.card-custom > .card-header.bg-secondary,
+.card.card-custom > .card-header.bg-dark,
+div.card-header[style*="667eea"],
+div.card-header[style*="764ba2"] {
+    background: linear-gradient(90deg, rgba(26, 51, 80, 0.9), rgba(16, 36, 58, 0.92)) !important;
+    color: #e5efff !important;
+    border-bottom: 1px solid rgba(112, 166, 255, 0.28) !important;
+}
+
+.table-responsive {
+    border-color: rgba(112, 166, 255, 0.28);
+}
+
+.table thead th,
+.table-dark,
+.table thead.table-dark th {
+    background: rgba(20, 45, 72, 0.92) !important;
+    color: #e8f0ff !important;
+    border-color: rgba(112, 166, 255, 0.3) !important;
+}
+
+.table td,
+.table th {
+    border-color: rgba(112, 166, 255, 0.22);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: rgba(16, 36, 58, 0.64);
+    color: var(--pg-text);
+}
+
+.alert-success,
+.alert-primary,
+.alert-warning,
+.alert-danger,
+.alert-info,
+.alert-secondary,
+.alert-light {
+    color: #e8f0ff;
+    background: rgba(16, 36, 58, 0.86);
+    border-color: rgba(112, 166, 255, 0.3);
+}
+
+.bg-light,
+.card.bg-light {
+    background: rgba(15, 33, 54, 0.84) !important;
+    color: var(--pg-text) !important;
+    border-color: rgba(112, 166, 255, 0.26) !important;
+}
+
+.accordion-item,
+.accordion-button,
+.accordion-body,
+.accordion-collapse {
+    background: rgba(12, 27, 44, 0.88) !important;
+    color: var(--pg-text) !important;
+    border-color: rgba(112, 166, 255, 0.26) !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #e5efff !important;
+    background: rgba(27, 54, 84, 0.88) !important;
+}
+
+.job-category-header {
+    background: rgba(24, 48, 74, 0.8);
+    color: #ddeaff;
+}
+
+.job-category-header:hover {
+    background: rgba(35, 66, 100, 0.8);
+}
+
+.job-group-header {
+    border-top-color: rgba(112, 166, 255, 0.22);
+    background: rgba(16, 35, 56, 0.84);
+    color: #cfe1ff;
+}
+
+.job-item {
+    border-top-color: rgba(112, 166, 255, 0.2);
+}
+
+.job-item:hover {
+    background: rgba(31, 59, 90, 0.58);
+}
+
+.job-item.selected-job {
+    background: rgba(47, 111, 255, 0.2);
+}
+
+.job-title {
+    color: #dceaff;
+}
+
+.job-details-content {
+    background: rgba(10, 24, 40, 0.92);
+    border-top-color: rgba(112, 166, 255, 0.2);
+}
+
+.timeline::before {
+    background: rgba(112, 166, 255, 0.45);
+}
+
+.timeline-marker {
+    border-color: rgba(9, 22, 38, 0.95);
+    box-shadow: 0 0 0 1px rgba(112, 166, 255, 0.42);
+}
+
+.timeline-content {
+    background: rgba(14, 31, 50, 0.88);
+    border-color: rgba(112, 166, 255, 0.25);
+}
+
+.text-muted { color: #afc4e3 !important; }
+.text-secondary { color: #c4d8f6 !important; }
+.text-primary { color: #8fc0ff !important; }
+.text-success { color: #70e3ae !important; }
+.text-warning { color: #ffd77a !important; }
+.text-danger { color: #ff92aa !important; }
+
+.report-shell .bg-white {
+    background: transparent !important;
+}
+
+.report-shell,
+.report-shell p,
+.report-shell li,
+.report-shell span,
+.report-shell small,
+.report-shell td,
+.report-shell th,
+.report-shell label,
+.report-shell .form-label,
+.report-shell .text-dark,
+.report-shell .text-body {
+    color: #e8f0ff;
+}
+
+.report-shell .text-muted,
+.report-shell .small.text-muted {
+    color: #afc4e3 !important;
+}
+
+@keyframes govFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .report-shell {
+        padding: 14px 10px 98px;
+    }
+
+    .content-column {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .job-details-panel {
+        width: 100%;
+        right: -100%;
+        top: auto;
+        bottom: 0;
+        height: 80vh;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .job-details-panel.active {
+        right: 0;
+    }
+
+    .job-details-toggle {
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        transform: none;
+        border-radius: 999px;
+        padding: 12px 18px;
+    }
+
+    .job-details-toggle.active {
+        right: 20px;
+        bottom: calc(80vh + 20px);
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .job-details-panel {
+        width: 350px;
+        right: -350px;
+    }
+
+    .job-details-toggle.active {
+        right: 350px;
+    }
+}
+</style>
+{% endblock %}

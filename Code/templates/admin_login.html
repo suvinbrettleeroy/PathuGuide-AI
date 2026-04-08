@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - PathGuide{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card-custom .card-body {
+        background: rgba(10, 24, 40, 0.72);
+    }
+
+    .btn-danger {
+        background: linear-gradient(120deg, #ff6b8a, #ff4f74);
+        border-color: transparent;
+        box-shadow: 0 10px 24px rgba(255, 79, 116, 0.35);
+    }
+
+    .btn-danger:hover {
+        background: linear-gradient(120deg, #ff5a7c, #ff446a);
+    }
+
+    .alert-warning {
+        background: rgba(247, 198, 82, 0.14);
+        border-color: rgba(247, 198, 82, 0.35);
+        color: #f7d98f;
+    }
+
+    kbd {
+        background: rgba(27, 53, 83, 0.9);
+        border: 1px solid rgba(112, 166, 255, 0.35);
+        color: #d8e9ff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-md-5">
+        <div class="card card-custom">
+            <div class="card-body p-5">
+                <div class="text-center mb-4">
+                    <i class="fas fa-lock fa-3x text-danger mb-3"></i>
+                    <h3 class="fw-bold">Admin Login</h3>
+                    <p class="text-muted">Secure Access Only</p>
+                </div>
+
+                {% if locked %}
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-ban"></i> 
+                    <strong>Account Locked!</strong><br>
+                    Too many failed login attempts. Please try again in {{ remaining_minutes }} minutes.
+                </div>
+                {% endif %}
+
+                <div id="loginMessage" class="alert d-none" role="alert"></div>
+
+                <form id="loginForm" {% if locked %}style="display: none;"{% endif %}>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Username <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" required autocomplete="off">
+                        <small class="text-muted"><i class="fas fa-info-circle"></i> Case-sensitive</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Password <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" required>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted"><i class="fas fa-info-circle"></i> Case-sensitive</small>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="remember">
+                        <label class="form-check-label" for="remember">
+                            Remember me for this session
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger btn-custom w-100" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <a href="/" class="text-muted">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-warning mt-3">
+            <i class="fas fa-shield-alt"></i>
+            <strong>Security Notice:</strong> 
+            <ul class="mb-0 mt-2">
+                <li>Maximum 3 login attempts allowed</li>
+                <li>Account locks for 15 minutes after failed attempts</li>
+                <li>Auto-logout after 30 minutes of inactivity</li>
+                <li>All login attempts are logged</li>
+            </ul>
+        </div>
+        
+        <div class="text-center mt-3">
+            <small class="text-muted">
+                <i class="fas fa-keyboard"></i> Keyboard Shortcut: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd> (from homepage)
+            </small>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.className = 'fas fa-eye';
+        }
+    }
+    
+    document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const loginBtn = document.getElementById('loginBtn');
+        const messageDiv = document.getElementById('loginMessage');
+        
+        // Disable button and show loading
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Logging in...';
+        
+        try {
+            const response = await fetch('/admin-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                messageDiv.className = 'alert alert-success';
+                messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
+                messageDiv.classList.remove('d-none');
+                
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1000);
+            } else {
+                messageDiv.className = 'alert alert-danger';
+                
+                if (data.locked) {
+                    messageDiv.innerHTML = `
+                        <i class="fas fa-ban"></i> <strong>Account Locked!</strong><br>
+                        ${data.message}
+                    `;
+                    document.getElementById('loginForm').style.display = 'none';
+                } else {
+                    messageDiv.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i> ${data.message}
+                        ${data.remaining_attempts ? `<br><strong>${data.remaining_attempts} attempt(s) remaining</strong>` : ''}
+                    `;
+                }
+                
+                messageDiv.classList.remove('d-none');
+                
+                // Re-enable button
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        } catch (error) {
+            messageDiv.className = 'alert alert-danger';
+            messageDiv.innerHTML = '<i class="fas fa-times-circle"></i> Connection error. Please try again.';
+            messageDiv.classList.remove('d-none');
+            
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+        }
+    });
+</script>
+{% endblock %}

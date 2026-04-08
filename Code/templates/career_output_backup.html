@@ -1,0 +1,1019 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <!-- Success Header -->
+    <div class="alert alert-success text-center" role="alert">
+        <h4 class="alert-heading"><i class="fas fa-check-circle"></i> {% if language == 'ta' %}உங்கள் தொழில் வழிகாட்டி தயார்!{% else %}Your Career Roadmap is Ready!{% endif %}</h4>
+        <p class="mb-0">{% if language == 'ta' %}நாங்கள் உங்களுக்காக ஒரு தனிப்பயனாக்கப்பட்ட தொழில் திட்டத்தை உருவாக்கியுள்ளோம்{% else %}We've created a personalized career plan just for you{% endif %}</p>
+    </div>
+
+    <!-- Career Summary Card -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-user"></i> {{ career_data.name }}</h5>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}பட்டம்:{% else %}Degree:{% endif %}</strong> {{ career_data.degree }}</p>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}துறை:{% else %}Department:{% endif %}</strong> {{ career_data.department }}</p>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}களம்:{% else %}Domain:{% endif %}</strong> {{ career_data.domain }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="mb-1"><strong>{% if language == 'ta' %}தேர்ந்தெடுக்கப்பட்ட பாத்திரம்:{% else %}Selected Role:{% endif %}</strong> <span class="badge bg-primary">{{ career_data.role }}</span></p>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}வழிகாட்டி காலம்:{% else %}Roadmap Duration:{% endif %}</strong> {{ career_data.roadmap_months }} {% if language == 'ta' %}மாதங்கள்{% else %}Months{% endif %}</p>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}நாள் ஒன்றுக்கு படிப்பு:{% else %}Daily Study:{% endif %}</strong> {{ career_data.study_hours }} {% if language == 'ta' %}மணிநேரம்{% else %}Hours{% endif %}</p>
+                    <p class="mb-1"><strong>{% if language == 'ta' %}பட்ஜெட்:{% else %}Budget:{% endif %}</strong> {{ career_data.budget }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Navigation -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h6 class="mb-3"><i class="fas fa-compass"></i> {% if language == 'ta' %}விரைவு வழிசெலுத்தல்{% else %}Quick Navigation{% endif %}</h6>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#role-explanation" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}பாத்திர விளக்கம்{% else %}Role Explanation{% endif %}</a>
+                <a href="#learning-roadmap" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}கற்றல் வழிகாட்டி{% else %}Learning Roadmap{% endif %}</a>
+                <a href="#tools-tech" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}கருவிகள் & தொழில்நுட்பம்{% else %}Tools & Tech{% endif %}</a>
+                <a href="#courses" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}படிப்புகள்{% else %}Courses{% endif %}</a>
+                <a href="#projects" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}திட்டங்கள்{% else %}Projects{% endif %}</a>
+                <a href="#skills" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}திறன்கள்{% else %}Skills{% endif %}</a>
+                <a href="#salary" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}சம்பளம்{% else %}Salary{% endif %}</a>
+                <a href="#companies" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}நிறுவனங்கள்{% else %}Companies{% endif %}</a>
+                <a href="#success" class="btn btn-sm btn-outline-primary">{% if language == 'ta' %}வெற்றி முன்னறிவிப்பு{% else %}Success Prediction{% endif %}</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 1: Role Explanation -->
+    <div id="role-explanation" class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-briefcase"></i> {% if language == 'ta' %}பாத்திர விளக்கம்: {{ career_data.role }}{% else %}Role Explanation: {{ career_data.role }}{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            {% if career_data.role == "Data Analyst" %}
+            <p><strong>{% if language == 'ta' %}என்ன செய்கிறார்கள்?{% else %}What They Do:{% endif %}</strong></p>
+            <p>{% if language == 'ta' %}தரவு ஆய்வாளர்கள் வணிக முடிவுகளுக்கு உதவ தரவை சேகரித்து, செயலாக்கி, பகுப்பாய்வு செய்கிறார்கள். அவர்கள் தரவுகளை அர்த்தமுள்ள நுண்ணறிவுகளாக மாற்றுகிறார்கள்.{% else %}Data Analysts collect, process, and analyze data to help businesses make informed decisions. They transform raw data into meaningful insights using statistical methods, visualization tools, and reporting techniques.{% endif %}</p>
+            
+            <p><strong>{% if language == 'ta' %}தினசரி பொறுப்புகள்:{% else %}Day-to-Day Responsibilities:{% endif %}</strong></p>
+            <ul>
+                <li>{% if language == 'ta' %}தரவை சுத்தம் செய்தல் மற்றும் தயாரித்தல்{% else %}Cleaning and preparing datasets for analysis{% endif %}</li>
+                <li>{% if language == 'ta' %}SQL வினவல்களை எழுதுதல்{% else %}Writing SQL queries to extract data from databases{% endif %}</li>
+                <li>{% if language == 'ta' %}Excel, Tableau அல்லது Power BI இல் காட்சிப்படுத்தல்கள் உருவாக்குதல்{% else %}Creating visualizations in Excel, Tableau, or Power BI{% endif %}</li>
+                <li>{% if language == 'ta' %}போக்குகள், முறைகள் மற்றும் முரண்பாடுகளை அடையாளம் காணுதல்{% else %}Identifying trends, patterns, and anomalies in data{% endif %}</li>
+                <li>{% if language == 'ta' %}பங்குதாரர்களுக்கு அறிக்கைகள் வழங்குதல்{% else %}Presenting reports and insights to stakeholders{% endif %}</li>
+                <li>{% if language == 'ta' %}தரவு துல்லியம் மற்றும் நம்பகத்தன்மையை உறுதி செய்தல்{% else %}Ensuring data accuracy and reliability{% endif %}</li>
+            </ul>
+
+            <p><strong>{% if language == 'ta' %}வேலை சூழல்:{% else %}Work Environment:{% endif %}</strong></p>
+            <p>{% if language == 'ta' %}அலுவலகம், தொலைநிலை அல்லது கலப்பு. நெகிழ்வான மணிநேரம் மற்றும் குழு ஒத்துழைப்பு.{% else %}Office-based, remote, or hybrid. Flexible hours with collaborative team work. Regular meetings with business teams and stakeholders.{% endif %}</p>
+
+            {% elif career_data.role == "Frontend Developer" %}
+            <p><strong>{% if language == 'ta' %}என்ன செய்கிறார்கள்?{% else %}What They Do:{% endif %}</strong></p>
+            <p>{% if language == 'ta' %}முகப்பு உருவாக்குநர்கள் இணையதளங்களின் பார்வை மற்றும் ஊடாடும் பகுதிகளை உருவாக்குகிறார்கள்.{% else %}Frontend Developers build the visual and interactive parts of websites and web applications that users see and interact with directly.{% endif %}</p>
+            
+            <p><strong>{% if language == 'ta' %}தினசரி பொறுப்புகள்:{% else %}Day-to-Day Responsibilities:{% endif %}</strong></p>
+            <ul>
+                <li>{% if language == 'ta' %}HTML, CSS, JavaScript பயன்படுத்தி பயனர் இடைமுகங்களை உருவாக்குதல்{% else %}Building user interfaces using HTML, CSS, and JavaScript{% endif %}</li>
+                <li>{% if language == 'ta' %}React, Vue, அல்லது Angular போன்ற கட்டமைப்புகளுடன் வேலை செய்தல்{% else %}Working with frameworks like React, Vue, or Angular{% endif %}</li>
+                <li>{% if language == 'ta' %}பதிலளிக்கக்கூடிய மற்றும் மொபைல்-நட்பு வடிவமைப்புகள் உருவாக்குதல்{% else %}Creating responsive and mobile-friendly designs{% endif %}</li>
+                <li>{% if language == 'ta' %}API களுடன் ஒருங்கிணைத்தல்{% else %}Integrating with backend APIs{% endif %}</li>
+                <li>{% if language == 'ta' %}செயல்திறன் மேம்படுத்துதல்{% else %}Optimizing performance and load times{% endif %}</li>
+                <li>{% if language == 'ta' %}குறுக்கு உலாவி இணக்கத்தை உறுதி செய்தல்{% else %}Ensuring cross-browser compatibility{% endif %}</li>
+            </ul>
+
+            <p><strong>{% if language == 'ta' %}வேலை சூழல்:{% else %}Work Environment:{% endif %}</strong></p>
+            <p>{% if language == 'ta' %}பெரும்பாலும் தொலைநிலை அல்லது கலப்பு. விரைவான மேம்பாடு மற்றும் வடிவமைப்பாளர்களுடன் ஒத்துழைப்பு.{% else %}Often remote or hybrid. Fast-paced development with collaboration between designers, backend developers, and product teams.{% endif %}</p>
+
+            {% else %}
+            <p><strong>{% if language == 'ta' %}என்ன செய்கிறார்கள்?{% else %}What They Do:{% endif %}</strong></p>
+            <p>{% if language == 'ta' %}{{ career_data.role }} நிபுணர்கள் {{ career_data.domain }} துறையில் வேலை செய்கிறார்கள்.{% else %}{{ career_data.role }} professionals work in the {{ career_data.domain }} domain, applying specialized skills to solve industry-specific challenges.{% endif %}</p>
+            
+            <p><strong>{% if language == 'ta' %}தினசரி பொறுப்புகள்:{% else %}Day-to-Day Responsibilities:{% endif %}</strong></p>
+            <ul>
+                <li>{% if language == 'ta' %}திட்டங்களில் குழு உறுப்பினர்களுடன் ஒத்துழைத்தல்{% else %}Collaborating with team members on projects{% endif %}</li>
+                <li>{% if language == 'ta' %}தொழில்நுட்ப தீர்வுகளை செயல்படுத்துதல்{% else %}Implementing technical solutions{% endif %}</li>
+                <li>{% if language == 'ta' %}குறியீடு/வேலையை ஆய்வு செய்து சோதனை செய்தல்{% else %}Reviewing and testing code/work{% endif %}</li>
+                <li>{% if language == 'ta' %}ஆவணப்படுத்துதல் மற்றும் அறிக்கையிடல்{% else %}Documentation and reporting{% endif %}</li>
+                <li>{% if language == 'ta' %}தொடர்ச்சியான கற்றல் மற்றும் மேம்பாடு{% else %}Continuous learning and improvement{% endif %}</li>
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Section 2: Learning Roadmap -->
+    <div id="learning-roadmap" class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="fas fa-road"></i> {% if language == 'ta' %}{{ career_data.roadmap_months }} மாத கற்றல் வழிகாட்டி{% else %}{{ career_data.roadmap_months }}-Month Learning Roadmap{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            {% if career_data.roadmap_months == 3 %}
+            <!-- 3-Month Intensive Roadmap -->
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> {% if language == 'ta' %}தீவிர கற்றல் பாதை - நாள் ஒன்றுக்கு குறைந்தது 4-6 மணிநேரம் தேவை{% else %}Intensive learning path - Requires minimum 4-6 hours daily commitment{% endif %}
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker bg-primary"></div>
+                    <div class="timeline-content">
+                        <h6><strong>{% if language == 'ta' %}மாதம் 1: அடிப்படைகள் & மையக் கருத்துகள்{% else %}Month 1: Fundamentals & Core Concepts{% endif %}</strong></h6>
+                        <ul>
+                            <li>{% if language == 'ta' %}வாரம் 1-2: Excel (முன்னேறிய சூத்திரங்கள், Pivot Tables, VBA அடிப்படைகள்){% else %}Week 1-2: Excel (Advanced formulas, Pivot Tables, VBA basics){% endif %}</li>
+                            <li>{% if language == 'ta' %}வாரம் 3-4: SQL (Joins, Subqueries, Window Functions){% else %}Week 3-4: SQL (Joins, Subqueries, Window Functions){% endif %}</li>
+                            <li>{% if language == 'ta' %}கணித அடிப்படைகள்: புள்ளியியல், நிகழ்தகவு{% else %}Statistics fundamentals: Mean, Median, Standard Deviation, Probability{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker bg-warning"></div>
+                    <div class="timeline-content">
+                        <h6><strong>{% if language == 'ta' %}மாதம் 2: நிரலாக்கம் & காட்சிப்படுத்தல்{% else %}Month 2: Programming & Visualization{% endif %}</strong></h6>
+                        <ul>
+                            <li>{% if language == 'ta' %}வாரம் 1-2: Python (Pandas, NumPy, தரவு சுத்தம்){% else %}Week 1-2: Python (Pandas, NumPy, Data cleaning){% endif %}</li>
+                            <li>{% if language == 'ta' %}வாரம் 3: Tableau அல்லது Power BI{% else %}Week 3: Tableau or Power BI{% endif %}</li>
+                            <li>{% if language == 'ta' %}வாரம் 4: ஊடாடும் டாஷ்போர்டுகள் உருவாக்குதல்{% else %}Week 4: Building interactive dashboards{% endif %}</li>
+                            <li>{% if language == 'ta' %}2 சிறிய திட்டங்களை முடிக்கவும்{% else %}Complete 2 mini projects{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker bg-success"></div>
+                    <div class="timeline-content">
+                        <h6><strong>{% if language == 'ta' %}மாதம் 3: திட்டங்கள் & வேலை தயாரிப்பு{% else %}Month 3: Projects & Job Prep{% endif %}</strong></h6>
+                        <ul>
+                            <li>{% if language == 'ta' %}வாரம் 1-2: 2 விரிவான திட்டங்கள் (GitHub போர்ட்ஃபோலியோ){% else %}Week 1-2: 2 comprehensive projects (GitHub portfolio){% endif %}</li>
+                            <li>{% if language == 'ta' %}வாரம் 3: தொழில்நுட்ப நேர்காணல் தயாரிப்பு{% else %}Week 3: Technical interview preparation{% endif %}</li>
+                            <li>{% if language == 'ta' %}வாரம் 4: ரெஸ்யூம் கட்டமைத்தல், LinkedIn, விண்ணப்பங்கள்{% else %}Week 4: Resume building, LinkedIn, Applications{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {% elif career_data.roadmap_months == 6 %}
+            <!-- 6-Month Balanced Roadmap (RECOMMENDED) -->
+            <div class="alert alert-success">
+                <i class="fas fa-star"></i> {% if language == 'ta' %}பரிந்துரைக்கப்பட்ட சமநிலை பாதை - ஆழமான கற்றல் மற்றும் நடைமுறை அனுபவம்{% else %}Recommended balanced path - Deep learning with practical experience{% endif %}
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <strong>{% if language == 'ta' %}கட்டம் 1: அடித்தளம் (மாதம் 1-2){% else %}Phase 1: Foundation (Months 1-2){% endif %}</strong>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>{% if language == 'ta' %}Excel மேம்பட்ட திறன்கள்{% else %}Excel advanced skills{% endif %}</li>
+                                <li>SQL {% if language == 'ta' %}தேர்ச்சி{% else %}mastery{% endif %}</li>
+                                <li>{% if language == 'ta' %}புள்ளியியல் அடிப்படைகள்{% else %}Statistics fundamentals{% endif %}</li>
+                                <li>{% if language == 'ta' %}தரவு காட்சிப்படுத்தல் கோட்பாடு{% else %}Data visualization theory{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning text-dark">
+                            <strong>{% if language == 'ta' %}கட்டம் 2: நிரலாக்கம் (மாதம் 3-4){% else %}Phase 2: Programming (Months 3-4){% endif %}</strong>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>Python {% if language == 'ta' %}தரவு பகுப்பாய்வுக்காக{% else %}for data analysis{% endif %}</li>
+                                <li>Pandas & NumPy</li>
+                                <li>Tableau/Power BI</li>
+                                <li>{% if language == 'ta' %}3 நடைமுறை திட்டங்கள்{% else %}3 hands-on projects{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-info">
+                        <div class="card-header bg-info text-white">
+                            <strong>{% if language == 'ta' %}கட்டம் 3: மேம்பட்ட (மாதம் 5){% else %}Phase 3: Advanced (Month 5){% endif %}</strong>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>{% if language == 'ta' %}மேம்பட்ட SQL{% else %}Advanced SQL{% endif %} (CTEs, Window Functions)</li>
+                                <li>{% if language == 'ta' %}இயந்திர கற்றல் அடிப்படைகள்{% else %}Machine Learning basics{% endif %}</li>
+                                <li>{% if language == 'ta' %}தரவு கதைசொல்லல்{% else %}Data storytelling{% endif %}</li>
+                                <li>{% if language == 'ta' %}பெரிய விரிவான திட்டம்{% else %}Large capstone project{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <strong>{% if language == 'ta' %}கட்டம் 4: வேலை தயாரிப்பு (மாதம் 6){% else %}Phase 4: Job Prep (Month 6){% endif %}</strong>
+                        </div>
+                        <div class="card-body">
+                            <ul class="mb-0">
+                                <li>{% if language == 'ta' %}போர்ட்ஃபோலியோ மேம்பாடு{% else %}Portfolio development{% endif %}</li>
+                                <li>{% if language == 'ta' %}நடைமுறை வழக்கு ஆய்வுகள்{% else %}Mock case studies{% endif %}</li>
+                                <li>{% if language == 'ta' %}நேர்காணல் தயாரிப்பு{% else %}Interview prep{% endif %}</li>
+                                <li>{% if language == 'ta' %}வலைப்பின்னல் & விண்ணப்பங்கள்{% else %}Networking & applications{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- 12-Month Comprehensive Roadmap -->
+            <div class="alert alert-primary">
+                <i class="fas fa-graduation-cap"></i> {% if language == 'ta' %}விரிவான கற்றல் - ஆழமான நிபுணத்துவம் & பல திறன்கள்{% else %}Comprehensive learning - Deep expertise & multiple skills{% endif %}
+            </div>
+            
+            <div class="accordion" id="roadmapAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#quarter1">
+                            <strong>{% if language == 'ta' %}Q1 (மாதம் 1-3): அடித்தளம் & அடிப்படைகள்{% else %}Q1 (Months 1-3): Foundation & Basics{% endif %}</strong>
+                        </button>
+                    </h2>
+                    <div id="quarter1" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>{% if language == 'ta' %}மாதம் 1: Excel தேர்ச்சி, SQL அடிப்படைகள்{% else %}Month 1: Excel mastery, SQL basics{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 2: மேம்பட்ட SQL, புள்ளியியல் அடிப்படைகள்{% else %}Month 2: Advanced SQL, Statistics fundamentals{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 3: Python அடிப்படைகள், தரவு கையாளுதல்{% else %}Month 3: Python basics, Data manipulation{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#quarter2">
+                            <strong>{% if language == 'ta' %}Q2 (மாதம் 4-6): நிரலாக்கம் & காட்சிப்படுத்தல்{% else %}Q2 (Months 4-6): Programming & Visualization{% endif %}</strong>
+                        </button>
+                    </h2>
+                    <div id="quarter2" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>{% if language == 'ta' %}மாதம் 4: Python (Pandas, NumPy){% else %}Month 4: Python (Pandas, NumPy){% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 5: Tableau தேர்ச்சி{% else %}Month 5: Tableau mastery{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 6: Power BI, டாஷ்போர்டுகள்{% else %}Month 6: Power BI, Dashboards{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#quarter3">
+                            <strong>{% if language == 'ta' %}Q3 (மாதம் 7-9): மேம்பட்ட திறன்கள்{% else %}Q3 (Months 7-9): Advanced Skills{% endif %}</strong>
+                        </button>
+                    </h2>
+                    <div id="quarter3" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>{% if language == 'ta' %}மாதம் 7: இயந்திர கற்றல் அடிப்படைகள்{% else %}Month 7: Machine Learning basics{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 8: பெரிய தரவு கருவிகள் (Spark, Hadoop){% else %}Month 8: Big Data tools (Spark, Hadoop){% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 9: A/B சோதனை, புள்ளியியல் மாடலிங்{% else %}Month 9: A/B Testing, Statistical modeling{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#quarter4">
+                            <strong>{% if language == 'ta' %}Q4 (மாதம் 10-12): திட்டங்கள் & வேலை தயாரிப்பு{% else %}Q4 (Months 10-12): Projects & Job Prep{% endif %}</strong>
+                        </button>
+                    </h2>
+                    <div id="quarter4" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>{% if language == 'ta' %}மாதம் 10: 3 விரிவான திட்டங்கள்{% else %}Month 10: 3 comprehensive projects{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 11: போர்ட்ஃபோலியோ, GitHub, LinkedIn{% else %}Month 11: Portfolio, GitHub, LinkedIn{% endif %}</li>
+                                <li>{% if language == 'ta' %}மாதம் 12: நேர்காணல் தயாரிப்பு, விண்ணப்பங்கள்{% else %}Month 12: Interview prep, Applications{% endif %}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Section 3: Tools & Technologies -->
+    <div id="tools-tech" class="card shadow-sm mb-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0"><i class="fas fa-tools"></i> {% if language == 'ta' %}கருவிகள் & தொழில்நுட்பங்கள்{% else %}Tools & Technologies to Learn{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% if "Data Analyst" in career_data.role or "Data" in career_data.domain %}
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-file-excel text-success"></i> Microsoft Excel</h6>
+                    <span class="badge bg-success">{% if language == 'ta' %}எளிதானது{% else %}Easy{% endif %}</span>
+                    <p class="mt-2 small">{% if language == 'ta' %}Pivot Tables, VLOOKUP, சூத்திரங்கள், தரவு சரிபார்ப்பு{% else %}Pivot Tables, VLOOKUP, Advanced formulas, Data validation{% endif %}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-database text-primary"></i> SQL</h6>
+                    <span class="badge bg-warning text-dark">{% if language == 'ta' %}நடுத்தரம்{% else %}Medium{% endif %}</span>
+                    <p class="mt-2 small">{% if language == 'ta' %}Joins, Subqueries, Window Functions, CTE{% else %}Joins, Subqueries, Window Functions, CTEs{% endif %}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fab fa-python text-warning"></i> Python</h6>
+                    <span class="badge bg-warning text-dark">{% if language == 'ta' %}நடுத்தரம்{% else %}Medium{% endif %}</span>
+                    <p class="mt-2 small">Pandas, NumPy, Matplotlib, Seaborn</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-chart-bar text-danger"></i> Tableau / Power BI</h6>
+                    <span class="badge bg-success">{% if language == 'ta' %}எளிதானது{% else %}Easy{% endif %}</span>
+                    <p class="mt-2 small">{% if language == 'ta' %}காட்சிப்படுத்தல், டாஷ்போர்டுகள், DAX{% else %}Visualizations, Dashboards, DAX{% endif %}</p>
+                </div>
+                {% endif %}
+
+                {% if "Frontend" in career_data.role or "Web" in career_data.domain %}
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fab fa-html5 text-danger"></i> HTML & CSS</h6>
+                    <span class="badge bg-success">{% if language == 'ta' %}எளிதானது{% else %}Easy{% endif %}</span>
+                    <p class="mt-2 small">{% if language == 'ta' %}சொருகு, Flexbox, Grid, Responsive{% else %}Semantic HTML, Flexbox, Grid, Responsive design{% endif %}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fab fa-js text-warning"></i> JavaScript</h6>
+                    <span class="badge bg-warning text-dark">{% if language == 'ta' %}நடுத்தரம்{% else %}Medium{% endif %}</span>
+                    <p class="mt-2 small">ES6+, DOM, {% if language == 'ta' %}நிகழ்வுகள், Async{% else %}Events, Async/Await{% endif %}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fab fa-react text-info"></i> React.js</h6>
+                    <span class="badge bg-danger">{% if language == 'ta' %}கடினம்{% else %}Hard{% endif %}</span>
+                    <p class="mt-2 small">Components, Hooks, State, {% if language == 'ta' %}திசைவழி{% else %}Routing{% endif %}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fab fa-git-alt text-dark"></i> Git & GitHub</h6>
+                    <span class="badge bg-success">{% if language == 'ta' %}எளிதானது{% else %}Easy{% endif %}</span>
+                    <p class="mt-2 small">{% if language == 'ta' %}பதிப்பு கட்டுப்பாடு, கிளைகள், ஒருங்கிணைப்பு{% else %}Version control, Branches, Merging{% endif %}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 4: Course Recommendations -->
+    <div id="courses" class="card shadow-sm mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0"><i class="fas fa-graduation-cap"></i> {% if language == 'ta' %}பரிந்துரைக்கப்பட்ட படிப்புகள்{% else %}Recommended Courses{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            {% if career_data.budget == "Low" or career_data.budget == "Skip" %}
+            <div class="alert alert-info">
+                <i class="fas fa-lightbulb"></i> {% if language == 'ta' %}இலவச வளங்களில் கவனம் செலுத்துதல்{% else %}Focusing on FREE resources for your budget{% endif %}
+            </div>
+            {% endif %}
+
+            <h6 class="mb-3"><i class="fas fa-seedling"></i> {% if language == 'ta' %}ஆரம்பநிலைக்கான படிப்புகள்{% else %}Beginner Courses{% endif %}</h6>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% if language == 'ta' %}படிப்பு{% else %}Course{% endif %}</th>
+                            <th>{% if language == 'ta' %}தளம்{% else %}Platform{% endif %}</th>
+                            <th>{% if language == 'ta' %}விலை{% else %}Price{% endif %}</th>
+                            <th>{% if language == 'ta' %}காலம்{% else %}Duration{% endif %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if "Data" in career_data.role or "Data" in career_data.domain %}
+                        <tr>
+                            <td>{% if language == 'ta' %}தரவு பகுப்பாய்வு தொழில் சான்றிதழ்{% else %}Google Data Analytics Certificate{% endif %}</td>
+                            <td>Coursera</td>
+                            <td>{% if career_data.budget == "Low" or career_data.budget == "Skip" %}{% if language == 'ta' %}இலவசம் (தேர்வு){% else %}FREE (Audit){% endif %}{% else %}$39/{% if language == 'ta' %}மாதம்{% else %}month{% endif %}{% endif %}</td>
+                            <td>6 {% if language == 'ta' %}மாதங்கள்{% else %}months{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}SQL ஆரம்பநிலைக்கானது{% else %}SQL for Beginners{% endif %}</td>
+                            <td>YouTube (freeCodeCamp)</td>
+                            <td>{% if language == 'ta' %}இலவசம்{% else %}FREE{% endif %}</td>
+                            <td>4 {% if language == 'ta' %}மணிநேரம்{% else %}hours{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>Python {% if language == 'ta' %}தரவு அறிவியலுக்காக{% else %}for Data Science{% endif %}</td>
+                            <td>DataCamp</td>
+                            <td>{% if career_data.budget == "Low" or career_data.budget == "Skip" %}{% if language == 'ta' %}இலவசம் (முதல் அத்தியாயம்){% else %}FREE (1st chapter){% endif %}{% else %}$25/{% if language == 'ta' %}மாதம்{% else %}month{% endif %}{% endif %}</td>
+                            <td>4 {% if language == 'ta' %}மாதங்கள்{% else %}months{% endif %}</td>
+                        </tr>
+                        {% elif "Frontend" in career_data.role %}
+                        <tr>
+                            <td>{% if language == 'ta' %}பதிலளிக்கக்கூடிய வலை வடிவமைப்பு{% else %}Responsive Web Design{% endif %}</td>
+                            <td>freeCodeCamp</td>
+                            <td>{% if language == 'ta' %}இலவசம்{% else %}FREE{% endif %}</td>
+                            <td>300 {% if language == 'ta' %}மணிநேரம்{% else %}hours{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>JavaScript {% if language == 'ta' %}அல்காரிதம்கள்{% else %}Algorithms{% endif %}</td>
+                            <td>freeCodeCamp</td>
+                            <td>{% if language == 'ta' %}இலவசம்{% else %}FREE{% endif %}</td>
+                            <td>300 {% if language == 'ta' %}மணிநேரம்{% else %}hours{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>React {% if language == 'ta' %}முழு படிப்பு{% else %}Complete Course{% endif %}</td>
+                            <td>YouTube (Traversy Media)</td>
+                            <td>{% if language == 'ta' %}இலவசம்{% else %}FREE{% endif %}</td>
+                            <td>9 {% if language == 'ta' %}மணிநேரம்{% else %}hours{% endif %}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{% if language == 'ta' %}உங்கள் பாத்திரத்திற்கான அறிமுக படிப்பு{% else %}Introduction to {{ career_data.role }}{% endif %}</td>
+                            <td>Coursera/Udemy</td>
+                            <td>{% if career_data.budget == "Low" or career_data.budget == "Skip" %}{% if language == 'ta' %}இலவசம்{% else %}FREE{% endif %}{% else %}$49{% endif %}</td>
+                            <td>4-8 {% if language == 'ta' %}வாரங்கள்{% else %}weeks{% endif %}</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if career_data.budget != "Low" and career_data.budget != "Skip" %}
+            <h6 class="mb-3 mt-4"><i class="fas fa-rocket"></i> {% if language == 'ta' %}மேம்பட்ட படிப்புகள்{% else %}Advanced Courses{% endif %}</h6>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% if language == 'ta' %}படிப்பு{% else %}Course{% endif %}</th>
+                            <th>{% if language == 'ta' %}தளம்{% else %}Platform{% endif %}</th>
+                            <th>{% if language == 'ta' %}விலை{% else %}Price{% endif %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if "Data" in career_data.role or "Data" in career_data.domain %}
+                        <tr>
+                            <td>{% if language == 'ta' %}தரவு அறிவியல் சிறப்பு{% else %}Data Science Specialization{% endif %}</td>
+                            <td>Coursera (Johns Hopkins)</td>
+                            <td>$49/{% if language == 'ta' %}மாதம்{% else %}month{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}மேம்பட்ட SQL + Tableau{% else %}Advanced SQL + Tableau{% endif %}</td>
+                            <td>Udacity</td>
+                            <td>$399</td>
+                        </tr>
+                        {% elif "Frontend" in career_data.role %}
+                        <tr>
+                            <td>{% if language == 'ta' %}முழு அடுக்கு வலை உருவாக்குநர்{% else %}Complete Full-Stack Web Developer{% endif %}</td>
+                            <td>Udemy</td>
+                            <td>$99</td>
+                        </tr>
+                        <tr>
+                            <td>React - {% if language == 'ta' %}முழு வழிகாட்டி{% else %}The Complete Guide{% endif %}</td>
+                            <td>Udemy</td>
+                            <td>$79</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Section 5: Project Suggestions -->
+    <div id="projects" class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-project-diagram"></i> {% if language == 'ta' %}போர்ட்ஃபோலியோ திட்ட யோசனைகள்{% else %}Portfolio Project Ideas{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <h6 class="mb-3"><i class="fas fa-star text-warning"></i> {% if language == 'ta' %}ஆரம்பநிலை திட்டங்கள் (3-5 நாட்கள்){% else %}Beginner Projects (3-5 days each){% endif %}</h6>
+            <div class="row">
+                {% if "Data" in career_data.role or "Data" in career_data.domain %}
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-chart-line"></i> {% if language == 'ta' %}விற்பனை தரவு பகுப்பாய்வு{% else %}Sales Data Analysis{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}Excel மற்றும் SQL ஐப் பயன்படுத்தி விற்பனை போக்குகளை பகுப்பாய்வு செய்யவும்{% else %}Analyze sales trends using Excel and SQL{% endif %}</p>
+                            <span class="badge bg-success">Excel</span>
+                            <span class="badge bg-primary">SQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-users"></i> {% if language == 'ta' %}வாடிக்கையாளர் பிரித்தல்{% else %}Customer Segmentation{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}Python & Pandas உடன் வாடிக்கையாளர்களை பிரிக்கவும்{% else %}Segment customers using Python & Pandas{% endif %}</p>
+                            <span class="badge bg-warning">Python</span>
+                            <span class="badge bg-info">Pandas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-chart-bar"></i> COVID-19 {% if language == 'ta' %}டாஷ்போர்டு{% else %}Dashboard{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}Tableau இல் ஊடாடும் டாஷ்போர்டு உருவாக்கவும்{% else %}Build interactive dashboard in Tableau{% endif %}</p>
+                            <span class="badge bg-danger">Tableau</span>
+                        </div>
+                    </div>
+                </div>
+                {% elif "Frontend" in career_data.role %}
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-briefcase"></i> {% if language == 'ta' %}தனிப்பட்ட போர்ட்ஃபோலியோ{% else %}Personal Portfolio{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}HTML, CSS, JavaScript பயன்படுத்தி{% else %}Build with HTML, CSS, JavaScript{% endif %}</p>
+                            <span class="badge bg-danger">HTML</span>
+                            <span class="badge bg-primary">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-tasks"></i> Todo {% if language == 'ta' %}பயன்பாடு{% else %}App{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}தரவு உள்ளூர் சேமிப்பகத்துடன்{% else %}With local storage for data persistence{% endif %}</p>
+                            <span class="badge bg-warning">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-cloud-sun"></i> {% if language == 'ta' %}வானிலை பயன்பாடு{% else %}Weather App{% endif %}</h6>
+                            <p class="small">{% if language == 'ta' %}API ஒருங்கிணைப்பு{% else %}API integration practice{% endif %}</p>
+                            <span class="badge bg-info">API</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <h6 class="mb-3 mt-4"><i class="fas fa-trophy text-success"></i> {% if language == 'ta' %}இடைநிலை திட்டங்கள் (1-2 வாரங்கள்){% else %}Intermediate Projects (1-2 weeks){% endif %}</h6>
+            <div class="row">
+                {% if "Data" in career_data.role or "Data" in career_data.domain %}
+                <div class="col-md-12 mb-3">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h6><i class="fas fa-store"></i> {% if language == 'ta' %}மின்-வணிக விற்பனை முன்கணிப்பு{% else %}E-commerce Sales Forecasting{% endif %}</h6>
+                            <p>{% if language == 'ta' %}வரலாற்று தரவு, Python, இயந்திர கற்றல் மாதிரிகளைப் பயன்படுத்தி எதிர்கால விற்பனையை முன்னறிவிக்கவும்{% else %}Predict future sales using historical data, Python, and machine learning models{% endif %}</p>
+                            <span class="badge bg-warning">Python</span>
+                            <span class="badge bg-danger">ML</span>
+                            <span class="badge bg-primary">SQL</span>
+                            <span class="badge bg-success">Tableau</span>
+                        </div>
+                    </div>
+                </div>
+                {% elif "Frontend" in career_data.role %}
+                <div class="col-md-12 mb-3">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h6><i class="fas fa-shopping-cart"></i> {% if language == 'ta' %}மின்-வணிக தளம்{% else %}E-commerce Website{% endif %}</h6>
+                            <p>{% if language == 'ta' %}React, Redux, வண்டி, இணைப்பு உள்ளிட்ட முழு அம்சமுள்ள{% else %}Full-featured with React, Redux, cart, checkout{% endif %}</p>
+                            <span class="badge bg-info">React</span>
+                            <span class="badge bg-warning">Redux</span>
+                            <span class="badge bg-danger">API</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: Skills Required -->
+    <div id="skills" class="card shadow-sm mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="fas fa-cogs"></i> {% if language == 'ta' %}தேவையான திறன்கள்{% else %}Skills Required{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6><i class="fas fa-code"></i> {% if language == 'ta' %}தொழில்நுட்ப திறன்கள்{% else %}Technical Skills{% endif %}</h6>
+                    <ul class="list-group">
+                        {% if "Data" in career_data.role or "Data" in career_data.domain %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            SQL
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Python
+                            <span class="text-warning">★★★★☆</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}தரவு காட்சிப்படுத்தல்{% else %}Data Visualization{% endif %}
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}புள்ளியியல்{% else %}Statistics{% endif %}
+                            <span class="text-warning">★★★★☆</span>
+                        </li>
+                        {% elif "Frontend" in career_data.role %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            HTML/CSS
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            JavaScript
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            React/Vue/Angular
+                            <span class="text-warning">★★★★☆</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}பதிலளிக்கக்கூடிய வடிவமைப்பு{% else %}Responsive Design{% endif %}
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h6><i class="fas fa-handshake"></i> {% if language == 'ta' %}மென் திறன்கள்{% else %}Soft Skills{% endif %}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}சிக்கல் தீர்வு{% else %}Problem Solving{% endif %}
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}தகவல்தொடர்பு{% else %}Communication{% endif %}
+                            <span class="text-warning">★★★★☆</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}குழு பணி{% else %}Teamwork{% endif %}
+                            <span class="text-warning">★★★★☆</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}விமர்சன சிந்தனை{% else %}Critical Thinking{% endif %}
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if language == 'ta' %}கவனம் செலுத்துதல்{% else %}Attention to Detail{% endif %}
+                            <span class="text-warning">★★★★★</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 7: Salary Expectations -->
+    <div id="salary" class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="fas fa-money-bill-wave"></i> {% if language == 'ta' %}சம்பள எதிர்பார்ப்புகள்{% else %}Salary Expectations{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <h6 class="mb-3"><i class="fas fa-flag-india"></i> {% if language == 'ta' %}இந்தியா (LPA - மொத்த ஆண்டு சம்பளம்){% else %}India (LPA - Lakhs Per Annum){% endif %}</h6>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% if language == 'ta' %}அனுபவம்{% else %}Experience Level{% endif %}</th>
+                            <th>{% if language == 'ta' %}சம்பள வரம்பு{% else %}Salary Range{% endif %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if "Data Analyst" in career_data.role %}
+                        <tr>
+                            <td>{% if language == 'ta' %}புதியவர் (0-2 ஆண்டுகள்){% else %}Entry Level (0-2 years){% endif %}</td>
+                            <td>₹2.4 - ₹6 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}நடுத்தர நிலை (3-5 ஆண்டுகள்){% else %}Mid-Level (3-5 years){% endif %}</td>
+                            <td>₹6 - ₹12 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}மூத்த நிலை (6+ ஆண்டுகள்){% else %}Senior Level (6+ years){% endif %}</td>
+                            <td>₹12 - ₹30 LPA</td>
+                        </tr>
+                        {% elif "Frontend Developer" in career_data.role %}
+                        <tr>
+                            <td>{% if language == 'ta' %}புதியவர் (0-2 ஆண்டுகள்){% else %}Entry Level (0-2 years){% endif %}</td>
+                            <td>₹3 - ₹7 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}நடுத்தர நிலை (3-5 ஆண்டுகள்){% else %}Mid-Level (3-5 years){% endif %}</td>
+                            <td>₹7 - ₹15 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}மூத்த நிலை (6+ ஆண்டுகள்){% else %}Senior Level (6+ years){% endif %}</td>
+                            <td>₹15 - ₹40 LPA</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{% if language == 'ta' %}புதியவர்{% else %}Entry Level{% endif %}</td>
+                            <td>₹2.5 - ₹6 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}நடுத்தர நிலை{% else %}Mid-Level{% endif %}</td>
+                            <td>₹6 - ₹15 LPA</td>
+                        </tr>
+                        <tr>
+                            <td>{% if language == 'ta' %}மூத்த நிலை{% else %}Senior Level{% endif %}</td>
+                            <td>₹15 - ₹35 LPA</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h6 class="mb-3 mt-4"><i class="fas fa-globe"></i> {% if language == 'ta' %}சர்வதேச (ஆண்டுக்கு){% else %}International (Per Year){% endif %}</h6>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-flag-usa"></i> {% if language == 'ta' %}அமெரிக்கா{% else %}USA{% endif %}</h6>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}புதியவர்:{% else %}Entry:{% endif %}</strong> $60,000 - $85,000</p>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}மூத்த:{% else %}Senior:{% endif %}</strong> $100,000 - $150,000+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h6><i class="fas fa-flag"></i> {% if language == 'ta' %}ஐக்கிய இராச்சியம்{% else %}UK{% endif %}</h6>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}புதியவர்:{% else %}Entry:{% endif %}</strong> £25,000 - £35,000</p>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}மூத்த:{% else %}Senior:{% endif %}</strong> £45,000 - £75,000+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card border-warning">
+                        <div class="card-body">
+                            <h6><i class="fas fa-flag"></i> {% if language == 'ta' %}கனடா{% else %}Canada{% endif %}</h6>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}புதியவர்:{% else %}Entry:{% endif %}</strong> CAD 50,000 - 70,000</p>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}மூத்த:{% else %}Senior:{% endif %}</strong> CAD 80,000 - 120,000+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <h6><i class="fas fa-flag"></i> {% if language == 'ta' %}ஆஸ்திரேலியா{% else %}Australia{% endif %}</h6>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}புதியவர்:{% else %}Entry:{% endif %}</strong> AUD 60,000 - 80,000</p>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}மூத்த:{% else %}Senior:{% endif %}</strong> AUD 90,000 - 130,000+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <div class="card border-info">
+                        <div class="card-body">
+                            <h6><i class="fas fa-flag"></i> {% if language == 'ta' %}சிங்கப்பூர்{% else %}Singapore{% endif %}</h6>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}புதியவர்:{% else %}Entry:{% endif %}</strong> SGD 48,000 - 65,000</p>
+                            <p class="mb-0"><strong>{% if language == 'ta' %}மூத்த:{% else %}Senior:{% endif %}</strong> SGD 80,000 - 120,000+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 8: Top Hiring Companies -->
+    <div id="companies" class="card shadow-sm mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><i class="fas fa-building"></i> {% if language == 'ta' %}முதன்மை ஆட்சேர்ப்பு நிறுவனங்கள்{% else %}Top Hiring Companies{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-globe-americas"></i> {% if language == 'ta' %}உலக தொழில்நுட்ப நிறுவனங்கள்{% else %}Global Tech Giants{% endif %}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item"><i class="fab fa-google text-danger"></i> Google</li>
+                        <li class="list-group-item"><i class="fab fa-microsoft text-primary"></i> Microsoft</li>
+                        <li class="list-group-item"><i class="fab fa-amazon text-warning"></i> Amazon</li>
+                        <li class="list-group-item"><i class="fab fa-facebook text-info"></i> Meta (Facebook)</li>
+                        <li class="list-group-item"><i class="fab fa-apple text-dark"></i> Apple</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-flag-india"></i> {% if language == 'ta' %}இந்திய IT நிறுவனங்கள்{% else %}Indian IT Companies{% endif %}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">TCS (Tata Consultancy Services)</li>
+                        <li class="list-group-item">Infosys</li>
+                        <li class="list-group-item">Wipro</li>
+                        <li class="list-group-item">HCL Technologies</li>
+                        <li class="list-group-item">Tech Mahindra</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-chart-line"></i> {% if language == 'ta' %}ஆலோசனை நிறுவனங்கள்{% else %}Consulting Firms{% endif %}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">Deloitte</li>
+                        <li class="list-group-item">Accenture</li>
+                        <li class="list-group-item">PwC</li>
+                        <li class="list-group-item">EY (Ernst & Young)</li>
+                        <li class="list-group-item">KPMG</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h6><i class="fas fa-rocket"></i> {% if language == 'ta' %}வளர்ந்து வரும் நிறுவனங்கள்{% else %}Startups & Emerging{% endif %}</h6>
+                    <ul class="list-group">
+                        <li class="list-group-item">Flipkart</li>
+                        <li class="list-group-item">Paytm</li>
+                        <li class="list-group-item">Swiggy</li>
+                        <li class="list-group-item">Zomato</li>
+                        <li class="list-group-item">CRED</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 9: Success Prediction -->
+    <div id="success" class="card shadow-sm mb-4">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0"><i class="fas fa-bullseye"></i> {% if language == 'ta' %}வெற்றி முன்னறிவிப்பு{% else %}Success Prediction{% endif %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <h1 class="display-1 text-success"><strong>82%</strong></h1>
+                <p class="lead">{% if language == 'ta' %}உங்கள் வெற்றி வாய்ப்பு மதிப்பெண்{% else %}Your Success Probability Score{% endif %}</p>
+            </div>
+
+            <div class="alert alert-success">
+                <i class="fas fa-thumbs-up"></i> {% if language == 'ta' %}மிகவும் நல்லது! நீங்கள் சரியான பாதையில் இருக்கிறீர்கள். கடின உழைப்புடன், நீங்கள் {{ career_data.roadmap_months }} மாதங்களில் வேலைக்கு தயாராக இருப்பீர்கள்.{% else %}Excellent! You're on the right track. With hard work and dedication, you'll be job-ready within {{ career_data.roadmap_months }} months.{% endif %}
+            </div>
+
+            <h6 class="mb-3">{% if language == 'ta' %}மதிப்பெண் உடைப்பு:{% else %}Score Breakdown:{% endif %}</h6>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h6><i class="fas fa-graduation-cap"></i> {% if language == 'ta' %}கல்வி பின்னணி{% else %}Educational Background{% endif %}</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 75%">75%</div>
+                            </div>
+                            <p class="small mt-2">{{ career_data.degree }} - {{ career_data.department }}</p>
+                            <p class="text-success mb-0"><strong>+30 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h6><i class="fas fa-clock"></i> {% if language == 'ta' %}கற்றல் அர்ப்பணிப்பு{% else %}Learning Commitment{% endif %}</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" style="width: 85%">85%</div>
+                            </div>
+                            <p class="small mt-2">{{ career_data.study_hours }} {% if language == 'ta' %}மணிநேரம்/நாள்{% else %}hours/day{% endif %}</p>
+                            <p class="text-primary mb-0"><strong>+30 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-warning">
+                        <div class="card-body">
+                            <h6><i class="fas fa-calendar-alt"></i> {% if language == 'ta' %}காலவரிசை யதார்த்தம்{% else %}Timeline Realism{% endif %}</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: 70%">70%</div>
+                            </div>
+                            <p class="small mt-2">{{ career_data.roadmap_months }} {% if language == 'ta' %}மாத வழிகாட்டி{% else %}month roadmap{% endif %}</p>
+                            <p class="text-warning mb-0"><strong>+20 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card border-info">
+                        <div class="card-body">
+                            <h6><i class="fas fa-bullseye"></i> {% if language == 'ta' %}தொழில் பொருத்தம்{% else %}Career Fit{% endif %}</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 60%">60%</div>
+                            </div>
+                            <p class="small mt-2">{{ career_data.domain }} → {{ career_data.role }}</p>
+                            <p class="text-info mb-0"><strong>+20 {% if language == 'ta' %}புள்ளிகள்{% else %}points{% endif %}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning mt-3">
+                <h6><i class="fas fa-lightbulb"></i> {% if language == 'ta' %}உங்கள் மதிப்பெண்ணை மேம்படுத்த:{% else %}To Improve Your Score:{% endif %}</h6>
+                <ul class="mb-0">
+                    <li>{% if language == 'ta' %}தினமும் சீராக படிக்கவும்{% else %}Study consistently every day{% endif %}</li>
+                    <li>{% if language == 'ta' %}குறைந்தது 2 போர்ட்ஃபோலியோ திட்டங்களை உருவாக்கவும்{% else %}Build at least 2 portfolio projects{% endif %}</li>
+                    <li>{% if language == 'ta' %}GitHub இல் செயலில் இருக்கவும்{% else %}Stay active on GitHub{% endif %}</li>
+                    <li>{% if language == 'ta' %}LinkedIn இல் வலைப்பின்னல் உருவாக்கவும்{% else %}Network on LinkedIn{% endif %}</li>
+                    <li>{% if language == 'ta' %}தொழில்துறை நிபுணர்களிடம் ஆலோசனை பெறவும்{% else %}Seek mentorship from industry professionals{% endif %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-body text-center">
+            <h5 class="mb-3">{% if language == 'ta' %}அடுத்த படிகள்{% else %}Next Steps{% endif %}</h5>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <button class="btn btn-primary btn-lg" onclick="window.print()">
+                    <i class="fas fa-download"></i> {% if language == 'ta' %}PDF ஆக பதிவிறக்கம்{% else %}Download as PDF{% endif %}
+                </button>
+                <a href="/career/input" class="btn btn-outline-secondary btn-lg">
+                    <i class="fas fa-redo"></i> {% if language == 'ta' %}புதிய திட்டம்{% else %}Create New Plan{% endif %}
+                </a>
+                <button class="btn btn-success btn-lg" onclick="shareRoadmap()">
+                    <i class="fas fa-share-alt"></i> {% if language == 'ta' %}பகிர்தல்{% else %}Share{% endif %}
+                </button>
+                <a href="/" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-home"></i> {% if language == 'ta' %}முகப்பு{% else %}Home{% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Top Button -->
+<button onclick="scrollToTop()" class="btn btn-primary rounded-circle position-fixed" style="bottom: 30px; right: 30px; width: 50px; height: 50px; z-index: 1000;">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function shareRoadmap() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'My Career Roadmap - PathGuide',
+            text: 'Check out my personalized {{ career_data.role }} career roadmap!',
+            url: window.location.href
+        });
+    } else {
+        alert('{% if language == "ta" %}இணைப்பு நகலெடுக்கப்பட்டது!{% else %}Link copied to clipboard!{% endif %}');
+        navigator.clipboard.writeText(window.location.href);
+    }
+}
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+</script>
+
+<style>
+@media print {
+    .btn, .card-header, nav, footer {
+        display: none !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+    
+    .accordion-collapse {
+        display: block !important;
+    }
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -30px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.timeline-content {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+}
+</style>
+{% endblock %}

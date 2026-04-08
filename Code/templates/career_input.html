@@ -1,0 +1,836 @@
+{% extends "base.html" %}
+
+{% block title %}PathGuide - {{ 'தொழில் பாதை உள்ளீடு' if language == 'ta' else 'Career Path Input' }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header Card -->
+        <div class="card card-custom bg-white mb-4" data-aos="fade-down">
+            <div class="card-body text-center py-4">
+                <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                <h2 class="fw-bold">
+                    {% if language == 'ta' %}
+                    கல்லூரி தொழில் பாதை வழிகாட்டி
+                    {% else %}
+                    College Career Path Guidance
+                    {% endif %}
+                </h2>
+                <p class="text-muted mb-3">
+                    {% if language == 'ta' %}
+                    உங்கள் விரிவான விவரங்களை நிரப்பவும் - தனிப்பயனாக்கப்பட்ட வழிகாட்டுதலைப் பெறுங்கள்
+                    {% else %}
+                    Fill in your comprehensive details for personalized career guidance
+                    {% endif %}
+                </p>
+                <!-- Progress Bar -->
+                <div class="progress" style="height: 25px;">
+                    <div id="formProgress" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <span class="fw-bold">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Input Form -->
+        <div class="card card-custom bg-white" data-aos="fade-up">
+            <div class="card-body p-4">
+                <form id="careerForm" onsubmit="submitCareerForm(event)">
+                    
+                    <!-- SECTION 1: PROFILE DETAILS -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-user"></i>
+                            {% if language == 'ta' %}1. சுயவிவர விவரங்கள்{% else %}1. Profile Details{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}பெயர் (விருப்பமானது){% else %}Name (Optional){% endif %}
+                                </label>
+                                <input type="text" class="form-control" id="name" name="name" 
+                                       placeholder="{% if language == 'ta' %}உங்கள் பெயரை உள்ளிடவும்{% else %}Enter your name{% endif %}"
+                                       maxlength="50">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}பட்டம்{% else %}Degree{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="degree" name="degree" required onchange="loadDepartments()">
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select your degree{% endif %}</option>
+                                    <option value="B.E / B.Tech">B.E / B.Tech</option>
+                                    <option value="B.Sc">B.Sc</option>
+                                    <option value="B.Com">B.Com</option>
+                                    <option value="B.A">B.A</option>
+                                    <option value="BCA">BCA</option>
+                                    <option value="BBA">BBA</option>
+                                    <option value="M.E / M.Tech">M.E / M.Tech</option>
+                                    <option value="M.Sc">M.Sc</option>
+                                    <option value="M.Com">M.Com</option>
+                                    <option value="MCA">MCA</option>
+                                    <option value="MBA">MBA</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}துறை{% else %}Department{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="department" name="department" required disabled onchange="loadDomains()">
+                                    <option value="">{% if language == 'ta' %}முதலில் பட்டத்தைத் தேர்ந்தெடுக்கவும்{% else %}Select degree first{% endif %}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}கல்லூரி பெயர் (விருப்பமானது){% else %}College Name (Optional){% endif %}
+                                </label>
+                                <input type="text" class="form-control" id="college" name="college" 
+                                       placeholder="{% if language == 'ta' %}உங்கள் கல்லூரி பெயர்{% else %}Enter your college name{% endif %}"
+                                       maxlength="100">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}படிப்பு ஆண்டு{% else %}Year of Study{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="year" name="year" required>
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select your year{% endif %}</option>
+                                    <option value="First Year">{% if language == 'ta' %}முதல் ஆண்டு{% else %}First Year{% endif %}</option>
+                                    <option value="Second Year">{% if language == 'ta' %}இரண்டாம் ஆண்டு{% else %}Second Year{% endif %}</option>
+                                    <option value="Third Year">{% if language == 'ta' %}மூன்றாம் ஆண்டு{% else %}Third Year{% endif %}</option>
+                                    <option value="Fourth Year">{% if language == 'ta' %}நான்காம் ஆண்டு{% else %}Fourth Year{% endif %}</option>
+                                    <option value="Final Year">{% if language == 'ta' %}இறுதி ஆண்டு{% else %}Final Year{% endif %}</option>
+                                    <option value="Completed">{% if language == 'ta' %}முடிந்தது{% else %}Completed{% endif %}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}செமஸ்டர்{% else %}Semester{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="semester" name="semester" required>
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select your semester{% endif %}</option>
+                                    <option value="1">1st Semester</option>
+                                    <option value="2">2nd Semester</option>
+                                    <option value="3">3rd Semester</option>
+                                    <option value="4">4th Semester</option>
+                                    <option value="5">5th Semester</option>
+                                    <option value="6">6th Semester</option>
+                                    <option value="7">7th Semester</option>
+                                    <option value="8">8th Semester</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: LOCATION DETAILS -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {% if language == 'ta' %}2. இடம் விவரங்கள்{% else %}2. Location Details{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}மாவட்டம்{% else %}District{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="district" name="district" required onchange="loadCities()">
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select your district{% endif %}</option>
+                                    <option value="Ariyalur">Ariyalur</option>
+                                    <option value="Chengalpattu">Chengalpattu</option>
+                                    <option value="Chennai">Chennai</option>
+                                    <option value="Coimbatore">Coimbatore</option>
+                                    <option value="Cuddalore">Cuddalore</option>
+                                    <option value="Dharmapuri">Dharmapuri</option>
+                                    <option value="Dindigul">Dindigul</option>
+                                    <option value="Erode">Erode</option>
+                                    <option value="Kallakurichi">Kallakurichi</option>
+                                    <option value="Kanchipuram">Kanchipuram</option>
+                                    <option value="Kanyakumari">Kanyakumari</option>
+                                    <option value="Karur">Karur</option>
+                                    <option value="Krishnagiri">Krishnagiri</option>
+                                    <option value="Madurai">Madurai</option>
+                                    <option value="Mayiladuthurai">Mayiladuthurai</option>
+                                    <option value="Nagapattinam">Nagapattinam</option>
+                                    <option value="Namakkal">Namakkal</option>
+                                    <option value="Nilgiris">Nilgiris</option>
+                                    <option value="Perambalur">Perambalur</option>
+                                    <option value="Pudukkottai">Pudukkottai</option>
+                                    <option value="Ramanathapuram">Ramanathapuram</option>
+                                    <option value="Ranipet">Ranipet</option>
+                                    <option value="Salem">Salem</option>
+                                    <option value="Sivaganga">Sivaganga</option>
+                                    <option value="Tenkasi">Tenkasi</option>
+                                    <option value="Thanjavur">Thanjavur</option>
+                                    <option value="Theni">Theni</option>
+                                    <option value="Thoothukudi">Thoothukudi</option>
+                                    <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                    <option value="Tirunelveli">Tirunelveli</option>
+                                    <option value="Tirupathur">Tirupathur</option>
+                                    <option value="Tiruppur">Tiruppur</option>
+                                    <option value="Tiruvannamalai">Tiruvannamalai</option>
+                                    <option value="Tiruvarur">Tiruvarur</option>
+                                    <option value="Vellore">Vellore</option>
+                                    <option value="Viluppuram">Viluppuram</option>
+                                    <option value="Virudhunagar">Virudhunagar</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}நகரம்{% else %}City{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="city" name="city" required disabled>
+                                    <option value="">{% if language == 'ta' %}முதலில் மாவட்டத்தைத் தேர்ந்தெடுக்கவும்{% else %}Select district first{% endif %}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: PREFERENCES -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-sliders-h"></i>
+                            {% if language == 'ta' %}3. விருப்பத்தேர்வுகள்{% else %}3. Preferences{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}விருப்ப வேலை இடம்{% else %}Preferred Job Location{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="job_location" name="job_location" required>
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select{% endif %}</option>
+                                    <option value="Same city">{% if language == 'ta' %}அதே நகரம்{% else %}Same city (hometown/current location){% endif %}</option>
+                                    <option value="Other city in Tamil Nadu">{% if language == 'ta' %}தமிழ்நாட்டில் வேறு நகரம்{% else %}Other city in Tamil Nadu{% endif %}</option>
+                                    <option value="Other state in India">{% if language == 'ta' %}இந்தியாவில் வேறு மாநிலம்{% else %}Other state in India{% endif %}</option>
+                                    <option value="Abroad">{% if language == 'ta' %}வெளிநாடு{% else %}Abroad (International){% endif %}</option>
+                                    <option value="Remote">{% if language == 'ta' %}தொலைதூர பணி{% else %}Remote / Work from home{% endif %}</option>
+                                    <option value="No preference">{% if language == 'ta' %}விருப்பம் இல்லை{% else %}No preference{% endif %}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}விருப்ப வேலை மொழி{% else %}Preferred Work Language{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="work_language" name="work_language" required>
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select{% endif %}</option>
+                                    <option value="Tamil">{% if language == 'ta' %}தமிழ்{% else %}Tamil{% endif %}</option>
+                                    <option value="English">{% if language == 'ta' %}ஆங்கிலம்{% else %}English{% endif %}</option>
+                                    <option value="Both">{% if language == 'ta' %}இரண்டும்{% else %}Both Tamil and English{% endif %}</option>
+                                    <option value="No preference">{% if language == 'ta' %}விருப்பம் இல்லை{% else %}No preference{% endif %}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: CAREER SELECTION (HIERARCHICAL) -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-briefcase"></i>
+                            {% if language == 'ta' %}4. தொழில் தேர்வு{% else %}4. Career Selection{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}தொழில் களம்{% else %}Career Domain{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="domain" name="domain" required disabled onchange="loadRoles()">
+                                    <option value="">{% if language == 'ta' %}முதலில் துறையைத் தேர்ந்தெடுக்கவும்{% else %}Select department first{% endif %}</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}இலக்கு வேலை பதவி{% else %}Target Job Role{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="role" name="role" required disabled>
+                                    <option value="">{% if language == 'ta' %}முதலில் களத்தைத் தேர்ந்தெடுக்கவும்{% else %}Select domain first{% endif %}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-2">
+                            <i class="fas fa-info-circle"></i>
+                            {% if language == 'ta' %}
+                            குறிப்பு: துறைகள், களங்கள் மற்றும் பதவிகள் உங்கள் பட்டம் மற்றும் துறையின் அடிப்படையில் தானாகவே பொருத்தப்படும்
+                            {% else %}
+                            Note: Domains and roles are automatically filtered based on your degree and department selection
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- SECTION 5: STUDY AVAILABILITY -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-clock"></i>
+                            {% if language == 'ta' %}5. படிப்பு கிடைக்கும் நேரம்{% else %}5. Study Availability{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}தினசரி படிப்பு நேரம்{% else %}Study Hours Per Day{% endif %} 
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="study_hours" name="study_hours" required>
+                                    <option value="">{% if language == 'ta' %}தேர்ந்தெடுக்கவும்{% else %}Select{% endif %}</option>
+                                    <option value="1-2 hours">1-2 {% if language == 'ta' %}மணி நேரம்{% else %}hours{% endif %}</option>
+                                    <option value="2-4 hours">2-4 {% if language == 'ta' %}மணி நேரம்{% else %}hours{% endif %}</option>
+                                    <option value="4-6 hours">4-6 {% if language == 'ta' %}மணி நேரம்{% else %}hours{% endif %}</option>
+                                    <option value="6-8 hours">6-8 {% if language == 'ta' %}மணி நேரம்{% else %}hours{% endif %}</option>
+                                    <option value="8+ hours">8+ {% if language == 'ta' %}மணி நேரம்{% else %}hours{% endif %}</option>
+                                </select>
+                                <small class="text-muted">
+                                    {% if language == 'ta' %}
+                                    சிறந்த முடிவுகளுக்கு யதார்த்தமாக இருங்கள்
+                                    {% else %}
+                                    Be realistic for best results
+                                    {% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 6: ROADMAP DURATION -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-calendar-alt"></i>
+                            {% if language == 'ta' %}6. கற்றல் திட்ட காலம்{% else %}6. Learning Roadmap Duration{% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-2 roadmap-option" onclick="selectRoadmap('3')">
+                                    <div class="card-body text-center">
+                                        <h4 class="text-primary">3 {% if language == 'ta' %}மாதங்கள்{% else %}Months{% endif %}</h4>
+                                        <p class="small mb-0">
+                                            {% if language == 'ta' %}விரைவான தொடக்கம்{% else %}Quick start{% endif %}
+                                        </p>
+                                        <small class="text-muted">
+                                            {% if language == 'ta' %}தீவிர கற்றல்{% else %}Intensive learning{% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-2 border-success roadmap-option" onclick="selectRoadmap('6')">
+                                    <div class="card-body text-center">
+                                        <span class="badge bg-success position-absolute top-0 start-50 translate-middle">
+                                            {% if language == 'ta' %}பரிந்துரைக்கப்பட்டது{% else %}Recommended{% endif %}
+                                        </span>
+                                        <h4 class="text-success">6 {% if language == 'ta' %}மாதங்கள்{% else %}Months{% endif %}</h4>
+                                        <p class="small mb-0">
+                                            {% if language == 'ta' %}சமநிலையான{% else %}Balanced{% endif %}
+                                        </p>
+                                        <small class="text-muted">
+                                            {% if language == 'ta' %}விரிவான கவரேஜ்{% else %}Comprehensive coverage{% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-2 roadmap-option" onclick="selectRoadmap('12')">
+                                    <div class="card-body text-center">
+                                        <h4 class="text-info">12 {% if language == 'ta' %}மாதங்கள்{% else %}Months{% endif %}</h4>
+                                        <p class="small mb-0">
+                                            {% if language == 'ta' %}விரிவான{% else %}Comprehensive{% endif %}
+                                        </p>
+                                        <small class="text-muted">
+                                            {% if language == 'ta' %}ஆழமான கற்றல்{% else %}In-depth learning{% endif %}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <input type="hidden" id="roadmap_duration" name="roadmap_duration" value="6" required>
+                    </div>
+
+                    <!-- SECTION 7: BUDGET (OPTIONAL) -->
+                    <div class="form-section mb-5">
+                        <h5 class="fw-bold mb-3 text-primary">
+                            <i class="fas fa-rupee-sign"></i>
+                            {% if language == 'ta' %}7. பட்ஜெட் (விருப்பமானது){% else %}7. Budget (Optional){% endif %}
+                        </h5>
+                        
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}பாடநெறிகள் & பயிற்சிக்கான பட்ஜெட்{% else %}Budget for Courses & Internships{% endif %}
+                                </label>
+                                <div class="row">
+                                    <div class="col-md-3 mb-2">
+                                        <div class="card h-100 budget-option" onclick="selectBudget('Low')">
+                                            <div class="card-body text-center">
+                                                <h6>{% if language == 'ta' %}குறைந்த{% else %}Low{% endif %}</h6>
+                                                <small>₹0 - ₹5,000</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="card h-100 budget-option" onclick="selectBudget('Medium')">
+                                            <div class="card-body text-center">
+                                                <h6>{% if language == 'ta' %}நடுத்தர{% else %}Medium{% endif %}</h6>
+                                                <small>₹5,000 - ₹20,000</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="card h-100 budget-option" onclick="selectBudget('High')">
+                                            <div class="card-body text-center">
+                                                <h6>{% if language == 'ta' %}உயர்{% else %}High{% endif %}</h6>
+                                                <small>₹20,000+</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="card h-100 budget-option active" onclick="selectBudget('Skip')">
+                                            <div class="card-body text-center">
+                                                <h6>{% if language == 'ta' %}தவிர்க்க{% else %}Skip{% endif %}</h6>
+                                                <small>{% if language == 'ta' %}பிறகு முடிவு செய்வேன்{% else %}Decide later{% endif %}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="budget" name="budget" value="Skip">
+                                <small class="text-muted">
+                                    {% if language == 'ta' %}
+                                    பட்ஜெட் பொருத்தமான பாடநெறிகள் மற்றும் பயிற்சிகளை பரிந்துரைக்க உதவுகிறது
+                                    {% else %}
+                                    Budget helps us recommend suitable courses and internships
+                                    {% endif %}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left"></i> {% if language == 'ta' %}பின்செல்{% else %}Back{% endif %}
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn">
+                            <i class="fas fa-rocket"></i> 
+                            {% if language == 'ta' %}வழிகாட்டுதலைப் பெறுங்கள்{% else %}Get Career Guidance{% endif %}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Auto-save Indicator -->
+        <div id="autosaveIndicator" class="position-fixed bottom-0 end-0 m-3 p-2 bg-success text-white rounded" style="display: none;">
+            <i class="fas fa-check-circle"></i> {% if language == 'ta' %}சேமிக்கப்பட்டது{% else %}Saved{% endif %}
+        </div>
+
+    </div>
+</div>
+
+<style>
+.roadmap-option {
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    border: 1px solid rgba(102, 162, 255, 0.22);
+    background: rgba(12, 29, 48, 0.68);
+}
+
+.roadmap-option:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(4, 14, 30, 0.55);
+}
+
+.roadmap-option.active {
+    border-color: #43d5c3 !important;
+    background: linear-gradient(140deg, rgba(53, 112, 222, 0.28), rgba(56, 195, 172, 0.28));
+}
+
+.budget-option {
+    cursor: pointer;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+    border: 1px solid rgba(102, 162, 255, 0.2);
+    background: rgba(10, 24, 40, 0.7);
+}
+
+.budget-option:hover {
+    border-color: #4f8cff;
+    transform: translateY(-4px);
+}
+
+.budget-option.active {
+    border-color: #43d5c3;
+    background: linear-gradient(140deg, rgba(53, 112, 222, 0.28), rgba(56, 195, 172, 0.28));
+}
+
+.form-section {
+    border-bottom: 1px solid rgba(102, 162, 255, 0.24);
+    padding-bottom: 2rem;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+.progress {
+    background: rgba(10, 24, 40, 0.82);
+    border: 1px solid rgba(102, 162, 255, 0.24);
+}
+
+#formProgress {
+    background: linear-gradient(120deg, #2f6fff, #20c9b5) !important;
+}
+
+.bg-white {
+    background: transparent !important;
+}
+
+.text-primary {
+    color: #8dc0ff !important;
+}
+
+.text-danger {
+    color: #ff8a9d !important;
+}
+
+.card.card-custom.bg-white {
+    background: rgba(14, 31, 50, 0.82) !important;
+    border: 1px solid rgba(112, 166, 255, 0.28) !important;
+}
+
+.card.card-custom .card-body {
+    background: rgba(12, 27, 44, 0.84);
+    color: #e8f0ff;
+}
+
+.card.card-custom h2,
+.card.card-custom h5,
+.card.card-custom p,
+.card.card-custom label,
+.card.card-custom .form-check-label,
+.card.card-custom small,
+.card.card-custom li,
+.card.card-custom .fw-bold,
+.card.card-custom .fw-semibold,
+.card.card-custom .text-dark,
+.card.card-custom .text-body {
+    color: #e8f0ff !important;
+}
+
+.card.card-custom .text-muted {
+    color: #afc4e3 !important;
+}
+
+.btn-outline-secondary {
+    color: #d8e9ff;
+    border-color: rgba(112, 166, 255, 0.34);
+}
+
+.btn-outline-secondary:hover {
+    color: #ffffff;
+    background: rgba(47, 111, 255, 0.2);
+    border-color: rgba(129, 178, 255, 0.56);
+}
+</style>
+
+<script>
+// Progress calculation
+function updateProgress() {
+    const form = document.getElementById('careerForm');
+    const requiredFields = form.querySelectorAll('[required]');
+    let filled = 0;
+    
+    requiredFields.forEach(field => {
+        if (field.value && field.value !== '') {
+            filled++;
+        }
+    });
+    
+    const percentage = Math.round((filled / requiredFields.length) * 100);
+    const progressBar = document.getElementById('formProgress');
+    progressBar.style.width = percentage + '%';
+    progressBar.setAttribute('aria-valuenow', percentage);
+    progressBar.querySelector('span').textContent = percentage + '%';
+}
+
+// Auto-save every 30 seconds
+let autosaveTimer;
+function startAutosave() {
+    autosaveTimer = setInterval(() => {
+        const formData = new FormData(document.getElementById('careerForm'));
+        const data = Object.fromEntries(formData);
+        localStorage.setItem('career_form_draft', JSON.stringify(data));
+        
+        // Show indicator
+        const indicator = document.getElementById('autosaveIndicator');
+        indicator.style.display = 'block';
+        setTimeout(() => indicator.style.display = 'none', 2000);
+    }, 30000);
+}
+
+// Load draft on page load
+window.addEventListener('load', () => {
+    const draft = localStorage.getItem('career_form_draft');
+    if (draft) {
+        const data = JSON.parse(draft);
+        Object.keys(data).forEach(key => {
+            const field = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+            if (field) {
+                field.value = data[key];
+            }
+        });
+    }
+    startAutosave();
+});
+
+// Cascading dropdowns
+async function loadDepartments() {
+    const degree = document.getElementById('degree').value;
+    const deptSelect = document.getElementById('department');
+    
+    if (!degree) {
+        deptSelect.disabled = true;
+        deptSelect.innerHTML = '<option value="">{% if language == "ta" %}முதலில் பட்டத்தைத் தேர்ந்தெடுக்கவும்{% else %}Select degree first{% endif %}</option>';
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/career/departments', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({degree})
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            deptSelect.innerHTML = '<option value="">{% if language == "ta" %}தேர்ந்தெடுக்கவும்{% else %}Select your department{% endif %}</option>';
+            result.departments.forEach(dept => {
+                deptSelect.innerHTML += `<option value="${dept}">${dept}</option>`;
+            });
+            deptSelect.disabled = false;
+        }
+    } catch (error) {
+        console.error('Error loading departments:', error);
+    }
+    
+    // Reset dependent dropdowns
+    document.getElementById('domain').disabled = true;
+    document.getElementById('role').disabled = true;
+    updateProgress();
+}
+
+async function loadDomains() {
+    const degree = document.getElementById('degree').value;
+    const department = document.getElementById('department').value;
+    const domainSelect = document.getElementById('domain');
+    
+    if (!department) {
+        domainSelect.disabled = true;
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/career/domains', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({degree, department})
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            domainSelect.innerHTML = '<option value="">{% if language == "ta" %}தேர்ந்தெடுக்கவும்{% else %}Select your domain{% endif %}</option>';
+            result.domains.forEach(domain => {
+                domainSelect.innerHTML += `<option value="${domain}">${domain}</option>`;
+            });
+            domainSelect.disabled = false;
+        }
+    } catch (error) {
+        console.error('Error loading domains:', error);
+    }
+    
+    // Reset dependent dropdowns
+    document.getElementById('role').disabled = true;
+    updateProgress();
+}
+
+async function loadRoles() {
+    const degree = document.getElementById('degree').value;
+    const department = document.getElementById('department').value;
+    const domain = document.getElementById('domain').value;
+    const roleSelect = document.getElementById('role');
+    
+    if (!domain) {
+        roleSelect.disabled = true;
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/career/roles', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({degree, department, domain})
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            roleSelect.innerHTML = '<option value="">{% if language == "ta" %}தேர்ந்தெடுக்கவும்{% else %}Select your role{% endif %}</option>';
+            result.roles.forEach(role => {
+                roleSelect.innerHTML += `<option value="${role}">${role}</option>`;
+            });
+            roleSelect.disabled = false;
+        }
+    } catch (error) {
+        console.error('Error loading roles:', error);
+    }
+    updateProgress();
+}
+
+async function loadCities() {
+    const district = document.getElementById('district').value;
+    const citySelect = document.getElementById('city');
+    
+    if (!district) {
+        citySelect.disabled = true;
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/career/cities', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({district})
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            citySelect.innerHTML = '<option value="">{% if language == "ta" %}தேர்ந்தெடுக்கவும்{% else %}Select your city{% endif %}</option>';
+            result.cities.forEach(city => {
+                citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+            });
+            citySelect.disabled = false;
+        }
+    } catch (error) {
+        console.error('Error loading cities:', error);
+    }
+    updateProgress();
+}
+
+// Roadmap selection
+function selectRoadmap(months) {
+    document.querySelectorAll('.roadmap-option').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('roadmap_duration').value = months;
+    updateProgress();
+}
+
+// Budget selection
+function selectBudget(level) {
+    document.querySelectorAll('.budget-option').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('budget').value = level;
+    updateProgress();
+}
+
+// Form submission
+async function submitCareerForm(e) {
+    console.log('submitCareerForm called!', e);
+    e.preventDefault();
+    
+    // Validate required fields
+    const form = document.getElementById('careerForm');
+    console.log('Form element:', form);
+    console.log('Form validity:', form.checkValidity());
+    
+    if (!form.checkValidity()) {
+        console.log('Form validation failed!');
+        form.reportValidity();
+        return false;
+    }
+    
+    console.log('Form validation passed!');
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% if language == "ta" %}செயலாக்கப்படுகிறது...{% else %}Processing...{% endif %}';
+    
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData);
+    
+    // Add hidden field values
+    data.roadmap_months = document.getElementById('roadmap_duration').value || '6';
+    data.budget = document.getElementById('budget').value || 'Skip';
+    
+    console.log('Submitting form data:', data);
+    console.log('Data keys:', Object.keys(data));
+    console.log('Data values:', Object.values(data));
+    
+    try {
+        console.log('About to fetch...');
+        const response = await fetch('/career/output', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+        
+        console.log('Response received!');
+        console.log('Response status:', response.status);
+        const result = await response.json();
+        console.log('Response result:', result);
+        
+        if (result.status === 'success') {
+            console.log('Success! Redirecting...');
+            // Clear draft
+            localStorage.removeItem('career_form_draft');
+            // Redirect to output page
+            window.location.href = '/career/output';
+        } else {
+            throw new Error('Server returned error status');
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('{% if language == "ta" %}பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.{% else %}An error occurred. Please try again.{% endif %}');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+    }
+    
+    return false;
+}
+
+// Update progress on any input change
+document.getElementById('careerForm').addEventListener('change', updateProgress);
+document.getElementById('careerForm').addEventListener('input', updateProgress);
+
+// Initial progress check
+updateProgress();
+
+// Debug: Confirm script loaded
+console.log('Career input form script loaded successfully!');
+console.log('Submit function exists:', typeof submitCareerForm);
+</script>
+
+{% endblock %}

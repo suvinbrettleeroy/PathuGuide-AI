@@ -1,0 +1,1288 @@
+{% extends "base.html" %}
+
+{% block title %}PathGuide - {{ 'தொழில் பாதை வெளியீடு' if language == 'ta' else 'Career Path Output' }}{% endblock %}
+
+{% block content %}
+{% set report = career_output_data %}
+{% set salary = report.career_opportunities.salary.india_lpa %}
+{% set has_india_salary = salary.fresher or salary.junior or salary.mid or salary.senior or salary.lead %}
+
+<style>
+:root {
+    --pg-primary: #4f8cff;
+    --pg-primary-dark: #2f6fff;
+    --pg-accent: #1dc9b8;
+    --pg-success: #2bb673;
+    --pg-warning: #f6c652;
+    --pg-danger: #f4698d;
+
+    --pg-bg: #061222;
+    --pg-surface: rgba(14, 31, 50, 0.78);
+    --pg-surface-soft: rgba(12, 27, 44, 0.88);
+    --pg-border: rgba(112, 166, 255, 0.28);
+
+    --pg-text: #e8f0ff;
+    --pg-heading: #d4e6ff;
+    --pg-muted: #9db3d6;
+
+    --pg-shadow-sm: 0 12px 28px rgba(0, 0, 0, 0.34);
+    --pg-shadow-md: 0 20px 48px rgba(0, 0, 0, 0.45);
+    --pg-radius: 12px;
+    --pg-radius-lg: 16px;
+}
+
+body {
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    color: var(--pg-text);
+    background: radial-gradient(circle at 14% 10%, rgba(79, 140, 255, 0.24), transparent 42%),
+        radial-gradient(circle at 86% 3%, rgba(29, 201, 184, 0.18), transparent 36%),
+        linear-gradient(150deg, #061222 0%, #081a2d 55%, #0b2238 100%);
+    overflow-x: hidden;
+}
+
+.report-shell {
+    max-width: 1520px;
+    margin: 0 auto;
+    padding: 18px 12px 96px;
+}
+
+.hero-frame {
+    position: relative;
+    border-radius: var(--pg-radius-lg);
+    background: linear-gradient(125deg, var(--pg-primary), #3b6fb3 56%, #6e95ce);
+    color: #ffffff;
+    box-shadow: var(--pg-shadow-md);
+    border: 1px solid #5d86c5;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.hero-frame::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--pg-warning), #ffffff, var(--pg-success));
+}
+
+.hero-frame::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    top: -130px;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
+}
+
+.meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    padding: 6px 12px;
+    font-size: 0.84rem;
+}
+
+.hero-subtle {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.main-grid {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 14px;
+}
+
+.step-nav {
+    position: sticky;
+    top: 10px;
+    border-radius: var(--pg-radius);
+    background: var(--pg-surface);
+    border: 1px solid var(--pg-border);
+    box-shadow: var(--pg-shadow-sm);
+    padding: 12px;
+    align-self: start;
+}
+
+.step-nav-title {
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: var(--pg-heading);
+    margin-bottom: 10px;
+}
+
+.step-link {
+    display: block;
+    text-decoration: none;
+    color: var(--pg-text);
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.step-link:hover,
+.step-link.active {
+    color: var(--pg-primary-dark);
+    border-color: #b9cdea;
+    background: #eef4ff;
+}
+
+.mobile-jump {
+    position: sticky;
+    top: 8px;
+    z-index: 24;
+    border: 1px solid var(--pg-border);
+    border-radius: 12px;
+    background: var(--pg-surface);
+    box-shadow: var(--pg-shadow-sm);
+    padding: 10px;
+}
+
+.section-block {
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius);
+    margin-bottom: 14px;
+    background: var(--pg-surface);
+    box-shadow: var(--pg-shadow-sm);
+    overflow: hidden;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform .45s ease, opacity .45s ease, box-shadow .2s ease;
+}
+
+.section-block.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.section-block:hover {
+    box-shadow: var(--pg-shadow-md);
+}
+
+.section-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--pg-border);
+    background: linear-gradient(90deg, #edf4ff, #f7faff);
+}
+
+.section-trigger {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--pg-heading);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    text-align: left;
+}
+
+.section-trigger .bi-chevron-down {
+    transition: transform .2s ease;
+}
+
+.section-trigger[aria-expanded="true"] .bi-chevron-down {
+    transform: rotate(180deg);
+}
+
+.section-content {
+    padding: 16px;
+    color: var(--pg-text);
+}
+
+.section-tools {
+    display: flex;
+    gap: 6px;
+}
+
+.section-tools .btn {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+}
+
+.score-ring {
+    width: 142px;
+    height: 142px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: conic-gradient(var(--pg-primary) {{ report.success_prediction.overall_success_score }}%, #d7e5f8 0);
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 0 0 8px #ffffff, 0 3px 10px rgba(13, 44, 84, 0.15);
+}
+
+.score-core {
+    width: 98px;
+    height: 98px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--pg-primary-dark);
+    display: grid;
+    place-items: center;
+    font-size: 1.55rem;
+    font-weight: 800;
+}
+
+.factor-row {
+    margin-bottom: 12px;
+}
+
+.factor-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: .9rem;
+    margin-bottom: 5px;
+}
+
+.progress {
+    height: 10px;
+    background: #e7eef9;
+}
+
+.progress-bar.ok {
+    background: linear-gradient(90deg, var(--pg-success), #2e9d69);
+}
+
+.timeline-card,
+.today-card,
+.item-card,
+.stat-card,
+.pill-card,
+.country-card,
+.tile {
+    border: 1px solid var(--pg-border);
+    border-radius: 10px;
+    background: var(--pg-surface-soft);
+    color: var(--pg-text);
+}
+
+.timeline-card,
+.today-card,
+.item-card,
+.stat-card,
+.pill-card,
+.country-card {
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.timeline-card:hover,
+.item-card:hover,
+.pill-card:hover,
+.country-card:hover,
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--pg-shadow-sm);
+}
+
+.today-card {
+    background: linear-gradient(160deg, rgba(17, 36, 58, 0.92), rgba(11, 27, 45, 0.94));
+    border-left: 4px solid var(--pg-warning);
+}
+
+.today-card,
+.today-card h3,
+.today-card .fw-semibold,
+.today-card strong,
+.today-card li,
+.today-card p,
+.today-card small,
+.today-card .small {
+    color: #e8f0ff !important;
+}
+
+.today-card .badge.text-bg-light {
+    background: rgba(32, 58, 88, 0.9) !important;
+    color: #dbe9ff !important;
+    border-color: rgba(112, 166, 255, 0.34) !important;
+}
+
+.split-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.tile {
+    padding: 10px;
+    font-size: .9rem;
+    border-style: dashed;
+}
+
+.tabs-nav .nav-link {
+    border-radius: 999px;
+    border: 1px solid var(--pg-border);
+    color: var(--pg-primary-dark);
+    background: #f4f8ff;
+    padding: 6px 13px;
+}
+
+.tabs-nav .nav-link.active {
+    color: #ffffff;
+    border-color: var(--pg-primary);
+    background: var(--pg-primary);
+}
+
+.chip {
+    display: inline-block;
+    margin: 4px 6px 0 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #bfd0ea;
+    background: #eef4ff;
+    color: var(--pg-primary-dark);
+    font-size: .83rem;
+}
+
+.salary-table-wrap {
+    border: 1px solid #bfcfe9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: var(--pg-shadow-sm);
+}
+
+.salary-table-wrap .table {
+    margin-bottom: 0;
+}
+
+.salary-table-wrap thead th {
+    border-bottom: 1px solid #bfcfe9;
+    font-size: 0.82rem;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: linear-gradient(90deg, var(--pg-primary-dark), var(--pg-primary));
+}
+
+.salary-table-wrap tbody td {
+    border-color: #d8e2f1;
+    color: var(--pg-text);
+    padding-top: 0.64rem;
+    padding-bottom: 0.64rem;
+}
+
+.salary-table-wrap tbody tr:nth-child(even) {
+    background: #f6f9ff;
+}
+
+.salary-level-pill {
+    display: inline-block;
+    border-radius: 999px;
+    border: 1px solid #afc6ea;
+    padding: 2px 10px;
+    background: #edf4ff;
+    color: var(--pg-primary-dark);
+    font-weight: 600;
+    font-size: 0.82rem;
+}
+
+.salary-value {
+    font-weight: 700;
+    color: var(--pg-heading);
+}
+
+.table td,
+.table th {
+    color: var(--pg-text);
+    border-color: #d8e2f1;
+}
+
+.text-muted,
+.small.text-muted {
+    color: var(--pg-muted) !important;
+}
+
+.small {
+    color: #3a536d;
+}
+
+.text-dark,
+.text-black,
+.text-body {
+    color: var(--pg-text) !important;
+}
+
+.text-success { color: var(--pg-success) !important; }
+.text-warning { color: #b27c00 !important; }
+.text-info { color: var(--pg-accent) !important; }
+.text-primary { color: var(--pg-primary) !important; }
+
+.alert {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.alert-info,
+.alert-secondary,
+.alert-success,
+.alert-light {
+    color: var(--pg-text);
+    background: #f2f7ff;
+    border-color: #c8d8f0;
+}
+
+.badge.text-bg-light {
+    background: rgba(27, 52, 82, 0.92) !important;
+    color: var(--pg-heading) !important;
+    border-color: rgba(129, 178, 255, 0.45) !important;
+}
+
+.accordion,
+.accordion-item,
+.accordion-body,
+.accordion-button {
+    background: var(--pg-surface);
+    color: var(--pg-text);
+}
+
+.accordion-item {
+    border-color: var(--pg-border);
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--pg-heading);
+    background: #edf4ff;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 .18rem rgba(11, 78, 162, 0.2);
+}
+
+.legend-chip {
+    border: 1px solid #bfd0ea;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: .82rem;
+    background: #edf4ff;
+}
+
+.floating-top {
+    position: fixed;
+    right: 12px;
+    bottom: 90px;
+    z-index: 32;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    color: #ffffff;
+    background: var(--pg-primary);
+    box-shadow: var(--pg-shadow-sm);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all .2s ease;
+}
+
+.floating-top.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    border-top: 1px solid var(--pg-border);
+    background: #f5f9ff;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+}
+
+.mobile-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.mobile-actions-grid .btn {
+    font-size: .8rem;
+    padding: 8px 6px;
+}
+
+.section-trigger:focus-visible,
+.step-link:focus-visible,
+.btn:focus-visible,
+.form-select:focus-visible {
+    outline: 3px solid rgba(17, 122, 139, 0.4);
+    outline-offset: 2px;
+}
+
+/* Readability lock: keep all output text/details clearly visible on dark surfaces */
+.section-header {
+    background: linear-gradient(90deg, rgba(28, 53, 84, 0.88), rgba(17, 37, 61, 0.9));
+}
+
+.chip,
+.legend-chip,
+.salary-level-pill {
+    border-color: rgba(112, 166, 255, 0.34);
+    background: rgba(18, 38, 62, 0.86);
+    color: #dbe9ff;
+}
+
+.salary-table-wrap {
+    border-color: rgba(112, 166, 255, 0.3);
+    background: rgba(12, 27, 44, 0.9);
+}
+
+.salary-table-wrap tbody tr:nth-child(even) {
+    background: rgba(20, 42, 66, 0.68);
+}
+
+.salary-table-wrap tbody td,
+.salary-value {
+    color: #e7f0ff;
+}
+
+.small {
+    color: var(--pg-muted);
+}
+
+.alert-info,
+.alert-secondary,
+.alert-success,
+.alert-light,
+.alert-warning,
+.alert-primary,
+.alert-danger {
+    color: #e7f0ff;
+    border-color: rgba(112, 166, 255, 0.3);
+    background: rgba(17, 36, 58, 0.84);
+}
+
+.accordion-button:not(.collapsed) {
+    color: #dbe9ff;
+    background: rgba(26, 51, 80, 0.84);
+}
+
+.mobile-actions {
+    background: rgba(9, 22, 38, 0.95);
+}
+
+.text-secondary { color: #c4d8f6 !important; }
+.text-primary { color: #8fc0ff !important; }
+.text-success { color: #70e3ae !important; }
+.text-warning { color: #ffd77a !important; }
+.text-danger { color: #ff92aa !important; }
+
+.report-shell .bg-white {
+    background: transparent !important;
+}
+
+.report-shell,
+.report-shell p,
+.report-shell li,
+.report-shell span,
+.report-shell small,
+.report-shell td,
+.report-shell th,
+.report-shell label,
+.report-shell .form-label,
+.report-shell .text-dark,
+.report-shell .text-body {
+    color: #e8f0ff;
+}
+
+.report-shell .text-muted,
+.report-shell .small.text-muted {
+    color: #afc4e3 !important;
+}
+
+@keyframes govFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-frame,
+.section-block.visible {
+    animation: govFadeIn .45s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .main-grid { grid-template-columns: 1fr; }
+    .step-nav { display: none; }
+}
+
+@media (max-width: 991.98px) {
+    .report-shell { padding-bottom: 98px; }
+    .hero-frame { border-radius: 14px; padding: 16px; }
+    .section-content { padding: 14px; }
+    .split-grid-2 { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1200px) {
+    .mobile-jump { display: none; }
+}
+
+@media print {
+    body { background: #fff !important; }
+    .step-nav,
+    .mobile-jump,
+    .mobile-actions,
+    .floating-top,
+    .section-tools,
+    .section-trigger .bi-chevron-down { display: none !important; }
+    .section-block,
+    .hero-frame,
+    .timeline-card,
+    .today-card {
+        box-shadow: none !important;
+        border: 1px solid #9db4d6 !important;
+        background: #fff !important;
+        break-inside: avoid;
+    }
+    .collapse { display: block !important; }
+}
+</style>
+
+<div class="report-shell">
+    <header class="hero-frame" id="sec-header">
+        <div class="row g-3 align-items-center position-relative" style="z-index:1;">
+            <div class="col-lg-8">
+                <h1 class="h3 mb-1">{{ report.header.title }}</h1>
+                <div class="small hero-subtle mb-2">{{ report.header.subtitle }}</div>
+                <div class="meta-pills">
+                    <span class="meta-pill"><i class="bi bi-briefcase"></i> {{ report.header.role }}</span>
+                    <span class="meta-pill"><i class="bi bi-grid-1x2"></i> {{ report.header.domain }}</span>
+                    <span class="meta-pill"><i class="bi bi-calendar3"></i> {{ report.header.roadmap_duration_months }} {{ 'Months' if language == 'en' else 'மாதங்கள்' }}</span>
+                    <span class="meta-pill"><i class="bi bi-clock-history"></i> {{ report.header.study_hours_option }}</span>
+                    <span class="meta-pill"><i class="bi bi-stars"></i> {{ report.success_prediction.rating_label }}</span>
+                </div>
+                <p class="mb-0 mt-2">{{ report.header.quick_summary_line }}</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="small hero-subtle">{{ 'Rating' if language == 'en' else 'மதிப்பீடு' }}</div>
+                <div class="display-6 fw-bold">{{ report.success_prediction.star_rating }} ★</div>
+                <span class="badge text-bg-warning">{{ report.success_prediction.rating_label }}</span>
+                <div class="d-flex flex-wrap justify-content-lg-end gap-2 mt-2">
+                    {% if report.actions.save_progress %}<button class="btn btn-sm btn-light" type="button">{{ 'Save' if language == 'en' else 'சேமி' }}</button>{% endif %}
+                    {% if report.actions.export_pdf %}<button class="btn btn-sm btn-outline-light" type="button" id="btnPrintTop">{{ 'Export' if language == 'en' else 'ஏற்று' }}</button>{% endif %}
+                    {% if report.actions.edit_inputs %}<a href="{{ url_for('career_input') }}" class="btn btn-sm btn-outline-light">{{ 'Edit' if language == 'en' else 'திருத்து' }}</a>{% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-jump d-xl-none mt-3 mb-2">
+        <label for="quickJump" class="form-label fw-semibold mb-1">{{ 'Quick Navigation' if language == 'en' else 'விரைவு வழிசெலுத்தல்' }}</label>
+        <select id="quickJump" class="form-select form-select-sm" aria-label="Quick Navigation">
+            <option value="sec-success">{{ 'Success Prediction' if language == 'en' else 'வெற்றி கணிப்பு' }}</option>
+            <option value="sec-overview">{{ 'Role Overview' if language == 'en' else 'பணி சுருக்கம்' }}</option>
+            <option value="sec-roadmap">{{ 'Personalized Roadmap' if language == 'en' else 'தனிப்பயன் திட்டப்பாதை' }}</option>
+            <option value="sec-study">{{ 'Study Plan' if language == 'en' else 'படிப்பு திட்டம்' }}</option>
+            <option value="sec-skills">{{ 'Skills & Tools' if language == 'en' else 'திறன்கள் & கருவிகள்' }}</option>
+            <option value="sec-courses">{{ 'Courses & Resources' if language == 'en' else 'பாடங்கள் & வளங்கள்' }}</option>
+            <option value="sec-projects">{{ 'Projects' if language == 'en' else 'திட்டங்கள்' }}</option>
+            <option value="sec-opportunities">{{ 'Career Opportunities' if language == 'en' else 'தொழில் வாய்ப்புகள்' }}</option>
+            <option value="sec-actions">{{ 'Actions' if language == 'en' else 'செயல்கள்' }}</option>
+            <option value="sec-ux">{{ 'UX Style' if language == 'en' else 'UX வழிகாட்டு' }}</option>
+        </select>
+    </div>
+
+    <div class="main-grid">
+        <aside class="step-nav" aria-label="Section Navigator">
+            <div class="step-nav-title">{{ 'Section Navigator' if language == 'en' else 'பிரிவு வழிசெலுத்தல்' }}</div>
+            <a class="step-link" href="#sec-success">{{ 'Success Prediction' if language == 'en' else 'வெற்றி கணிப்பு' }}</a>
+            <a class="step-link" href="#sec-overview">{{ 'Role Overview' if language == 'en' else 'பணி சுருக்கம்' }}</a>
+            <a class="step-link" href="#sec-roadmap">{{ 'Personalized Roadmap' if language == 'en' else 'தனிப்பயன் திட்டப்பாதை' }}</a>
+            <a class="step-link" href="#sec-study">{{ 'Study Plan' if language == 'en' else 'படிப்பு திட்டம்' }}</a>
+            <a class="step-link" href="#sec-skills">{{ 'Skills & Tools' if language == 'en' else 'திறன்கள் & கருவிகள்' }}</a>
+            <a class="step-link" href="#sec-courses">{{ 'Courses & Resources' if language == 'en' else 'பாடங்கள் & வளங்கள்' }}</a>
+            <a class="step-link" href="#sec-projects">{{ 'Projects' if language == 'en' else 'திட்டங்கள்' }}</a>
+            <a class="step-link" href="#sec-opportunities">{{ 'Career Opportunities' if language == 'en' else 'தொழில் வாய்ப்புகள்' }}</a>
+            <a class="step-link" href="#sec-actions">{{ 'Actions' if language == 'en' else 'செயல்கள்' }}</a>
+            <a class="step-link" href="#sec-ux">{{ 'UX Style Recommendation' if language == 'en' else 'UX வடிவமைப்பு பரிந்துரை' }}</a>
+        </aside>
+
+        <main>
+            <section id="sec-success" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-success" aria-expanded="true" aria-controls="body-success">
+                            <span><i class="bi bi-graph-up-arrow me-2 text-success"></i>{{ 'Success Prediction' if language == 'en' else 'வெற்றி கணிப்பு' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-success" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <div class="row g-3">
+                            <div class="col-lg-4 text-center">
+                                <div class="score-ring" role="img" aria-label="Overall success score {{ report.success_prediction.overall_success_score }}">
+                                    <div class="score-core">{{ report.success_prediction.overall_success_score }}</div>
+                                </div>
+                                <div class="mt-2 fw-semibold">{{ 'Overall Score' if language == 'en' else 'மொத்த மதிப்பெண்' }}</div>
+                            </div>
+                            <div class="col-lg-8">
+                                {% for k, v in report.success_prediction.factor_breakdown.items() %}
+                                <div class="factor-row">
+                                    <div class="factor-top">
+                                        <span class="text-capitalize">{{ k.replace('_', ' ') }} <span title="{{ v.explanation }}">ⓘ</span></span>
+                                        <span>{{ v.score }}/{{ v.max }}</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" aria-label="{{ k }}" aria-valuemin="0" aria-valuemax="{{ v.max }}" aria-valuenow="{{ v.score }}">
+                                        <div class="progress-bar ok bar-grow" data-width="{{ (v.score * 100 / v.max)|round(0) }}"></div>
+                                    </div>
+                                    <small class="text-muted d-block mt-1">{{ v.explanation }}</small>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="h6">{{ 'How to Improve' if language == 'en' else 'மேம்படுத்துவது எப்படி' }}</h3>
+                        <ul class="mb-0">
+                            {% for item in report.success_prediction.how_to_improve %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-overview" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-overview" aria-expanded="true" aria-controls="body-overview">
+                            <span><i class="bi bi-person-vcard me-2 text-primary"></i>{{ 'Role Overview' if language == 'en' else 'பணி சுருக்கம்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-overview" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <p class="mb-3">{{ report.role_overview.what_is_this_role }}</p>
+                        <div class="row g-3">
+                            <div class="col-lg-7">
+                                <h3 class="h6">{{ 'Daily Responsibilities' if language == 'en' else 'தினசரி பொறுப்புகள்' }}</h3>
+                                <ul class="mb-0">
+                                    {% for item in report.role_overview.daily_responsibilities %}
+                                    <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="stat-card h-100">
+                                    <div><strong>{{ 'Experience' if language == 'en' else 'அனுபவம்' }}:</strong> {{ report.role_overview.quick_stats.experience_to_start }}</div>
+                                    <div><strong>{{ 'Work Type' if language == 'en' else 'வேலை வகை' }}:</strong> {{ report.role_overview.quick_stats.work_type }}</div>
+                                    <div><strong>{{ 'Industry' if language == 'en' else 'துறை' }}:</strong> {{ report.role_overview.quick_stats.industry }}</div>
+                                    <div><strong>{{ 'Openings' if language == 'en' else 'வாய்ப்புகள்' }}:</strong> {{ report.role_overview.quick_stats.job_openings_annual_india }}</div>
+                                    <div><strong>{{ 'Fresher Package' if language == 'en' else 'புதியவர் சம்பளம்' }}:</strong> {{ report.role_overview.quick_stats.avg_package_fresher_lpa }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row g-2">
+                            {% for item in report.role_overview.why_this_career %}
+                            <div class="col-md-6">
+                                <div class="pill-card h-100">
+                                    <div class="fw-semibold text-success">{{ item.title }}</div>
+                                    <div class="small">{{ item.description }}</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-roadmap" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-roadmap" aria-expanded="true" aria-controls="body-roadmap">
+                            <span><i class="bi bi-signpost-split me-2 text-info"></i>{{ 'Personalized Roadmap' if language == 'en' else 'தனிப்பயன் திட்டப்பாதை' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-roadmap" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <span class="badge text-bg-info mb-2">{{ report.personalized_roadmap.mode_label }}</span>
+                        {% for phase in report.personalized_roadmap.phases %}
+                        <div class="timeline-card">
+                            <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
+                                <div class="fw-semibold">{{ phase.phase_title }} - {{ phase.months }}</div>
+                                <span class="badge text-bg-light border">{{ phase.weeks_range }}</span>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-lg-7">
+                                    <div class="small fw-semibold mb-1">{{ 'Topics' if language == 'en' else 'தலைப்புகள்' }}</div>
+                                    <ul class="mb-0">
+                                        {% for t in phase.bullet_topics %}<li>{{ t }}</li>{% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="small fw-semibold mb-1">{{ 'Practice Deliverables' if language == 'en' else 'பயிற்சி வெளியீடுகள்' }}</div>
+                                    <ul class="mb-0">
+                                        {% for d in phase.practice_deliverables %}<li>{{ d }}</li>{% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-study" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-study" aria-expanded="true" aria-controls="body-study">
+                            <span><i class="bi bi-calendar-check me-2 text-warning"></i>{{ 'Study Plan' if language == 'en' else 'படிப்பு திட்டம்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-study" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <h3 class="h6">{{ 'Weekly Checklist' if language == 'en' else 'வார சரிபார்ப்பு பட்டியல்' }}</h3>
+                                <ul class="mb-0">
+                                    {% for item in report.study_plan.weekly_checklist %}<li>{{ item }}</li>{% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-lg-6">
+                                <h3 class="h6">{{ 'Time Split Per Day' if language == 'en' else 'தினசரி நேர பிரிப்பு' }}</h3>
+                                <div class="split-grid-2">
+                                    <div class="tile"><strong>Theory:</strong> {{ report.study_plan.time_split_per_day.theory }}</div>
+                                    <div class="tile"><strong>Practice:</strong> {{ report.study_plan.time_split_per_day.practice }}</div>
+                                    <div class="tile"><strong>Revision:</strong> {{ report.study_plan.time_split_per_day.revision }}</div>
+                                    <div class="tile"><strong>Mock/Projects:</strong> {{ report.study_plan.time_split_per_day.mock_or_projects }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="today-card">
+                            <div class="d-flex justify-content-between flex-wrap gap-2 align-items-center mb-2">
+                                <h3 class="h5 mb-0"><i class="bi bi-lightning-charge-fill me-1 text-warning"></i>{{ 'Today Task' if language == 'en' else 'இன்றைய பணிகள்' }}</h3>
+                                <span class="badge text-bg-light border">{{ report.study_plan.today_task.date }}</span>
+                            </div>
+                            <div class="mb-1"><strong>{{ 'Focus Topic' if language == 'en' else 'முனைப்புத் தலைப்பு' }}:</strong> {{ report.study_plan.today_task.focus_topic }}</div>
+                            <div class="mb-2"><strong>{{ 'Learning Goal' if language == 'en' else 'கற்றல் இலக்கு' }}:</strong> {{ report.study_plan.today_task.learning_goal }}</div>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="item-card h-100">
+                                        <div class="fw-semibold mb-1">{{ 'Morning Plan' if language == 'en' else 'காலை திட்டம்' }}</div>
+                                        <ul class="mb-0">{% for item in report.study_plan.today_task.morning_plan %}<li>{{ item }}</li>{% endfor %}</ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="item-card h-100">
+                                        <div class="fw-semibold mb-1">{{ 'Evening Plan' if language == 'en' else 'மாலை திட்டம்' }}</div>
+                                        <ul class="mb-0">{% for item in report.study_plan.today_task.evening_plan %}<li>{{ item }}</li>{% endfor %}</ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <div class="small fw-semibold mb-1">{{ 'Checklist' if language == 'en' else 'சரிபார்ப்பு பட்டியல்' }}</div>
+                                <ul class="mb-0">{% for item in report.study_plan.today_task.checklist %}<li>{{ item }}</li>{% endfor %}</ul>
+                            </div>
+                            <div class="row g-2 mt-1">
+                                <div class="col-md-6"><small><strong>{{ 'Yesterday Review' if language == 'en' else 'நேற்று மதிப்பாய்வு' }}:</strong> {{ report.study_plan.today_task.yesterday_review }}</small></div>
+                                <div class="col-md-6"><small><strong>{{ 'Tomorrow Preview' if language == 'en' else 'நாளை முன்னோட்டம்' }}:</strong> {{ report.study_plan.today_task.tomorrow_preview }}</small></div>
+                            </div>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <span class="badge text-bg-success">{{ 'Weekly' if language == 'en' else 'வாரம்' }}: {{ report.study_plan.today_task.progress.weekly_percent }}%</span>
+                                <span class="badge text-bg-primary">{{ 'Overall' if language == 'en' else 'மொத்தம்' }}: {{ report.study_plan.today_task.progress.overall_percent }}%</span>
+                                <span class="badge text-bg-warning">{{ 'Streak' if language == 'en' else 'தொடர்' }}: {{ report.study_plan.today_task.progress.streak_days }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-skills" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-skills" aria-expanded="true" aria-controls="body-skills">
+                            <span><i class="bi bi-tools me-2 text-secondary"></i>{{ 'Skills and Tools' if language == 'en' else 'திறன்கள் மற்றும் கருவிகள்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-skills" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <div class="alert alert-secondary py-2 mb-3">{{ report.skills_and_tools.role_fit_summary }}</div>
+                        <div class="row g-3">
+                            <div class="col-xl-4 col-md-6">
+                                <h3 class="h6">{{ 'Core Skills' if language == 'en' else 'முக்கிய திறன்கள்' }}</h3>
+                                {% for item in report.skills_and_tools.core_skills %}
+                                <div class="item-card">
+                                    <div class="d-flex justify-content-between gap-2"><strong>{{ item.name }}</strong><span class="badge text-bg-success">{{ item.priority }}</span></div>
+                                    <small class="text-muted">{{ item.why }}</small>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <h3 class="h6">{{ 'Supporting Skills' if language == 'en' else 'ஆதரவு திறன்கள்' }}</h3>
+                                {% for item in report.skills_and_tools.supporting_skills %}
+                                <div class="item-card">
+                                    <div class="d-flex justify-content-between gap-2"><strong>{{ item.name }}</strong><span class="badge text-bg-warning">{{ item.priority }}</span></div>
+                                    <small class="text-muted">{{ item.why }}</small>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-xl-4 col-md-12">
+                                <h3 class="h6">{{ 'Tools & Technologies' if language == 'en' else 'கருவிகள் மற்றும் தொழில்நுட்பங்கள்' }}</h3>
+                                {% for item in report.skills_and_tools.tools_technologies %}
+                                <div class="item-card">
+                                    <div class="d-flex justify-content-between gap-2"><strong>{{ item.name }}</strong><span class="badge text-bg-info">{{ item.category }}</span></div>
+                                    <small class="text-muted">{{ item.why }}</small>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="h6">{{ 'Recommended Learning Sequence' if language == 'en' else 'பரிந்துரைக்கப்பட்ட கற்றல் வரிசை' }}</h3>
+                        <ol class="mb-0">{% for step in report.skills_and_tools.learning_sequence %}<li>{{ step }}</li>{% endfor %}</ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-courses" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-courses" aria-expanded="true" aria-controls="body-courses">
+                            <span><i class="bi bi-mortarboard me-2 text-danger"></i>{{ 'Courses and Resources' if language == 'en' else 'பாடங்கள் மற்றும் வளங்கள்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-courses" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <ul class="nav nav-pills tabs-nav mb-3" id="courseTabs" role="tablist">
+                            <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-free" type="button" role="tab">{{ 'Free' if language == 'en' else 'இலவசம்' }}</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-paid" type="button" role="tab">{{ 'Paid/Mixed' if language == 'en' else 'கட்டண/கலப்பு' }}</button></li>
+                            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-cert" type="button" role="tab">{{ 'Certifications' if language == 'en' else 'சான்றிதழ்கள்' }}</button></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab-free" role="tabpanel">
+                                {% if report.courses_and_resources.free_resources %}
+                                <div class="row g-2">{% for c in report.courses_and_resources.free_resources %}
+                                    <div class="col-lg-6"><div class="item-card h-100"><div class="fw-semibold">{{ c.name }}</div><div class="small text-muted">{{ c.platform }} | {{ c.duration }} | {{ c.cost }}</div><a href="{{ c.url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary mt-2">{{ 'Open Resource' if language == 'en' else 'வளத்தை திற' }}</a></div></div>
+                                {% endfor %}</div>
+                                {% else %}
+                                <div class="alert alert-light border">{{ 'Recommended learning sequence available in Skills section.' if language == 'en' else 'திறன்கள் பகுதியில் பரிந்துரைக்கப்பட்ட கற்றல் வரிசை உள்ளது.' }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-paid" role="tabpanel">
+                                {% if report.courses_and_resources.paid_or_mixed_resources %}
+                                <div class="row g-2">{% for c in report.courses_and_resources.paid_or_mixed_resources %}
+                                    <div class="col-lg-6"><div class="item-card h-100"><div class="fw-semibold">{{ c.name }}</div><div class="small text-muted">{{ c.platform }} | {{ c.duration }} | {{ c.cost }}</div><a href="{{ c.url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary mt-2">{{ 'Apply/Enroll' if language == 'en' else 'விண்ணப்பி/சேரவும்' }}</a></div></div>
+                                {% endfor %}</div>
+                                {% else %}
+                                <div class="alert alert-light border">{{ 'No paid resources available for this role now.' if language == 'en' else 'இந்தப் பணிக்கான கட்டண வளங்கள் தற்போது இல்லை.' }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-cert" role="tabpanel">
+                                {% if report.courses_and_resources.recommended_certifications %}
+                                <div class="row g-2">{% for c in report.courses_and_resources.recommended_certifications %}
+                                    <div class="col-lg-6"><div class="item-card h-100"><div class="fw-semibold">{{ c.name }}</div><div class="small text-muted">{{ c.provider }} | {{ c.duration }} | {{ c.cost }}</div><div class="small mb-2">{{ c.why }}</div><a href="{{ c.url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">{{ 'View Certification' if language == 'en' else 'சான்றிதழை பார்க்க' }}</a></div></div>
+                                {% endfor %}</div>
+                                {% else %}
+                                <div class="alert alert-light border">{{ 'Certification links are currently unavailable for this role.' if language == 'en' else 'இந்த பணிக்கான சான்றிதழ் இணைப்புகள் தற்போது இல்லை.' }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mt-3 mb-2">
+                            {% for a in report.courses_and_resources.application_links %}
+                            <a class="btn btn-sm btn-outline-success me-1 mb-1" href="{{ a.url }}" target="_blank" rel="noopener">{{ a.name }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="alert alert-info mb-0">{{ report.courses_and_resources.budget_note }}</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-projects" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-projects" aria-expanded="true" aria-controls="body-projects">
+                            <span><i class="bi bi-diagram-3 me-2 text-dark"></i>{{ 'Projects' if language == 'en' else 'திட்டங்கள்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-projects" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <div class="d-none d-lg-block">
+                            <div class="row g-3">
+                                <div class="col-lg-4"><h3 class="h6">{{ 'Beginner' if language == 'en' else 'தொடக்க நிலை' }}</h3>{% for p in report.projects.beginner %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div><ul class="small mb-0 mt-1">{% for f in p.features %}<li>{{ f }}</li>{% endfor %}</ul></div>{% endfor %}</div>
+                                <div class="col-lg-4"><h3 class="h6">{{ 'Intermediate' if language == 'en' else 'இடைநிலை' }}</h3>{% for p in report.projects.intermediate %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div><ul class="small mb-0 mt-1">{% for f in p.features %}<li>{{ f }}</li>{% endfor %}</ul></div>{% endfor %}</div>
+                                <div class="col-lg-4"><h3 class="h6">{{ 'Advanced' if language == 'en' else 'மேம்பட்ட' }}</h3>{% for p in report.projects.advanced %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div><ul class="small mb-0 mt-1">{% for f in p.features %}<li>{{ f }}</li>{% endfor %}</ul></div>{% endfor %}</div>
+                            </div>
+                        </div>
+
+                        <div class="accordion d-lg-none" id="projectAccordion">
+                            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#projBeg" aria-expanded="true">{{ 'Beginner' if language == 'en' else 'தொடக்க நிலை' }}</button></h2><div id="projBeg" class="accordion-collapse collapse show" data-bs-parent="#projectAccordion"><div class="accordion-body">{% for p in report.projects.beginner %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div></div>{% endfor %}</div></div></div>
+                            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#projInt" aria-expanded="false">{{ 'Intermediate' if language == 'en' else 'இடைநிலை' }}</button></h2><div id="projInt" class="accordion-collapse collapse" data-bs-parent="#projectAccordion"><div class="accordion-body">{% for p in report.projects.intermediate %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div></div>{% endfor %}</div></div></div>
+                            <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#projAdv" aria-expanded="false">{{ 'Advanced' if language == 'en' else 'மேம்பட்ட' }}</button></h2><div id="projAdv" class="accordion-collapse collapse" data-bs-parent="#projectAccordion"><div class="accordion-body">{% for p in report.projects.advanced %}<div class="item-card mb-2"><strong>{{ p.title }}</strong><div class="small">{{ p.description }}</div><div class="small text-muted">{{ p.duration }} | {{ p.outcome }}</div></div>{% endfor %}</div></div></div>
+                        </div>
+
+                        <hr>
+                        <h3 class="h6">{{ 'Portfolio Tips' if language == 'en' else 'போர்ட்ஃபோலியோ குறிப்புகள்' }}</h3>
+                        <ul class="mb-0">{% for tip in report.projects.portfolio_tips %}<li>{{ tip }}</li>{% endfor %}</ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-opportunities" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-opportunities" aria-expanded="true" aria-controls="body-opportunities">
+                            <span><i class="bi bi-briefcase-fill me-2 text-success"></i>{{ 'Career Opportunities' if language == 'en' else 'தொழில் வாய்ப்புகள்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-opportunities" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <h3 class="h6">{{ 'Salary Overview' if language == 'en' else 'சம்பள பார்வை' }}</h3>
+                        {% if has_india_salary %}
+                        <div class="salary-table-wrap table-responsive mb-2">
+                            <table class="table table-sm align-middle salary-overview-table">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'Level' if language == 'en' else 'நிலை' }}</th>
+                                        <th>{{ 'India (LPA)' if language == 'en' else 'இந்தியா (LPA)' }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><span class="salary-level-pill">Fresher</span></td><td><span class="salary-value">{{ salary.fresher }}</span></td></tr>
+                                    <tr><td><span class="salary-level-pill">Junior</span></td><td><span class="salary-value">{{ salary.junior }}</span></td></tr>
+                                    <tr><td><span class="salary-level-pill">Mid</span></td><td><span class="salary-value">{{ salary.mid }}</span></td></tr>
+                                    <tr><td><span class="salary-level-pill">Senior</span></td><td><span class="salary-value">{{ salary.senior }}</span></td></tr>
+                                    <tr><td><span class="salary-level-pill">Lead</span></td><td><span class="salary-value">{{ salary.lead }}</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+
+                        <div class="row g-2 mb-2">{% for s in report.career_opportunities.salary.international %}<div class="col-md-6 col-xl-4"><div class="country-card h-100"><strong>{{ s.country }}</strong><div class="small">Entry: {{ s.entry }}</div><div class="small">Mid: {{ s.mid }}</div><div class="small">Senior: {{ s.senior }}</div></div></div>{% endfor %}</div>
+                        <div class="small text-muted mb-3">{{ report.career_opportunities.salary.disclaimer }}</div>
+
+                        <div class="row g-3">
+                            <div class="col-xl-7">
+                                <h3 class="h6 mb-2">{{ 'Top Hiring Companies' if language == 'en' else 'முன்னணி நியமன நிறுவனங்கள்' }}</h3>
+                                <div class="row g-2">
+                                    <div class="col-md-6 col-xl-3"><div class="item-card h-100"><div class="fw-semibold mb-1">Tech Giants</div>{% for c in report.career_opportunities.top_hiring_companies.tech_giants[:10] %}<span class="chip">{{ c }}</span>{% endfor %}</div></div>
+                                    <div class="col-md-6 col-xl-3"><div class="item-card h-100"><div class="fw-semibold mb-1">Indian Product</div>{% for c in report.career_opportunities.top_hiring_companies.indian_product[:10] %}<span class="chip">{{ c }}</span>{% endfor %}</div></div>
+                                    <div class="col-md-6 col-xl-3"><div class="item-card h-100"><div class="fw-semibold mb-1">IT Services</div>{% for c in report.career_opportunities.top_hiring_companies.it_services[:10] %}<span class="chip">{{ c }}</span>{% endfor %}</div></div>
+                                    <div class="col-md-6 col-xl-3"><div class="item-card h-100"><div class="fw-semibold mb-1">Consulting</div>{% for c in report.career_opportunities.top_hiring_companies.consulting[:10] %}<span class="chip">{{ c }}</span>{% endfor %}</div></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-5">
+                                <h3 class="h6">{{ 'Related Job Titles' if language == 'en' else 'தொடர்புடைய பணி தலைப்புகள்' }}</h3>
+                                {% for t in report.career_opportunities.related_job_titles[:10] %}<span class="chip">{{ t }}</span>{% endfor %}
+                                {% if report.career_opportunities.related_job_titles|length > 10 %}
+                                <button class="btn btn-link btn-sm p-0" data-bs-toggle="collapse" data-bs-target="#moreTitles">{{ 'View more' if language == 'en' else 'மேலும்' }}</button>
+                                <div id="moreTitles" class="collapse mt-1">{% for t in report.career_opportunities.related_job_titles[10:] %}<span class="chip">{{ t }}</span>{% endfor %}</div>
+                                {% endif %}
+                                <div class="small mt-2"><strong>{{ 'Trend' if language == 'en' else 'போக்கு' }}:</strong> {{ report.career_opportunities.market_trend_indicator.trend }} - {{ report.career_opportunities.market_trend_indicator.note }}</div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-success mt-3 mb-2">{{ report.career_opportunities.application_strategy }}</div>
+                        <a class="btn btn-success" href="{{ report.career_opportunities.direct_apply_link }}" target="_blank" rel="noopener">{{ 'Direct Apply Link' if language == 'en' else 'நேரடி விண்ணப்ப இணைப்பு' }}</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-actions" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-actions" aria-expanded="true" aria-controls="body-actions">
+                            <span><i class="bi bi-lightning-fill me-2 text-warning"></i>{{ 'Actions' if language == 'en' else 'செயல்கள்' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-actions" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <div class="d-flex flex-wrap gap-2">
+                            {% if report.actions.save_progress %}<button class="btn btn-success" type="button"><i class="bi bi-floppy me-1"></i>{{ 'Save Progress' if language == 'en' else 'முன்னேற்றத்தை சேமி' }}</button>{% endif %}
+                            {% if report.actions.resume_later %}<a href="{{ url_for('index') }}" class="btn btn-outline-primary"><i class="bi bi-pause-circle me-1"></i>{{ 'Resume Later' if language == 'en' else 'பின்னர் தொடரவும்' }}</a>{% endif %}
+                            {% if report.actions.export_pdf %}<button id="btnPrint" class="btn btn-outline-danger" type="button"><i class="bi bi-file-earmark-pdf me-1"></i>{{ 'Export PDF' if language == 'en' else 'PDF ஏற்றுமதி' }}</button>{% endif %}
+                            {% if report.actions.edit_inputs %}<a href="{{ url_for('career_input') }}" class="btn btn-outline-secondary"><i class="bi bi-pencil-square me-1"></i>{{ 'Edit Inputs' if language == 'en' else 'உள்ளீடுகளை திருத்து' }}</a>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-ux" class="section-block" data-section>
+                <div class="section-header">
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                        <button class="section-trigger" type="button" data-bs-toggle="collapse" data-bs-target="#body-ux" aria-expanded="true" aria-controls="body-ux">
+                            <span><i class="bi bi-palette-fill me-2 text-info"></i>{{ 'UX Style Recommendation' if language == 'en' else 'UX வடிவமைப்பு பரிந்துரை' }}</span>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <div class="section-tools">
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Copy</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="button">Share</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="body-ux" class="collapse show section-collapse">
+                    <div class="section-content">
+                        <ul class="mb-2">
+                            <li><strong>{{ 'Layout' if language == 'en' else 'வடிவமைப்பு' }}:</strong> {{ report.ux_style_recommendation.layout }}</li>
+                            <li><strong>{{ 'Navigation' if language == 'en' else 'வழிசெலுத்தல்' }}:</strong> {{ report.ux_style_recommendation.navigation }}</li>
+                            <li><strong>{{ 'Mobile' if language == 'en' else 'மொபைல்' }}:</strong> {{ report.ux_style_recommendation.mobile }}</li>
+                            <li><strong>{{ 'Bilingual Labels' if language == 'en' else 'இருமொழி குறிச்சொற்கள்' }}:</strong> {{ 'Yes' if report.ux_style_recommendation.bilingual_labels else 'No' }}</li>
+                        </ul>
+                        <div class="d-flex flex-wrap gap-2">{% for c in report.ux_style_recommendation.color_coding %}<span class="legend-chip">{{ c.color }} - {{ c.meaning }}</span>{% endfor %}</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<button id="btnTop" class="floating-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+<div class="mobile-actions d-lg-none">
+    <div class="mobile-actions-grid">
+        {% if report.actions.save_progress %}<button class="btn btn-success" type="button">{{ 'Save' if language == 'en' else 'சேமி' }}</button>{% else %}<button class="btn btn-outline-secondary" type="button" disabled>{{ 'Save' if language == 'en' else 'சேமி' }}</button>{% endif %}
+        {% if report.actions.export_pdf %}<button id="btnPrintMobile" class="btn btn-outline-danger" type="button">{{ 'Export' if language == 'en' else 'ஏற்று' }}</button>{% else %}<button class="btn btn-outline-secondary" type="button" disabled>{{ 'Export' if language == 'en' else 'ஏற்று' }}</button>{% endif %}
+        {% if report.actions.edit_inputs %}<a href="{{ url_for('career_input') }}" class="btn btn-outline-primary">{{ 'Edit' if language == 'en' else 'திருத்து' }}</a>{% else %}<button class="btn btn-outline-secondary" type="button" disabled>{{ 'Edit' if language == 'en' else 'திருத்து' }}</button>{% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sections = Array.from(document.querySelectorAll('[data-section]'));
+    const navLinks = Array.from(document.querySelectorAll('.step-link'));
+    const jump = document.getElementById('quickJump');
+    const btnTop = document.getElementById('btnTop');
+
+    const cardObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.14 });
+
+    sections.forEach((section, index) => {
+        section.style.transitionDelay = (index * 40) + 'ms';
+        cardObserver.observe(section);
+    });
+
+    const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
+            navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+            if (jump) jump.value = id;
+        });
+    }, { threshold: 0.35, rootMargin: '-20% 0px -45% 0px' });
+
+    sections.forEach((section) => spyObserver.observe(section));
+
+    if (jump) {
+        jump.addEventListener('change', (e) => {
+            const target = document.getElementById(e.target.value);
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    document.querySelectorAll('.bar-grow').forEach((bar) => {
+        const width = bar.getAttribute('data-width') || '0';
+        bar.style.width = '0%';
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                bar.style.width = width + '%';
+            }, 120);
+        });
+    });
+
+    const printButtons = [document.getElementById('btnPrint'), document.getElementById('btnPrintMobile'), document.getElementById('btnPrintTop')];
+    printButtons.forEach((btn) => {
+        if (!btn) return;
+        btn.addEventListener('click', () => window.print());
+    });
+
+    const topToggle = () => {
+        if (window.scrollY > 420) btnTop.classList.add('show');
+        else btnTop.classList.remove('show');
+    };
+
+    window.addEventListener('scroll', topToggle, { passive: true });
+    topToggle();
+
+    btnTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+});
+</script>
+{% endblock %}

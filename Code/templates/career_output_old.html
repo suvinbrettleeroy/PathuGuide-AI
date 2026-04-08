@@ -1,0 +1,714 @@
+{% extends "base.html" %}
+
+{% block title %}PathGuide - Career Roadmap{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Success Header -->
+        <div class="card card-custom bg-gradient-primary text-white mb-4">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-check-circle fa-4x mb-3"></i>
+                <h2 class="fw-bold">Your Career Roadmap is Ready!</h2>
+                <p class="lead">Scroll down to start your journey to success</p>
+            </div>
+        </div>
+
+        <!-- 1. RECOMMENDED DOMAIN & ROLE -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-bullseye me-2"></i>Selected Career Path</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h5 class="fw-bold text-primary mb-3">Domain & Role</h5>
+                        <p class="mb-1"><strong>Domain:</strong> <span class="text-success" id="display-domain">Data Science & Analytics</span></p>
+                        <p class="mb-1"><strong>Role:</strong> <span class="text-success" id="display-role">Data Analyst</span></p>
+                        <p class="mb-0"><strong>Location Preference:</strong> <span id="display-location">Remote/Work from home</span></p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="position-relative d-inline-block">
+                            <svg width="120" height="120" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="#e9ecef" stroke-width="8"></circle>
+                                <circle cx="60" cy="60" r="50" fill="none" stroke="#198754" stroke-width="8" stroke-dasharray="314" stroke-dashoffset="47" stroke-linecap="round" transform="rotate(-90 60 60)"></circle>
+                            </svg>
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                                <h2 class="fw-bold text-success mb-0">85%</h2>
+                                <small>Match</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. JOB ROLE EXPLANATION -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i>Understanding Your Role</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">What This Role Does</h5>
+                <ul class="mb-4">
+                    <li>Collect, clean, and analyze data to uncover insights</li>
+                    <li>Create visualizations and reports for stakeholders</li>
+                    <li>Work with databases and statistical tools</li>
+                    <li>Help companies make data-driven decisions</li>
+                </ul>
+
+                <h5 class="fw-bold mb-3">How It Works in Real Companies</h5>
+                <p class="mb-4">Data Analysts work closely with business teams, marketing, and product managers. You'll spend your time querying databases, creating dashboards in tools like Tableau or Power BI, and presenting findings to help guide business strategy. Most companies offer remote or hybrid work options.</p>
+
+                <h5 class="fw-bold mb-3">Why This Suits You</h5>
+                <p class="mb-0">Based on your <strong>department background</strong> and preference for <strong>remote work</strong>, data analysis is an excellent fit. With your available <strong id="study-hours-display">2-4 hours/day</strong>, you can master the necessary tools within your <strong id="duration-display">6-month</strong> roadmap.</p>
+            </div>
+        </div>
+
+        <!-- 3. LEARNING ROADMAP -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0"><i class="fas fa-road me-2"></i>Your Learning Roadmap</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="timeline" id="roadmap-container">
+                    <!-- Month 1 -->
+                    <div class="timeline-item mb-4">
+                        <div class="d-flex">
+                            <div class="timeline-badge bg-primary text-white rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</div>
+                            <div class="ms-3 flex-grow-1">
+                                <h5 class="fw-bold">Month 1: Foundation & Basics</h5>
+                                <p><strong>What to Study:</strong> Excel fundamentals, SQL basics, Statistics introduction</p>
+                                <p><strong>Skill Focus:</strong> Data manipulation, basic queries, statistical thinking</p>
+                                <p><strong>Milestone:</strong> Create your first data analysis report using Excel</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Month 2 -->
+                    <div class="timeline-item mb-4">
+                        <div class="d-flex">
+                            <div class="timeline-badge bg-info text-white rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</div>
+                            <div class="ms-3 flex-grow-1">
+                                <h5 class="fw-bold">Month 2: Advanced Tools</h5>
+                                <p><strong>What to Study:</strong> Python for data analysis, Pandas library, Data visualization</p>
+                                <p><strong>Skill Focus:</strong> Programming basics, data cleaning, chart creation</p>
+                                <p><strong>Milestone:</strong> Build a data dashboard using Python</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Month 3 -->
+                    <div class="timeline-item mb-4">
+                        <div class="d-flex">
+                            <div class="timeline-badge bg-success text-white rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</div>
+                            <div class="ms-3 flex-grow-1">
+                                <h5 class="fw-bold">Month 3: Business Intelligence</h5>
+                                <p><strong>What to Study:</strong> Tableau/Power BI, Advanced SQL, Business metrics</p>
+                                <p><strong>Skill Focus:</strong> Interactive dashboards, complex queries, KPIs</p>
+                                <p><strong>Milestone:</strong> Create professional BI dashboard</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More months will be added dynamically based on duration -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. TOOLS & TECHNOLOGIES -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="mb-0"><i class="fas fa-tools me-2"></i>Tools & Technologies</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-primary"><i class="fas fa-laptop-code"></i> Development Tools</h6>
+                        <ul>
+                            <li><strong>Microsoft Excel:</strong> Spreadsheet tool for basic data analysis</li>
+                            <li><strong>Jupyter Notebook:</strong> Interactive Python environment</li>
+                            <li><strong>VS Code:</strong> Code editor for Python scripts</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-success"><i class="fas fa-database"></i> Database & Query Tools</h6>
+                        <ul>
+                            <li><strong>MySQL/PostgreSQL:</strong> Relational databases for data storage</li>
+                            <li><strong>MongoDB:</strong> NoSQL database for flexible data</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-warning"><i class="fas fa-chart-line"></i> Visualization Platforms</h6>
+                        <ul>
+                            <li><strong>Tableau:</strong> Professional data visualization tool</li>
+                            <li><strong>Power BI:</strong> Microsoft's BI and analytics platform</li>
+                            <li><strong>Matplotlib/Seaborn:</strong> Python visualization libraries</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6 class="fw-bold text-info"><i class="fas fa-code"></i> Programming Languages</h6>
+                        <ul>
+                            <li><strong>Python:</strong> Primary language for data analysis</li>
+                            <li><strong>SQL:</strong> Database query language</li>
+                            <li><strong>R:</strong> Statistical programming (optional)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. COURSE RECOMMENDATIONS -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Course Recommendations</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3 text-success"><i class="fas fa-seedling"></i> Beginner Level</h5>
+                <div class="course-item mb-3 p-3 border rounded">
+                    <h6 class="fw-bold">Data Analysis with Python (FreeCodeCamp)</h6>
+                    <p class="mb-1"><span class="badge bg-success">FREE</span> <span class="badge bg-info">YouTube</span></p>
+                    <p class="mb-1"><strong>Duration:</strong> 4 weeks | <strong>Focus:</strong> Python basics, Pandas, NumPy</p>
+                    <a href="https://www.youtube.com/freecodecamp" target="_blank" class="btn btn-sm btn-outline-primary">View Course</a>
+                </div>
+
+                <div class="course-item mb-4 p-3 border rounded">
+                    <h6 class="fw-bold">Excel to MySQL: Analytic Techniques (Coursera)</h6>
+                    <p class="mb-1"><span class="badge bg-warning text-dark">PAID</span> <span class="badge bg-primary">Coursera</span></p>
+                    <p class="mb-1"><strong>Duration:</strong> 6 weeks | <strong>Cost:</strong> ₹3,999 | <strong>Focus:</strong> Excel, SQL</p>
+                    <a href="https://www.coursera.org" target="_blank" class="btn btn-sm btn-outline-primary">View Course</a>
+                </div>
+
+                <h5 class="fw-bold mb-3 text-info"><i class="fas fa-layer-group"></i> Intermediate Level</h5>
+                <div class="course-item mb-3 p-3 border rounded">
+                    <h6 class="fw-bold">Data Visualization with Tableau (Udemy)</h6>
+                    <p class="mb-1"><span class="badge bg-warning text-dark">PAID</span> <span class="badge bg-danger">Udemy</span></p>
+                    <p class="mb-1"><strong>Duration:</strong> 8 weeks | <strong>Cost:</strong> ₹1,499 | <strong>Focus:</strong> Tableau dashboards</p>
+                    <a href="https://www.udemy.com" target="_blank" class="btn btn-sm btn-outline-primary">View Course</a>
+                </div>
+
+                <h5 class="fw-bold mb-3 text-danger"><i class="fas fa-rocket"></i> Advanced Level</h5>
+                <div class="course-item mb-3 p-3 border rounded">
+                    <h6 class="fw-bold">Google Data Analytics Professional Certificate</h6>
+                    <p class="mb-1"><span class="badge bg-warning text-dark">PAID</span> <span class="badge bg-primary">Coursera</span></p>
+                    <p class="mb-1"><strong>Duration:</strong> 6 months | <strong>Cost:</strong> ₹2,500/month | <strong>Focus:</strong> Industry certification</p>
+                    <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="btn btn-sm btn-outline-primary">View Course</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. INTERNSHIP RECOMMENDATIONS -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-briefcase me-2"></i>Internship Opportunities</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">Free/Unpaid Internships</h5>
+                <div class="internship-item mb-3 p-3 border-start border-5 border-success">
+                    <h6 class="fw-bold">Data Analysis Virtual Internship - AICTE</h6>
+                    <p class="mb-1"><strong>Duration:</strong> 8 weeks | <strong>Mode:</strong> Virtual</p>
+                    <p class="mb-1"><strong>Skills Required:</strong> Basic Python, Excel</p>
+                    <p class="mb-2">Gain hands-on experience with real datasets, learn industry workflows</p>
+                    <a href="https://internship.aicte-india.org" target="_blank" class="btn btn-sm btn-success">Apply Now</a>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4">Paid Internships</h5>
+                <div class="internship-item mb-3 p-3 border-start border-5 border-warning">
+                    <h6 class="fw-bold">Junior Data Analyst - Startups (Internshala)</h6>
+                    <p class="mb-1"><strong>Stipend:</strong> ₹5,000 - ₹15,000/month | <strong>Duration:</strong> 3-6 months</p>
+                    <p class="mb-1"><strong>Skills Required:</strong> Python, SQL, Tableau/Power BI</p>
+                    <p class="mb-2">Work with growing startups, potential for full-time conversion</p>
+                    <a href="https://internshala.com" target="_blank" class="btn btn-sm btn-warning">Browse Listings</a>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4">Virtual Internships (Global)</h5>
+                <div class="internship-item mb-3 p-3 border-start border-5 border-info">
+                    <h6 class="fw-bold">Data Analytics - Forage Virtual Programs</h6>
+                    <p class="mb-1"><strong>Companies:</strong> Accenture, KPMG, PwC | <strong>Mode:</strong> Self-paced</p>
+                    <p class="mb-2">Complete real-world projects from top companies, earn certificates</p>
+                    <a href="https://www.theforage.com" target="_blank" class="btn btn-sm btn-info">Explore Programs</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. PROJECT SUGGESTIONS -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="fas fa-project-diagram me-2"></i>Project Ideas</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3 text-success">Beginner Projects</h5>
+                
+                <div class="project-item mb-4 p-3 bg-light rounded">
+                    <h6 class="fw-bold"><i class="fas fa-file-excel text-success"></i> Sales Data Analysis Using Excel</h6>
+                    <p><strong>Description:</strong> Analyze sample sales data to find trends, top products, and customer insights</p>
+                    <p><strong>Skills:</strong> Excel formulas, pivot tables, charts</p>
+                    <p><strong>Duration:</strong> 1 week | <strong>Difficulty:</strong> Easy</p>
+                    <p class="mb-0"><strong>Learning Outcome:</strong> Master Excel basics, understand business metrics</p>
+                </div>
+
+                <div class="project-item mb-4 p-3 bg-light rounded">
+                    <h6 class="fw-bold"><i class="fas fa-python text-primary"></i> COVID-19 Data Visualization</h6>
+                    <p><strong>Description:</strong> Create visualizations of COVID-19 statistics using Python</p>
+                    <p><strong>Skills:</strong> Python, Pandas, Matplotlib</p>
+                    <p><strong>Duration:</strong> 2 weeks | <strong>Difficulty:</strong> Easy</p>
+                    <p class="mb-0"><strong>Learning Outcome:</strong> Data cleaning, basic visualization, storytelling</p>
+                </div>
+
+                <h5 class="fw-bold mb-3 text-warning mt-4">Intermediate Projects</h5>
+                
+                <div class="project-item mb-4 p-3 bg-light rounded">
+                    <h6 class="fw-bold"><i class="fas fa-chart-bar text-info"></i> E-commerce Customer Behavior Dashboard</h6>
+                    <p><strong>Description:</strong> Build interactive dashboard showing customer purchase patterns</p>
+                    <p><strong>Skills:</strong> SQL, Python, Tableau/Power BI</p>
+                    <p><strong>Duration:</strong> 3-4 weeks | <strong>Difficulty:</strong> Medium</p>
+                    <p class="mb-0"><strong>Learning Outcome:</strong> Database queries, advanced visualizations, business insights</p>
+                </div>
+
+                <h5 class="fw-bold mb-3 text-danger mt-4">Advanced Projects</h5>
+                
+                <div class="project-item mb-4 p-3 bg-light rounded">
+                    <h6 class="fw-bold"><i class="fas fa-database text-danger"></i> Full-Stack Analytics Platform</h6>
+                    <p><strong>Description:</strong> Build end-to-end platform with data pipeline, analysis, and dashboard</p>
+                    <p><strong>Skills:</strong> Python, SQL, APIs, Tableau, ETL processes</p>
+                    <p><strong>Duration:</strong> 6-8 weeks | <strong>Difficulty:</strong> Hard</p>
+                    <p class="mb-0"><strong>Learning Outcome:</strong> Production-ready analytics system, portfolio highlight</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. SKILLS REQUIRED -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0"><i class="fas fa-star me-2"></i>Skills Required</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3 text-danger">Core Skills (Must-Have)</h5>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="skill-item mb-2">
+                            <span class="badge bg-danger me-2">1</span>
+                            <strong>SQL:</strong> Essential for querying databases and extracting data
+                        </div>
+                        <div class="skill-item mb-2">
+                            <span class="badge bg-danger me-2">2</span>
+                            <strong>Excel:</strong> Foundation for data manipulation and quick analysis
+                        </div>
+                        <div class="skill-item mb-2">
+                            <span class="badge bg-danger me-2">3</span>
+                            <strong>Python:</strong> Primary programming language for data analysis
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="skill-item mb-2">
+                            <span class="badge bg-danger me-2">4</span>
+                            <strong>Statistics:</strong> Understanding data distributions and patterns
+                        </div>
+                        <div class="skill-item mb-2">
+                            <span class="badge bg-danger me-2">5</span>
+                            <strong>Data Visualization:</strong> Communicating insights through charts
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="fw-bold mb-3 text-warning">Supporting Skills (Good-to-Have)</h5>
+                <ul>
+                    <li><strong>Communication:</strong> Explaining insights to non-technical stakeholders</li>
+                    <li><strong>Business Acumen:</strong> Understanding industry metrics and KPIs</li>
+                    <li><strong>Problem-Solving:</strong> Breaking down complex questions into data problems</li>
+                    <li><strong>Tableau/Power BI:</strong> Advanced dashboarding tools</li>
+                    <li><strong>Git:</strong> Version control for collaborative work</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 9. SALARY ESTIMATION -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-rupee-sign me-2"></i>Salary Estimation</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3"><i class="fas fa-map-marker-alt text-danger"></i> India - Salary Ranges</h5>
+                
+                <div class="salary-tier mb-3 p-3 border-start border-5 border-success">
+                    <h6 class="fw-bold">Entry Level (0-2 years)</h6>
+                    <p class="mb-1"><strong>Monthly:</strong> ₹25,000 - ₹45,000</p>
+                    <p class="mb-1"><strong>Yearly:</strong> ₹3,00,000 - ₹5,40,000</p>
+                    <small class="text-muted">Varies by city: Metro cities pay 20-30% higher</small>
+                </div>
+
+                <div class="salary-tier mb-3 p-3 border-start border-5 border-info">
+                    <h6 class="fw-bold">Mid Level (3-5 years)</h6>
+                    <p class="mb-1"><strong>Monthly:</strong> ₹60,000 - ₹1,20,000</p>
+                    <p class="mb-1"><strong>Yearly:</strong> ₹7,20,000 - ₹14,40,000</p>
+                </div>
+
+                <div class="salary-tier mb-4 p-3 border-start border-5 border-warning">
+                    <h6 class="fw-bold">Senior Level (6+ years)</h6>
+                    <p class="mb-1"><strong>Monthly:</strong> ₹1,50,000 - ₹3,00,000+</p>
+                    <p class="mb-1"><strong>Yearly:</strong> ₹18,00,000 - ₹36,00,000+</p>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4"><i class="fas fa-globe text-primary"></i> International - Entry Level Salaries</h5>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇺🇸 United States</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> $5,000 - $8,000</p>
+                            <p class="mb-0"><strong>Yearly:</strong> $60,000 - $96,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇨🇦 Canada</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> CAD 4,000 - 6,500</p>
+                            <p class="mb-0"><strong>Yearly:</strong> CAD 48,000 - 78,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇬🇧 United Kingdom</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> £2,500 - £4,000</p>
+                            <p class="mb-0"><strong>Yearly:</strong> £30,000 - £48,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇩🇪 Germany</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> €3,500 - €5,500</p>
+                            <p class="mb-0"><strong>Yearly:</strong> €42,000 - €66,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇦🇺 Australia</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> AUD 5,000 - 7,500</p>
+                            <p class="mb-0"><strong>Yearly:</strong> AUD 60,000 - 90,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇸🇬 Singapore</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> SGD 3,500 - 6,000</p>
+                            <p class="mb-0"><strong>Yearly:</strong> SGD 42,000 - 72,000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="country-salary p-3 bg-light rounded">
+                            <h6 class="fw-bold">🇦🇪 UAE (Dubai)</h6>
+                            <p class="mb-1"><strong>Monthly:</strong> AED 8,000 - 15,000</p>
+                            <p class="mb-0"><strong>Yearly:</strong> AED 96,000 - 1,80,000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Disclaimer:</strong> Salaries vary based on company size, location, specific skills, and experience. These are approximate ranges for guidance only.
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. TOP HIRING COMPANIES -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-building me-2"></i>Top Hiring Companies</h4>
+            </div>
+            <div class="card-body p-4">
+                <h5 class="fw-bold mb-3">Global Tech Giants</h5>
+                <div class="row mb-3">
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Google</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Microsoft</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Amazon</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Meta (Facebook)</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Apple</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-primary p-2">Netflix</span></div>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4">Indian IT Companies</h5>
+                <div class="row mb-3">
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">TCS</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">Infosys</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">Wipro</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">HCL Technologies</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">Tech Mahindra</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-success p-2">Cognizant</span></div>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4">Consulting & Analytics Firms</h5>
+                <div class="row mb-3">
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-warning text-dark p-2">Deloitte</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-warning text-dark p-2">PwC</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-warning text-dark p-2">EY</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-warning text-dark p-2">KPMG</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-warning text-dark p-2">McKinsey</span></div>
+                </div>
+
+                <h5 class="fw-bold mb-3 mt-4">Product & Startups</h5>
+                <div class="row">
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">Flipkart</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">Swiggy</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">Zomato</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">Ola</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">Paytm</span></div>
+                    <div class="col-md-3 text-center mb-2"><span class="badge bg-info p-2">CRED</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. WEEKLY STUDY PLAN -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0"><i class="fas fa-calendar-week me-2"></i>Weekly Study Plan</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="accordion" id="weeklyPlanAccordion">
+                    <!-- Week 1-4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#week1-4">
+                                <strong>Week 1-4: Foundation Phase</strong>
+                            </button>
+                        </h2>
+                        <div id="week1-4" class="accordion-collapse collapse show" data-bs-parent="#weeklyPlanAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Focus:</strong> Excel & SQL Basics</p>
+                                <p><strong>Study Goal:</strong> Master data manipulation fundamentals</p>
+                                <ul>
+                                    <li><strong>Day 1-2:</strong> Excel formulas (SUM, AVERAGE, IF, VLOOKUP)</li>
+                                    <li><strong>Day 3-4:</strong> Pivot tables and basic charts</li>
+                                    <li><strong>Day 5-7:</strong> SQL SELECT, WHERE, JOIN basics</li>
+                                </ul>
+                                <p><strong>Checkpoint:</strong> Complete Excel sales analysis project</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Week 5-8 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week5-8">
+                                <strong>Week 5-8: Python Introduction</strong>
+                            </button>
+                        </h2>
+                        <div id="week5-8" class="accordion-collapse collapse" data-bs-parent="#weeklyPlanAccordion">
+                            <div class="accordion-body">
+                                <p><strong>Focus:</strong> Python programming & Pandas</p>
+                                <p><strong>Study Goal:</strong> Automate data analysis with code</p>
+                                <ul>
+                                    <li><strong>Day 1-3:</strong> Python basics (variables, loops, functions)</li>
+                                    <li><strong>Day 4-5:</strong> Pandas DataFrames</li>
+                                    <li><strong>Day 6-7:</strong> Data cleaning and transformation</li>
+                                </ul>
+                                <p><strong>Checkpoint:</strong> Build COVID-19 data visualization</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More weeks dynamically added -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 12. TODAY'S TASK (DAILY STUDY PLAN) -->
+        <div class="card card-custom bg-white mb-4 border-primary" style="border-width: 3px;">
+            <div class="card-header bg-gradient-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-bullseye me-2"></i>🎯 Today's Task</h4>
+            </div>
+            <div class="card-body p-4">
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-9">
+                        <h5 class="fw-bold mb-1" id="today-date">Monday, January 20, 2026</h5>
+                        <p class="text-muted mb-0">Day <strong id="day-number">15</strong> of your roadmap</p>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <span class="badge bg-primary p-2" id="week-badge">Week 3</span>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <h5 class="fw-bold"><i class="fas fa-lightbulb me-2"></i>Today You Will:</h5>
+                    <p class="mb-2"><strong>Subject/Topic:</strong> <span id="today-topic">Advanced SQL Joins & Subqueries</span></p>
+                    <p class="mb-2"><strong>Recommended Duration:</strong> <span id="today-duration">2-3 hours</span></p>
+                    <p class="mb-2"><strong>Focus Area:</strong> <span id="today-focus">INNER JOIN, LEFT JOIN, RIGHT JOIN, nested SELECT statements</span></p>
+                    
+                    <div class="mt-3">
+                        <p class="mb-1"><strong>Resources:</strong></p>
+                        <ul class="mb-2">
+                            <li><a href="https://www.w3schools.com/sql/sql_join.asp" target="_blank">W3Schools SQL Joins Tutorial</a></li>
+                            <li><a href="https://www.youtube.com/watch?v=9yeOJ0ZMUYw" target="_blank">YouTube: SQL Joins Explained</a></li>
+                        </ul>
+                    </div>
+                    
+                    <p class="mb-3"><strong>Goal:</strong> <span id="today-goal">Write 5 complex queries combining multiple tables</span></p>
+                    
+                    <div class="progress mb-2" style="height: 30px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%" id="todayProgress">
+                            0% Complete
+                        </div>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="taskComplete">
+                        <label class="form-check-label" for="taskComplete">
+                            Mark as done
+                        </label>
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="completeToday()">
+                        <i class="fas fa-check me-2"></i>Complete Task
+                    </button>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Yesterday's Task</h6>
+                                <p class="mb-0 small">SQL Aggregate Functions</p>
+                                <span class="badge bg-success">✓ Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">This Week Progress</h6>
+                                <h4 class="mb-0">5/7 Days</h4>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-primary" style="width: 71%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">Tomorrow's Preview</h6>
+                                <p class="mb-0 small">Python Pandas Basics</p>
+                                <span class="badge bg-warning text-dark">Upcoming</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. SUCCESS RATE PREDICTION -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-trophy me-2"></i>Success Rate Prediction</h4>
+            </div>
+            <div class="card-body text-center p-5">
+                <div class="position-relative d-inline-block mb-4">
+                    <svg width="180" height="180" viewBox="0 0 180 180">
+                        <circle cx="90" cy="90" r="75" fill="none" stroke="#e9ecef" stroke-width="12"></circle>
+                        <circle cx="90" cy="90" r="75" fill="none" stroke="#198754" stroke-width="12" stroke-dasharray="471" stroke-dashoffset="70" stroke-linecap="round" transform="rotate(-90 90 90)"></circle>
+                    </svg>
+                    <div class="position-absolute top-50 start-50 translate-middle">
+                        <h1 class="display-1 fw-bold text-success mb-0" id="success-rate">85%</h1>
+                    </div>
+                </div>
+                
+                <h3 class="fw-bold mb-3"><span class="badge bg-success p-2">High Success Potential</span></h3>
+                
+                <div class="text-start mt-4">
+                    <h5 class="fw-bold mb-3">Based On:</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Study hours commitment: <strong>2-4 hours/day</strong></li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Roadmap duration: <strong>6 months</strong></li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Department-role alignment: <strong>90% match</strong></li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Skill prerequisites: <strong>Well-aligned</strong></li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-success text-start mt-4">
+                    <h5 class="fw-bold"><i class="fas fa-star me-2"></i>Personalized Feedback</h5>
+                    <p class="mb-0">Excellent! Your commitment and background are well-aligned with this role. Stay consistent with your study plan and you're likely to succeed. Your preference for remote work matches perfectly with data analysis opportunities.</p>
+                </div>
+
+                <div class="text-start mt-4">
+                    <h5 class="fw-bold mb-3">💡 Improvement Suggestions:</h5>
+                    <ul>
+                        <li>Join online data analysis communities (Reddit r/datascience, Kaggle)</li>
+                        <li>Participate in Kaggle competitions for hands-on practice</li>
+                        <li>Build a GitHub portfolio with your projects</li>
+                        <li>Network with professionals on LinkedIn</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="card card-custom bg-white">
+            <div class="card-body text-center p-4">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <button class="btn btn-primary btn-lg btn-custom" onclick="saveProfile()">
+                        <i class="fas fa-save me-2"></i>Save Profile
+                    </button>
+                    <button class="btn btn-success btn-lg btn-custom" onclick="downloadPDF()">
+                        <i class="fas fa-download me-2"></i>Download PDF
+                    </button>
+                    <a href="/career/input" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-redo me-2"></i>New Analysis
+                    </a>
+                    <a href="/" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-home me-2"></i>Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function completeToday() {
+        const progressBar = document.getElementById('todayProgress');
+        const checkbox = document.getElementById('taskComplete');
+        let progress = 0;
+        
+        const interval = setInterval(() => {
+            progress += 10;
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '% Complete';
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                checkbox.checked = true;
+                setTimeout(() => {
+                    alert('🎉 Great job! Task completed!\n\nTomorrow: Python Pandas Basics');
+                }, 500);
+            }
+        }, 100);
+    }
+
+    function saveProfile() {
+        alert('✓ Profile saved successfully!\n\nYou can access your roadmap anytime.');
+    }
+
+    function downloadPDF() {
+        alert('📄 PDF download feature coming soon!\n\nFor now, you can print this page (Ctrl+P).');
+    }
+
+    // Auto-update today's date
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('today-date').textContent = today.toLocaleDateString('en-US', options);
+    });
+</script>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .accordion-button:not(.collapsed) {
+        background-color: #667eea;
+        color: white;
+    }
+    .timeline-badge {
+        flex-shrink: 0;
+    }
+</style>
+{% endblock %}

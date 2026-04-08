@@ -1,0 +1,1670 @@
+{% extends "base.html" %}
+
+{% block title %}PathGuide - {{ 'தமிழ்நாடு அரசு தேர்வு உள்ளீடு' if language == 'ta' else 'Tamil Nadu Government Exam Input' }}{% endblock %}
+
+{% block content %}
+<!-- Job Details Toggle Button -->
+<button class="btn btn-primary job-details-toggle" onclick="toggleJobPanel()" id="jobToggleBtn">
+    <i class="fas fa-briefcase me-2"></i>📋 {% if language == 'ta' %}வேலை விவரங்கள்{% else %}Job Details{% endif %}
+</button>
+
+<!-- Job Details Side Panel -->
+<div class="job-details-panel" id="jobDetailsPanel">
+    <div class="job-panel-header">
+        <h5 class="mb-0">
+            <i class="fas fa-briefcase me-2"></i>
+            {% if language == 'ta' %}தமிழ்நாடு அரசு வேலைகள்{% else %}Tamil Nadu Government Jobs{% endif %}
+        </h5>
+        <button class="btn-close" onclick="toggleJobPanel()"></button>
+    </div>
+    
+    <div class="job-panel-body">
+        <div class="alert alert-info small mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            {% if language == 'ta' %}வேலை விவரங்களைக் காண கீழே கிளிக் செய்யவும்{% else %}Click below to explore job details{% endif %}
+        </div>
+        
+        <!-- TNPSC Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#tnpscJobs">
+                <i class="fas fa-landmark text-success me-2"></i>
+                <strong>TNPSC Exams</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="tnpscJobs">
+                
+                <!-- Group I -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group1Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group I - Combined Civil Services
+                </div>
+                <div class="collapse" id="group1Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-dc">
+                        <div class="job-title">Deputy Collector</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-dc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Chief revenue officer of a taluk/sub-division managing land records, revenue collection, disaster management, and welfare schemes</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, vehicle, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-dsp">
+                        <div class="job-title">Deputy Superintendent of Police (DSP)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-dsp">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Law enforcement officer managing police stations in a sub-division, crime investigation, and maintaining law & order</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month + Police Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, quarters, vehicle, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ac">
+                        <div class="job-title">Assistant Commissioner</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ac">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Commercial tax administration, GST compliance, tax collection, and business audit</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-dr">
+                        <div class="job-title">District Registrar</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-dr">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Managing property registration, document verification, and maintaining land records</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ad">
+                        <div class="job-title">Assistant Director</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ad">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Program implementation, policy execution, and administrative coordination in various departments</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IA -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group1aJobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IA - Forest Service
+                </div>
+                <div class="collapse" id="group1aJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-acf">
+                        <div class="job-title">Assistant Conservator of Forests</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-acf">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Forest conservation, wildlife protection, environmental planning, and managing forest divisions</p>
+                            <p><strong>Salary:</strong> ₹56,100 - ₹1,77,500/month + Forest Allowances</p>
+                            <p><strong>Benefits:</strong> Forest quarters, vehicle, medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Interview + Forest Knowledge Test</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group II -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group2Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group II - Non-Interview Posts
+                </div>
+                <div class="collapse" id="group2Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aso2">
+                        <div class="job-title">Assistant Section Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aso2">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Office management, file processing, correspondence, and administrative support</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, job security</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-mc">
+                        <div class="job-title">Municipal Commissioner (Grade II)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-mc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Urban administration, civic services, sanitation, and municipal governance</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Government quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-po">
+                        <div class="job-title">Probation Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-po">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Juvenile justice, counseling, rehabilitation, and social welfare</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-il">
+                        <div class="job-title">Inspector of Labour</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-il">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Labour law enforcement, factory inspection, worker welfare, and compliance monitoring</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sr2">
+                        <div class="job-title">Sub-Registrar (Grade II)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sr2">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Property registration, document verification, stamp duty collection</p>
+                            <p><strong>Salary:</strong> ₹35,400 - ₹1,12,400/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, job security</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IIA -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group2aJobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IIA
+                </div>
+                <div class="collapse" id="group2aJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aso2a">
+                        <div class="job-title">Assistant Section Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aso2a">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Clerical work, file management, office administration</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aa">
+                        <div class="job-title">Audit Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aa">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Financial auditing, account verification, record maintenance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jeo">
+                        <div class="job-title">Junior Employment Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jeo">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Employment registration, job fairs, career counseling</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group III -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group3Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group III - Technical Posts
+                </div>
+                <div class="collapse" id="group3Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jics">
+                        <div class="job-title">Junior Inspector of Cooperative Societies</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jics">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Cooperative society audit, compliance verification, financial monitoring</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sk">
+                        <div class="job-title">Store Keeper</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Inventory management, stock maintenance, procurement assistance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-as">
+                        <div class="job-title">Assistant Supervisor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-as">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Field supervision, project monitoring, quality control</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Group IV -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#group4Jobs">
+                    <i class="fas fa-angle-right me-2"></i>Group IV - Clerical Posts
+                </div>
+                <div class="collapse" id="group4Jobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-vao">
+                        <div class="job-title">Village Administrative Officer (VAO)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-vao">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Village-level administration, land records, revenue collection, welfare scheme implementation</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Housing allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ja">
+                        <div class="job-title">Junior Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ja">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Office support, file maintenance, clerical work, data entry</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-typ">
+                        <div class="job-title">Typist</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-typ">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Typing official documents, correspondence, data entry</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type + Typing Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-steno">
+                        <div class="job-title">Steno-Typist</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-steno">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Shorthand dictation, typing, secretarial support</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type + Shorthand + Typing Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-bc">
+                        <div class="job-title">Bill Collector</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-bc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Revenue collection, bill generation, account reconciliation</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Objective Type (200 questions)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CES -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#cesJobs">
+                    <i class="fas fa-angle-right me-2"></i>Combined Engineering Services (CES)
+                </div>
+                <div class="collapse" id="cesJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aecivil">
+                        <div class="job-title">Assistant Engineer (Civil)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aecivil">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Infrastructure projects, construction supervision, quality control</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aemech">
+                        <div class="job-title">Assistant Engineer (Mechanical)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aemech">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Mechanical equipment maintenance, project implementation</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aeelec">
+                        <div class="job-title">Assistant Engineer (Electrical)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aeelec">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Electrical systems, power distribution, project execution</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, TA/DA</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aeagri">
+                        <div class="job-title">Assistant Engineer (Agriculture)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aeagri">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Irrigation projects, agricultural engineering, water management</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AAO -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#aaoJobs">
+                    <i class="fas fa-angle-right me-2"></i>Assistant Agricultural Officer (AAO)
+                </div>
+                <div class="collapse" id="aaoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aao">
+                        <div class="job-title">Assistant Agricultural Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aao">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Farmer guidance, crop planning, agricultural extension services</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AHO -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#ahoJobs">
+                    <i class="fas fa-angle-right me-2"></i>Assistant Horticultural Officer (AHO)
+                </div>
+                <div class="collapse" id="ahoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-aho">
+                        <div class="job-title">Assistant Horticultural Officer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-aho">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Horticulture development, fruit/flower cultivation, farmer training</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- TNUSRB Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#tnusrbJobs">
+                <i class="fas fa-shield-alt text-primary me-2"></i>
+                <strong>TNUSRB - Police & Services</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="tnusrbJobs">
+                
+                <!-- Sub-Inspector -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#siJobs">
+                    <i class="fas fa-angle-right me-2"></i>Sub-Inspector (SI)
+                </div>
+                <div class="collapse" id="siJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sitaluk">
+                        <div class="job-title">Sub-Inspector of Police (Taluk)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sitaluk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Police station in-charge, crime investigation, law enforcement, FIR registration</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Police Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, quarters, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-siarmed">
+                        <div class="job-title">Sub-Inspector of Police (Armed Reserve)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-siarmed">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Armed force operations, VIP security, riot control, special duty</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Special Allowances</p>
+                            <p><strong>Benefits:</strong> Uniform, weapon allowance, risk pay, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sispecial">
+                        <div class="job-title">Sub-Inspector of Police (Special Police)</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sispecial">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Special branch operations, intelligence gathering, VIP protection</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month + Special Pay</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Preliminary + Main + Physical + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Police Constable -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#pcJobs">
+                    <i class="fas fa-angle-right me-2"></i>Grade II Police Constable
+                </div>
+                <div class="collapse" id="pcJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pc">
+                        <div class="job-title">Grade II Police Constable</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-pc">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Law enforcement, patrol duty, crime prevention, public safety</p>
+                            <p><strong>Salary:</strong> ₹21,700 - ₹69,010/month + Special Pay</p>
+                            <p><strong>Benefits:</strong> Uniform allowance, risk allowance, medical, pension</p>
+                            <p><strong>Physical:</strong> Height (Men: 170cm, Women: 159cm), Chest (Men: 81-86cm)</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Jail Warder -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#jailJobs">
+                    <i class="fas fa-angle-right me-2"></i>Jail Warder
+                </div>
+                <div class="collapse" id="jailJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-jw">
+                        <div class="job-title">Jail Warder</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-jw">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Prison security, inmate supervision, discipline enforcement</p>
+                            <p><strong>Salary:</strong> ₹21,700 - ₹69,010/month</p>
+                            <p><strong>Benefits:</strong> Uniform, risk allowance, medical, pension</p>
+                            <p><strong>Physical:</strong> Height and physical fitness requirements</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fireman -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#fireJobs">
+                    <i class="fas fa-angle-right me-2"></i>Fireman
+                </div>
+                <div class="collapse" id="fireJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-fireman">
+                        <div class="job-title">Fireman</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-fireman">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Fire fighting, rescue operations, emergency response, disaster management</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month + Special Allowance</p>
+                            <p><strong>Benefits:</strong> Risk allowance, uniform, medical, pension</p>
+                            <p><strong>Physical:</strong> High physical fitness, running (1.6km in 6 mins), climbing</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Physical Efficiency Test + Medical</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Teaching Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#teachingJobs">
+                <i class="fas fa-chalkboard-teacher text-warning me-2"></i>
+                <strong>Teaching Exams</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="teachingJobs">
+                
+                <!-- TET -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#tetJobs">
+                    <i class="fas fa-angle-right me-2"></i>TET (Teacher Eligibility Test)
+                </div>
+                <div class="collapse" id="tetJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-primary">
+                        <div class="job-title">Primary School Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-primary">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 1-5, basic education, child development</p>
+                            <p><strong>Salary:</strong> ₹23,700 - ₹75,200/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> TET Paper I (Classes 1-5)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-upperprimary">
+                        <div class="job-title">Upper Primary School Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-upperprimary">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 6-8, subject teaching, student guidance</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> TET Paper II (Classes 6-8)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TRB -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#trbJobs">
+                    <i class="fas fa-angle-right me-2"></i>TRB Exams
+                </div>
+                <div class="collapse" id="trbJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ap">
+                        <div class="job-title">Assistant Professor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ap">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> College-level teaching, research, academic guidance</p>
+                            <p><strong>Salary:</strong> ₹57,700 - ₹1,82,400/month (UGC Pay Scale)</p>
+                            <p><strong>Benefits:</strong> Summer vacation, medical, pension, research grants</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview + NET/SET</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-poly">
+                        <div class="job-title">Polytechnic Lecturer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-poly">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Technical education, practical training, diploma students</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Vacation, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secondary Grade -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#sgJobs">
+                    <i class="fas fa-angle-right me-2"></i>Secondary Grade Teacher
+                </div>
+                <div class="collapse" id="sgJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-sgt">
+                        <div class="job-title">Secondary Grade Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-sgt">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Teaching Classes 9-10, subject specialization, exam preparation</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation, medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PG Assistant -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#pgaJobs">
+                    <i class="fas fa-angle-right me-2"></i>Post Graduate Assistant
+                </div>
+                <div class="collapse" id="pgaJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pga">
+                        <div class="job-title">Post Graduate Assistant Teacher</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-pga">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Higher secondary teaching (Classes 11-12), board exam preparation</p>
+                            <p><strong>Subjects:</strong> Tamil, English, Mathematics, Physics, Chemistry, Biology, Computer Science, Commerce, etc.</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Summer vacation (60 days), medical, pension, increments</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Medical Category -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#mrbJobs">
+                <i class="fas fa-heartbeat text-danger me-2"></i>
+                <strong>MRB - Medical & Health</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="mrbJobs">
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-nurse">
+                    <div class="job-title">Staff Nurse</div>
+                </div>
+                <div class="collapse job-details-content" id="job-nurse">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Patient care, medication administration, health monitoring, emergency response</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, shift allowance (night duty extra), pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Certificate Verification</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-pharma">
+                    <div class="job-title">Pharmacist</div>
+                </div>
+                <div class="collapse job-details-content" id="job-pharma">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Medicine dispensing, inventory management, patient counseling</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Certificate Verification</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-lab">
+                    <div class="job-title">Lab Technician</div>
+                </div>
+                <div class="collapse job-details-content" id="job-lab">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Laboratory testing, sample analysis, report generation, equipment maintenance</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, pension, job security</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-radio">
+                    <div class="job-title">Radiographer</div>
+                </div>
+                <div class="collapse job-details-content" id="job-radio">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> X-ray imaging, CT scan, MRI operations, radiation safety</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical facilities, radiation allowance, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Revenue & Local Administration -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#revenueJobs">
+                <i class="fas fa-landmark text-secondary me-2"></i>
+                <strong>Revenue & Local Administration</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="revenueJobs">
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ri">
+                    <div class="job-title">Revenue Inspector</div>
+                </div>
+                <div class="collapse job-details-content" id="job-ri">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Land survey, revenue collection, boundary disputes, land records</p>
+                        <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-surveyor">
+                    <div class="job-title">Surveyor</div>
+                </div>
+                <div class="collapse job-details-content" id="job-surveyor">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Land measurement, survey mapping, boundary demarcation</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension, field allowances</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+                <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-draught">
+                    <div class="job-title">Draughtsman</div>
+                </div>
+                <div class="collapse job-details-content" id="job-draught">
+                    <div class="p-3">
+                        <p><strong>Role:</strong> Technical drawing, survey maps, land records documentation</p>
+                        <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                        <p><strong>Benefits:</strong> Medical, pension</p>
+                        <p class="mb-0"><strong>Exam:</strong> Written + Practical Test</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Public Sector / Boards -->
+        <div class="job-category">
+            <div class="job-category-header" data-bs-toggle="collapse" data-bs-target="#publicJobs">
+                <i class="fas fa-building text-info me-2"></i>
+                <strong>Public Sector / Boards</strong>
+                <i class="fas fa-chevron-down float-end"></i>
+            </div>
+            <div class="collapse" id="publicJobs">
+                
+                <!-- Cooperative Bank -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#coopJobs">
+                    <i class="fas fa-angle-right me-2"></i>Cooperative Bank
+                </div>
+                <div class="collapse" id="coopJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-clerk">
+                        <div class="job-title">Clerk</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-clerk">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Cash handling, customer service, account management</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-assistant">
+                        <div class="job-title">Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-assistant">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Loan processing, account management, customer relations</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-manager">
+                        <div class="job-title">Manager</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-manager">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Branch management, operations, business development</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, vehicle, bank allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transport Corporation -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#transportJobs">
+                    <i class="fas fa-angle-right me-2"></i>Transport Corporation
+                </div>
+                <div class="collapse" id="transportJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-driver">
+                        <div class="job-title">Driver</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-driver">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Bus operation, passenger safety, route driving</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Uniform, medical, pension, travel concession</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Driving Test</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-conductor">
+                        <div class="job-title">Conductor</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-conductor">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Ticket collection, passenger assistance, revenue handling</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Uniform, medical, pension, travel concession</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-je-trans">
+                        <div class="job-title">Junior Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-je-trans">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Vehicle maintenance, workshop management, technical support</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, technical allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-am-trans">
+                        <div class="job-title">Assistant Manager</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-am-trans">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Depot operations, staff management, revenue oversight</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Medical, pension, management allowances</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TANGEDCO / TNEB -->
+                <div class="job-group-header" data-bs-toggle="collapse" data-bs-target="#tangedcoJobs">
+                    <i class="fas fa-angle-right me-2"></i>TANGEDCO / TNEB
+                </div>
+                <div class="collapse" id="tangedcoJobs">
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-ae-tang">
+                        <div class="job-title">Assistant Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-ae-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Power distribution, grid management, project execution</p>
+                            <p><strong>Salary:</strong> ₹36,200 - ₹1,14,800/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension, vehicle</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-je-tang">
+                        <div class="job-title">Junior Engineer</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-je-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Field operations, maintenance, fault rectification</p>
+                            <p><strong>Salary:</strong> ₹25,500 - ₹81,100/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Interview</p>
+                        </div>
+                    </div>
+                    
+                    <div class="job-item" data-bs-toggle="collapse" data-bs-target="#job-tech-tang">
+                        <div class="job-title">Technical Assistant</div>
+                    </div>
+                    <div class="collapse job-details-content" id="job-tech-tang">
+                        <div class="p-3">
+                            <p><strong>Role:</strong> Technical support, equipment testing, maintenance assistance</p>
+                            <p><strong>Salary:</strong> ₹19,500 - ₹62,000/month</p>
+                            <p><strong>Benefits:</strong> Electricity allowance, medical, pension</p>
+                            <p class="mb-0"><strong>Exam:</strong> Written + Practical</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header Card -->
+        <div class="card card-custom bg-white mb-4">
+            <div class="card-body text-center py-4">
+                <i class="fas fa-landmark fa-3x text-success mb-3"></i>
+                <h2 class="fw-bold">
+                    {% if language == 'ta' %}
+                    தமிழ்நாடு அரசு தேர்வு வழிகாட்டி
+                    {% else %}
+                    Tamil Nadu Government Exam Guidance
+                    {% endif %}
+                </h2>
+                <p class="text-muted">
+                    {% if language == 'ta' %}
+                    உங்கள் விரிவான விவரங்களை நிரப்பவும்
+                    {% else %}
+                    Fill in your details for structured government exam preparation
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Exam Input Form -->
+        <div class="card card-custom bg-white">
+            <div class="card-body p-4">
+                <form id="examForm" onsubmit="submitExamForm(event)">
+                    
+                    <!-- 1. Basic Details -->
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-user text-primary"></i>
+                        {% if language == 'ta' %}அடிப்படை விவரங்கள்{% else %}Basic Details{% endif %}
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">
+                            {% if language == 'ta' %}பெயர் (விருப்பமானது){% else %}Name (Optional){% endif %}
+                        </label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter your name">
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}கல்வித்தகுதி{% else %}Educational Qualification{% endif %} <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" name="degree" required>
+                                <option value="">Select Qualification</option>
+                                <option value="10th">10th Standard</option>
+                                <option value="12th">12th Standard</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="BE">B.E / B.Tech</option>
+                                <option value="BSc">B.Sc</option>
+                                <option value="BCom">B.Com</option>
+                                <option value="BA">B.A</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BBA">BBA</option>
+                                <option value="ME">M.E / M.Tech</option>
+                                <option value="MSc">M.Sc</option>
+                                <option value="MCom">M.Com</option>
+                                <option value="MA">M.A</option>
+                                <option value="MCA">MCA</option>
+                                <option value="MBA">MBA</option>
+                                <option value="Any">Any Degree</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}கல்லூரி/நிறுவனம் பெயர் (விருப்பமானது){% else %}College/Institution Name (Optional){% endif %}
+                            </label>
+                            <input type="text" class="form-control" name="college" placeholder="Enter your college/school name">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block">
+                            {% if language == 'ta' %}பட்டப்படிப்பு முடித்தீர்களா?{% else %}Degree Completion Status{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="completion_status" id="completed" value="yes" required onchange="toggleCompletionDate()">
+                            <label class="form-check-label" for="completed">
+                                ✅ {% if language == 'ta' %}ஆம் (முடித்தது){% else %}Yes (Completed){% endif %}
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="completion_status" id="pursuing" value="no" required onchange="toggleCompletionDate()">
+                            <label class="form-check-label" for="pursuing">
+                                ⏳ {% if language == 'ta' %}இல்லை (படித்துக்கொண்டிருக்கிறேன்){% else %}No (Pursuing){% endif %}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3" id="expectedCompletionDiv" style="display: none;">
+                        <label class="form-label">
+                            {% if language == 'ta' %}எதிர்பார்க்கப்படும் முடிவு தேதி{% else %}Expected Completion Date{% endif %}
+                        </label>
+                        <input type="month" class="form-control" name="expected_completion">
+                    </div>
+
+                    <!-- 2. Location Details -->
+                    <h5 class="fw-bold mb-3 mt-4">
+                        <i class="fas fa-map-marker-alt text-success"></i>
+                        {% if language == 'ta' %}இடம் விவரங்கள்{% else %}Location Details{% endif %}
+                    </h5>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}மாவட்டம்{% else %}District{% endif %} <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" name="district" required onchange="updateExamCities()">
+                                <option value="">Select District</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Coimbatore">Coimbatore</option>
+                                <option value="Madurai">Madurai</option>
+                                <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                <option value="Salem">Salem</option>
+                                <option value="Tirunelveli">Tirunelveli</option>
+                                <option value="Erode">Erode</option>
+                                <option value="Vellore">Vellore</option>
+                                <option value="Thoothukudi">Thoothukudi</option>
+                                <option value="Dindigul">Dindigul</option>
+                                <option value="Thanjavur">Thanjavur</option>
+                                <option value="Ranipet">Ranipet</option>
+                                <option value="Sivaganga">Sivaganga</option>
+                                <option value="Karur">Karur</option>
+                                <option value="Ramanathapuram">Ramanathapuram</option>
+                                <option value="Virudhunagar">Virudhunagar</option>
+                                <option value="Tiruvannamalai">Tiruvannamalai</option>
+                                <option value="Nagapattinam">Nagapattinam</option>
+                                <option value="Namakkal">Namakkal</option>
+                                <option value="Cuddalore">Cuddalore</option>
+                                <option value="Kanchipuram">Kanchipuram</option>
+                                <option value="Tiruppur">Tiruppur</option>
+                                <option value="Villupuram">Villupuram</option>
+                                <option value="Pudukkottai">Pudukkottai</option>
+                                <option value="Krishnagiri">Krishnagiri</option>
+                                <option value="Ariyalur">Ariyalur</option>
+                                <option value="Perambalur">Perambalur</option>
+                                <option value="Nilgiris">Nilgiris</option>
+                                <option value="Theni">Theni</option>
+                                <option value="Kanyakumari">Kanyakumari</option>
+                                <option value="Kallakurichi">Kallakurichi</option>
+                                <option value="Chengalpattu">Chengalpattu</option>
+                                <option value="Tenkasi">Tenkasi</option>
+                                <option value="Tirupathur">Tirupathur</option>
+                                <option value="Mayiladuthurai">Mayiladuthurai</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}நகரம்{% else %}City{% endif %} <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" name="city" id="examCityInput" placeholder="Enter city" required>
+                        </div>
+                    </div>
+
+                    <!-- 3. Preferred Language -->
+                    <h5 class="fw-bold mb-3 mt-4">
+                        <i class="fas fa-language text-info"></i>
+                        {% if language == 'ta' %}விருப்ப மொழி{% else %}Preferred Language{% endif %}
+                    </h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            {% if language == 'ta' %}படிப்பு பொருள் மொழி{% else %}Study Material Language{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" name="study_language" required>
+                            <option value="">Select Language</option>
+                            <option value="tamil">Tamil only</option>
+                            <option value="english">English only</option>
+                            <option value="both">Both Tamil and English</option>
+                        </select>
+                        <small class="text-muted">{% if language == 'ta' %}குறிப்புகள், பொருட்கள் மற்றும் பயிற்சிக்கான மொழி{% else %}Select language for notes, materials, and coaching{% endif %}</small>
+                    </div>
+
+                    <!-- 4. Exam Selection -->
+                    <h5 class="fw-bold mb-3 mt-4">
+                        <i class="fas fa-file-alt text-warning"></i>
+                        {% if language == 'ta' %}தேர்வு தேர்வு{% else %}Exam Selection{% endif %}
+                    </h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            {% if language == 'ta' %}தேர்வு வகை{% else %}Select Exam{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" name="exam_type" id="examTypeSelect" required onchange="updateJobPositions()">
+                            <option value="">Select Exam</option>
+                            <optgroup label="TNPSC Exams">
+                                <option value="TNPSC_GROUP1">TNPSC Group I (Combined Civil Services)</option>
+                                <option value="TNPSC_GROUP1A">TNPSC Group IA (Forest Services)</option>
+                                <option value="TNPSC_GROUP2">TNPSC Group II (Non-Interview Posts)</option>
+                                <option value="TNPSC_GROUP2A">TNPSC Group IIA (Non-Interview Posts)</option>
+                                <option value="TNPSC_GROUP3">TNPSC Group III (Non-Interview Posts - Technical)</option>
+                                <option value="TNPSC_GROUP4">TNPSC Group IV (Non-Interview Posts)</option>
+                                <option value="TNPSC_CES">TNPSC Combined Engineering Services (CES)</option>
+                                <option value="TNPSC_VAO">TNPSC VAO (Village Administrative Officer)</option>
+                                <option value="TNPSC_FOREST_RANGER">TNPSC Forest Ranger</option>
+                                <option value="TNPSC_JI">TNPSC Junior Inspector</option>
+                            </optgroup>
+                            <optgroup label="TNUSRB (Police & Uniformed Services)">
+                                <option value="TNUSRB_PC">TNUSRB Police Constable</option>
+                                <option value="TNUSRB_SI">TNUSRB Sub-Inspector (SI)</option>
+                                <option value="TNUSRB_FIREMAN">TNUSRB Fireman</option>
+                                <option value="TNUSRB_JAIL">TNUSRB Jail Warder</option>
+                                <option value="TNUSRB_RADIO">TNUSRB Radio Operator</option>
+                            </optgroup>
+                            <optgroup label="Teaching & Education">
+                                <option value="TRB">TRB (Teachers Recruitment Board - PG Assistants)</option>
+                                <option value="TET">TET (Teacher Eligibility Test)</option>
+                                <option value="TN_SCHOOL_ASST">TN School Assistant</option>
+                            </optgroup>
+                            <optgroup label="Medical & Health">
+                                <option value="MRB_NURSE">MRB - Staff Nurse</option>
+                                <option value="MRB_LAB">MRB - Lab Technician</option>
+                                <option value="MRB_PHARMA">MRB - Pharmacist</option>
+                                <option value="MRB_SURGEON">MRB - Assistant Surgeon</option>
+                            </optgroup>
+                            <optgroup label="Other State Services">
+                                <option value="TANGEDCO_AE">TANGEDCO - Assistant Engineer (AE)</option>
+                                <option value="TANGEDCO_JE">TANGEDCO - Junior Engineer (JE)</option>
+                                <option value="TANGEDCO_TECH">TANGEDCO - Technician</option>
+                                <option value="TN_TRANSPORT_DRIVER">TN Transport - Bus Driver</option>
+                                <option value="TN_TRANSPORT_CONDUCTOR">TN Transport - Conductor</option>
+                                <option value="TN_REVENUE_INSPECTOR">TN Revenue - Revenue Inspector</option>
+                                <option value="TN_REVENUE_SURVEYOR">TN Revenue - Surveyor</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- 5. Job Name Selection (Dynamic) -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            {% if language == 'ta' %}வேலை பதவி{% else %}Job Position{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" name="job_position" id="jobPositionSelect" required onchange="checkFitnessRequired()">
+                            <option value="">Select Job Position</option>
+                        </select>
+                    </div>
+
+                    <!-- 6. Study Details -->
+                    <h5 class="fw-bold mb-3 mt-4">
+                        <i class="fas fa-book-reader text-primary"></i>
+                        {% if language == 'ta' %}படிப்பு விவரங்கள்{% else %}Study Details{% endif %}
+                    </h5>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}தினசரி படிப்பு மணிநேரம்{% else %}Study Hours Per Day{% endif %} <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" name="study_hours" required>
+                                <option value="">Select Hours</option>
+                                <option value="1-2">1-2 hours</option>
+                                <option value="2-4">2-4 hours</option>
+                                <option value="4-6">4-6 hours</option>
+                                <option value="6-8">6-8 hours</option>
+                                <option value="8-10">8-10 hours</option>
+                                <option value="10+">More than 10 hours</option>
+                            </select>
+                            <small class="text-muted">{% if language == 'ta' %}அரசு தேர்வுகளுக்கு அர்ப்பணிப்பு நேரம் தேவை{% else %}Government exams require dedicated study time{% endif %}</small>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                {% if language == 'ta' %}பயிற்சி விருப்பம்{% else %}Coaching Preference{% endif %} <span class="text-danger">*</span>
+                            </label>
+                            <select class="form-select" name="coaching_preference" required>
+                                <option value="">Select Preference</option>
+                                <option value="online">Online coaching</option>
+                                <option value="offline">Offline coaching</option>
+                                <option value="self">Self-study (no coaching)</option>
+                                <option value="hybrid">Hybrid (online + offline)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label d-block">
+                            {% if language == 'ta' %}மாதிரி தேர்வுகள் தேவையா?{% else %}Mock Tests Required?{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="mock_tests" id="mockYes" value="yes" required>
+                            <label class="form-check-label" for="mockYes">
+                                ✅ {% if language == 'ta' %}ஆம்{% else %}Yes (Include mock test plan){% endif %}
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="mock_tests" id="mockNo" value="no" required>
+                            <label class="form-check-label" for="mockNo">
+                                ❌ {% if language == 'ta' %}இல்லை{% else %}No{% endif %}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            {% if language == 'ta' %}படிப்பு காலம்{% else %}Preparation Duration{% endif %} <span class="text-danger">*</span>
+                        </label>
+                        <select class="form-select" name="duration" required>
+                            <option value="">Select Duration</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">12 Months</option>
+                            <option value="18">18 Months</option>
+                            <option value="24">24 Months</option>
+                        </select>
+                    </div>
+
+                    <!-- 7. Fitness Details (Conditional) -->
+                    <div id="fitnessSection" style="display: none;">
+                        <h5 class="fw-bold mb-3 mt-4">
+                            <i class="fas fa-running text-danger"></i>
+                            {% if language == 'ta' %}உடல் தகுதி விவரங்கள்{% else %}Fitness Details{% endif %}
+                        </h5>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            {% if language == 'ta' %}இந்த பதவிக்கு உடல் தகுதி தேவை{% else %}This position requires physical fitness standards{% endif %}
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}பாலினம்{% else %}Gender{% endif %} <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" name="gender" id="genderSelect">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}வயது{% else %}Age{% endif %} <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" name="age" id="ageInput" min="18" max="35" placeholder="Enter age">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}உயரம் (செ.மீ){% else %}Height (cm){% endif %} <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" name="height" id="heightInput" min="140" max="200" placeholder="e.g., 165">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}எடை (கிலோ){% else %}Weight (kg){% endif %} <span class="text-danger">*</span>
+                                </label>
+                                <input type="number" class="form-control" name="weight" id="weightInput" min="40" max="120" placeholder="e.g., 60">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}ஓட்டம் திறன்{% else %}Running Ability{% endif %} <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" name="running_ability" id="runningSelect">
+                                    <option value="">Select Running Ability</option>
+                                    <option value="under30">I can run 5 km in under 30 minutes</option>
+                                    <option value="30-40">I can run 5 km in 30-40 minutes</option>
+                                    <option value="40-50">I can run 5 km in 40-50 minutes</option>
+                                    <option value="cannot">I cannot run 5 km continuously</option>
+                                    <option value="unknown">I don't know my running ability</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    {% if language == 'ta' %}மார்பு அளவு (செ.மீ){% else %}Chest Measurement (cm){% endif %}
+                                </label>
+                                <input type="number" class="form-control" name="chest" placeholder="Optional">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Buttons -->
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg btn-custom">
+                            <i class="fas fa-check-circle me-2"></i>
+                            {% if language == 'ta' %}தயாரிப்பு திட்டத்தைப் பெறுங்கள்{% else %}Get Preparation Plan{% endif %}
+                        </button>
+                        <a href="/" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            {% if language == 'ta' %}முகப்புக்கு திரும்பு{% else %}Back to Home{% endif %}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Job position mappings
+    const jobPositionMap = {
+        'TNPSC_GROUP1': ['Deputy Collector', 'Deputy Superintendent of Police (DSP)', 'Assistant Commissioner (Commercial Tax)', 'District Employment Officer', 'Deputy Registrar (Cooperative Societies)'],
+        'TNPSC_GROUP1A': ['Forest Range Officer', 'Assistant Conservator of Forests'],
+        'TNPSC_GROUP2': ['Assistant Section Officer', 'Junior Employment Officer', 'Audit Supervisor', 'Block Development Officer', 'Assistant Inspector of Labour'],
+        'TNPSC_GROUP2A': ['Junior Analyst', 'Technical Assistant', 'Draughtsman'],
+        'TNPSC_GROUP3': ['Draftsman Grade III', 'Junior Draughtsman', 'Technical Assistant'],
+        'TNPSC_GROUP4': ['Junior Assistant', 'Typist', 'Steno-Typist', 'Field Surveyor', 'Draftsman', 'Bill Collector'],
+        'TNPSC_CES': ['Assistant Engineer (Civil)', 'Assistant Engineer (Electrical)', 'Assistant Engineer (Mechanical)'],
+        'TNPSC_VAO': ['Village Administrative Officer'],
+        'TNPSC_FOREST_RANGER': ['Forest Ranger'],
+        'TNPSC_JI': ['Junior Inspector'],
+        'TNUSRB_PC': ['Police Constable Grade II', 'Armed Reserve', 'Special Protection Force'],
+        'TNUSRB_SI': ['Sub-Inspector of Police'],
+        'TNUSRB_FIREMAN': ['Fireman'],
+        'TNUSRB_JAIL': ['Jail Warder'],
+        'TNUSRB_RADIO': ['Radio Operator'],
+        'TRB': ['PG Assistant (Tamil)', 'PG Assistant (English)', 'PG Assistant (Mathematics)', 'PG Assistant (Science)', 'PG Assistant (Computer Science)'],
+        'TET': ['Primary Teacher', 'Upper Primary Teacher'],
+        'TN_SCHOOL_ASST': ['School Assistant (Various Subjects)'],
+        'MRB_NURSE': ['Staff Nurse Grade II'],
+        'MRB_LAB': ['Lab Technician Grade III'],
+        'MRB_PHARMA': ['Pharmacist Grade II'],
+        'MRB_SURGEON': ['Assistant Surgeon'],
+        'TANGEDCO_AE': ['Assistant Engineer'],
+        'TANGEDCO_JE': ['Junior Engineer'],
+        'TANGEDCO_TECH': ['Technician Grade I'],
+        'TN_TRANSPORT_DRIVER': ['Bus Driver'],
+        'TN_TRANSPORT_CONDUCTOR': ['Conductor'],
+        'TN_REVENUE_INSPECTOR': ['Revenue Inspector'],
+        'TN_REVENUE_SURVEYOR': ['Surveyor']
+    };
+
+    // Fitness required jobs
+    const fitnessRequiredJobs = [
+        'Police Constable Grade II', 'Armed Reserve', 'Special Protection Force',
+        'Sub-Inspector of Police', 'Fireman', 'Forest Ranger', 'Forest Range Officer',
+        'Jail Warder', 'Forest Guard'
+    ];
+
+    function updateJobPositions() {
+        const examType = document.getElementById('examTypeSelect').value;
+        const jobSelect = document.getElementById('jobPositionSelect');
+        jobSelect.innerHTML = '<option value="">Select Job Position</option>';
+        
+        if (examType && jobPositionMap[examType]) {
+            jobPositionMap[examType].forEach(job => {
+                const option = document.createElement('option');
+                option.value = job;
+                option.textContent = job;
+                jobSelect.appendChild(option);
+            });
+        }
+    }
+
+    function checkFitnessRequired() {
+        const jobPosition = document.getElementById('jobPositionSelect').value;
+        const fitnessSection = document.getElementById('fitnessSection');
+        
+        if (fitnessRequiredJobs.includes(jobPosition)) {
+            fitnessSection.style.display = 'block';
+            // Make fitness fields required
+            document.getElementById('genderSelect').required = true;
+            document.getElementById('ageInput').required = true;
+            document.getElementById('heightInput').required = true;
+            document.getElementById('weightInput').required = true;
+            document.getElementById('runningSelect').required = true;
+        } else {
+            fitnessSection.style.display = 'none';
+            // Make fitness fields optional
+            document.getElementById('genderSelect').required = false;
+            document.getElementById('ageInput').required = false;
+            document.getElementById('heightInput').required = false;
+            document.getElementById('weightInput').required = false;
+            document.getElementById('runningSelect').required = false;
+        }
+    }
+
+    function toggleCompletionDate() {
+        const pursuing = document.getElementById('pursuing').checked;
+        const completionDiv = document.getElementById('expectedCompletionDiv');
+        completionDiv.style.display = pursuing ? 'block' : 'none';
+    }
+
+    function updateExamCities() {
+        const district = document.querySelector('select[name="district"]').value;
+        document.getElementById('examCityInput').value = district;
+    }
+
+    function submitExamForm(event) {
+        event.preventDefault();
+        
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Show loading
+        const btn = event.target.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+        btn.disabled = true;
+        
+        // Submit to backend
+        fetch('/exam/output', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                sessionStorage.setItem('examResults', JSON.stringify(data));
+                window.location.href = '/exam/output';
+            } else {
+                alert('Error: ' + data.message);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+    
+    // Job Details Panel Toggle
+    function toggleJobPanel() {
+        const panel = document.getElementById('jobDetailsPanel');
+        const btn = document.getElementById('jobToggleBtn');
+        
+        if (panel.classList.contains('active')) {
+            panel.classList.remove('active');
+            btn.classList.remove('active');
+        } else {
+            panel.classList.add('active');
+            btn.classList.add('active');
+        }
+    }
+</script>
+
+<style>
+/* Job Details Toggle Button */
+.job-details-toggle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    border-radius: 10px 0 0 10px;
+    padding: 12px 15px;
+    font-weight: 600;
+    border: 1px solid rgba(112, 166, 255, 0.34);
+    background: linear-gradient(120deg, #2f6fff, #20c9b5);
+    box-shadow: 0 12px 32px rgba(5, 16, 30, 0.52);
+    transition: all 0.3s ease;
+}
+
+.job-details-toggle:hover {
+    padding-right: 20px;
+}
+
+.job-details-toggle.active {
+    right: 400px;
+}
+
+/* Job Details Side Panel */
+.job-details-panel {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    width: 400px;
+    height: 100vh;
+    background: rgba(10, 24, 40, 0.97);
+    border-left: 1px solid rgba(112, 166, 255, 0.28);
+    box-shadow: -10px 0 32px rgba(0,0,0,0.45);
+    z-index: 1000;
+    transition: right 0.4s ease;
+    overflow-y: auto;
+}
+
+.job-details-panel.active {
+    right: 0;
+}
+
+.job-panel-header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(130deg, #2f6fff 0%, #20c9b5 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.job-panel-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.job-panel-body {
+    padding: 20px;
+    color: #deebff;
+}
+
+/* Job Categories */
+.job-category {
+    margin-bottom: 15px;
+    border: 1px solid rgba(112, 166, 255, 0.22);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(14, 31, 50, 0.65);
+}
+
+.job-category-header {
+    background: rgba(24, 48, 74, 0.75);
+    padding: 12px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #d7e7ff;
+    transition: background 0.3s;
+}
+
+.job-category-header:hover {
+    background: rgba(39, 70, 104, 0.78);
+}
+
+.job-category-header i.fa-chevron-down {
+    transition: transform 0.3s;
+}
+
+.job-category-header[aria-expanded="true"] i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Job Items */
+.job-item {
+    border-top: 1px solid rgba(112, 166, 255, 0.2);
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.job-item:hover {
+    background: rgba(36, 64, 96, 0.56);
+}
+
+.job-title {
+    font-weight: 500;
+    color: #d5e6ff;
+}
+
+.job-details-content {
+    background: rgba(9, 22, 38, 0.9);
+    border-top: 1px solid rgba(112, 166, 255, 0.2);
+}
+
+.job-details-content p {
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.job-details-content strong {
+    color: #75d4f6;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .job-details-panel {
+        width: 100%;
+        right: -100%;
+        top: auto;
+        bottom: 0;
+        height: 80vh;
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .job-details-panel.active {
+        right: 0;
+    }
+    
+    .job-details-toggle {
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        transform: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+    }
+    
+    .job-details-toggle.active {
+        right: 20px;
+        bottom: calc(80vh + 20px);
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .job-details-panel {
+        width: 350px;
+        right: -350px;
+    }
+    
+    .job-details-toggle.active {
+        right: 350px;
+    }
+}
+
+/* Readability lock for exam input page content */
+.card.card-custom.bg-white {
+    background: rgba(14, 31, 50, 0.82) !important;
+    border: 1px solid rgba(112, 166, 255, 0.28) !important;
+}
+
+.card.card-custom .card-body {
+    background: rgba(12, 27, 44, 0.84);
+    color: #e8f0ff;
+}
+
+.card.card-custom h2,
+.card.card-custom h5,
+.card.card-custom h6,
+.card.card-custom p,
+.card.card-custom label,
+.card.card-custom .form-check-label,
+.card.card-custom small,
+.card.card-custom li,
+.card.card-custom .fw-bold,
+.card.card-custom .fw-semibold,
+.card.card-custom .text-dark,
+.card.card-custom .text-body {
+    color: #e8f0ff !important;
+}
+
+.card.card-custom .text-muted {
+    color: #afc4e3 !important;
+}
+
+.card.card-custom .alert {
+    color: #e8f0ff;
+    border-color: rgba(112, 166, 255, 0.3);
+    background: rgba(16, 36, 58, 0.86);
+}
+
+.btn-outline-secondary {
+    color: #d8e9ff;
+    border-color: rgba(112, 166, 255, 0.34);
+}
+
+.btn-outline-secondary:hover {
+    color: #ffffff;
+    background: rgba(47, 111, 255, 0.2);
+    border-color: rgba(129, 178, 255, 0.56);
+}
+</style>
+{% endblock %}
