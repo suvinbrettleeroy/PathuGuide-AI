@@ -1,0 +1,15 @@
+{#- PathGuide badge logo. Import with: {% from "partials/pg_logo.html" import pg_logo %}
+    sizes    – rendered size, used by the browser to pick the right file (the CSS sets the actual size)
+    motion   – false drops the rotating halo and orbiting spark (small or busy places)
+    priority – true for the above-the-fold navbar logo
+    extra    – extra classes on the wrapper -#}
+{% macro pg_logo(sizes='78px', motion=true, priority=false, extra='') -%}
+<span class="pg-logo {{ extra }}">
+    {%- if motion %}<span class="pg-logo-ring" aria-hidden="true"></span><span class="pg-logo-orbit" aria-hidden="true"></span>{% endif -%}
+    <img class="pg-logo-img"
+         src="{{ url_for('static', filename='img/brand/pathguide-logo-256.webp') }}"
+         srcset="{{ url_for('static', filename='img/brand/pathguide-logo-128.webp') }} 128w, {{ url_for('static', filename='img/brand/pathguide-logo-256.webp') }} 256w, {{ url_for('static', filename='img/brand/pathguide-logo-512.webp') }} 512w"
+         sizes="{{ sizes }}" width="256" height="256" alt="PathGuide" decoding="async" draggable="false"
+         {%- if priority %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+</span>
+{%- endmacro %}

@@ -1,0 +1,46 @@
+{# Shared by every body.pg-ui page. Expects `language`; set `ta` and `pg_page` in the page.
+   Set `nav_minimal = true` to show only the brand and the controls (admin login). #}
+{% from "partials/pg_logo.html" import pg_logo %}
+{% set on_home = pg_page == 'home' %}
+<nav class="pg-nav navbar navbar-expand-lg" id="pgNav" aria-label="{{ 'முதன்மை' if ta else 'Main' }}">
+    <div class="pg-nav-inner">
+        <a class="pg-brand" href="/" aria-label="{{ 'PathGuide முகப்பு' if ta else 'PathGuide home' }}" data-magnetic>{{ pg_logo('78px', priority=true) }}</a>
+
+        <button class="pg-burger" type="button" data-bs-toggle="collapse" data-bs-target="#pgNavMenu" aria-controls="pgNavMenu" aria-expanded="false" aria-label="{{ 'மெனு' if ta else 'Toggle menu' }}">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="collapse navbar-collapse pg-nav-menu" id="pgNavMenu">
+            {% if not nav_minimal %}
+            <ul class="pg-links">
+                <li><a class="pg-link {{ 'is-active' if on_home }}" href="{{ '#top' if on_home else '/' }}" {% if on_home %}data-spy="top"{% endif %}>{{ 'முகப்பு' if ta else 'Home' }}</a></li>
+                <li><a class="pg-link {{ 'is-active' if pg_page == 'career' }}" href="/select-path/career" data-path="career">{{ 'தொழில்' if ta else 'Career' }}</a></li>
+                <li><a class="pg-link {{ 'is-active' if pg_page == 'exam' }}" href="/select-path/govt_exam" data-path="govt_exam">{{ 'TN தேர்வுகள்' if ta else 'TN Exams' }}</a></li>
+                <li><a class="pg-link" href="{{ '#features' if on_home else '/#features' }}" {% if on_home %}data-spy="features"{% endif %}>{{ 'அம்சங்கள்' if ta else 'Features' }}</a></li>
+                <li><a class="pg-link" href="{{ '#about' if on_home else '/#about' }}" {% if on_home %}data-spy="about"{% endif %}>{{ 'எங்களைப் பற்றி' if ta else 'About' }}</a></li>
+                <li class="pg-links-bar" aria-hidden="true"></li>
+            </ul>
+            {% endif %}
+
+            <div class="pg-controls">
+                <div class="dropdown pg-lang">
+                    <button class="pg-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i>
+                        <span>{{ 'தமிழ்' if ta else 'English' }}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end pg-menu">
+                        <li><button type="button" class="dropdown-item {{ '' if ta else 'active' }}" onclick="setLanguage('en')"><i class="fas fa-globe me-2"></i>English</button></li>
+                        <li><button type="button" class="dropdown-item {{ 'active' if ta else '' }}" onclick="setLanguage('ta')"><i class="fas fa-language me-2"></i>தமிழ்</button></li>
+                    </ul>
+                </div>
+
+                {% include "partials/location_dropdown.html" %}
+
+                <a href="/admin-login" class="pg-admin {{ 'is-current' if pg_page == 'admin' }}" {% if pg_page == 'admin' %}aria-current="page"{% endif %} data-magnetic>
+                    <i class="fas fa-shield-halved"></i>
+                    <span>{{ 'நிர்வாக பலகம்' if ta else 'Admin Panel' }}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

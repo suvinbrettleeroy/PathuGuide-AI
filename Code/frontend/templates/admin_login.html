@@ -1,122 +1,178 @@
 {% extends "base.html" %}
+{% set ta = language == 'ta' %}
+{% set pg_page = 'admin' %}
+{% set nav_minimal = true %}
 
 {% block title %}Admin Login - PathGuide{% endblock %}
 
+{% block body_class %}pg-ui pg-login{% endblock %}
+
 {% block extra_css %}
-<style>
-    .card-custom .card-body {
-        background: rgba(10, 24, 40, 0.72);
-    }
-
-    .btn-danger {
-        background: linear-gradient(120deg, #ff6b8a, #ff4f74);
-        border-color: transparent;
-        box-shadow: 0 10px 24px rgba(255, 79, 116, 0.35);
-    }
-
-    .btn-danger:hover {
-        background: linear-gradient(120deg, #ff5a7c, #ff446a);
-    }
-
-    .alert-warning {
-        background: rgba(247, 198, 82, 0.14);
-        border-color: rgba(247, 198, 82, 0.35);
-        color: #f7d98f;
-    }
-
-    kbd {
-        background: rgba(27, 53, 83, 0.9);
-        border: 1px solid rgba(112, 166, 255, 0.35);
-        color: #d8e9ff;
-    }
-</style>
+{% include "partials/pg_head.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin-login.css') }}">
 {% endblock %}
 
-{% block content %}
-<div class="row justify-content-center align-items-center" style="min-height: 70vh;">
-    <div class="col-md-5">
-        <div class="card card-custom">
-            <div class="card-body p-5">
-                <div class="text-center mb-4">
-                    <i class="fas fa-lock fa-3x text-danger mb-3"></i>
-                    <h3 class="fw-bold">Admin Login</h3>
-                    <p class="text-muted">Secure Access Only</p>
+{% block navbar %}
+{% include "partials/pg_chrome.html" %}
+
+{% include "partials/pg_nav.html" %}
+{% endblock %}
+
+{% block main %}
+<main id="main" class="pg-page pg-login-page">
+
+    <!-- Glass shield (decorative) -->
+    <div class="pg-login-shield" aria-hidden="true">
+        <svg viewBox="0 0 200 240">
+            <defs>
+                <linearGradient id="shieldGlass" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffffff" stop-opacity=".75"/>
+                    <stop offset="1" stop-color="#c7d2fe" stop-opacity=".35"/>
+                </linearGradient>
+            </defs>
+            <path d="M100 8 L186 40 V112 C186 170 148 210 100 232 C52 210 14 170 14 112 V40 Z" fill="url(#shieldGlass)" stroke="rgba(255,255,255,.95)" stroke-width="3"/>
+            <path d="M100 26 L170 52 V112 C170 160 138 194 100 213 C62 194 30 160 30 112 V52 Z" fill="none" stroke="rgba(99,102,241,.18)" stroke-width="2"/>
+        </svg>
+        <span class="pg-script"><span>Secure</span><span>Manage</span><span>Grow</span></span>
+    </div>
+
+    <div class="pg-login-grid">
+        <!-- Intro -->
+        <section class="pg-login-intro">
+            <h1 class="pg-intro" style="--d:.04s">Admin Panel<br><span class="pg-grad-text">Secure Access</span></h1>
+            <p class="pg-login-tag pg-intro" style="--d:.12s">Manage. Monitor. Empower.</p>
+            <p class="pg-login-lead pg-intro" style="--d:.18s">Control and manage the PathGuide platform for a smarter, brighter tomorrow.</p>
+
+            <ul class="pg-login-features">
+                <li class="pg-intro" style="--d:.24s"><span class="pg-login-ficon blue"><i class="fas fa-users"></i></span><span><strong>Monitor Users</strong><small>User metrics and activity</small></span></li>
+                <li class="pg-intro" style="--d:.30s"><span class="pg-login-ficon indigo"><i class="fas fa-chart-simple"></i></span><span><strong>Track Progress</strong><small>Insights and analytics</small></span></li>
+                <li class="pg-intro" style="--d:.36s"><span class="pg-login-ficon violet"><i class="fas fa-gear"></i></span><span><strong>System Control</strong><small>Configure platform settings</small></span></li>
+                <li class="pg-intro" style="--d:.42s"><span class="pg-login-ficon teal"><i class="fas fa-shield-halved"></i></span><span><strong>Ensure Security</strong><small>Safe and reliable access</small></span></li>
+            </ul>
+
+            <!-- Desk scene (decorative) -->
+            <div class="pg-login-scene" aria-hidden="true">
+                <div class="pg-scene-photo">
+                    <img src="{{ url_for('static', filename='img/admin/login-desk.jpg') }}" alt="" width="1400" height="933" decoding="async">
+                    <img class="pg-scene-logo" src="{{ url_for('static', filename='img/brand/pathguide-logo-256.webp') }}" srcset="{{ url_for('static', filename='img/brand/pathguide-logo-128.webp') }} 128w, {{ url_for('static', filename='img/brand/pathguide-logo-256.webp') }} 256w" sizes="120px" alt="" width="256" height="256" loading="lazy" decoding="async">
+                </div>
+                <div class="pg-books navy pg-scene-books">
+                    <svg class="pg-books-plant" viewBox="0 0 240 240"><use href="#pg-frond"/></svg>
+                    <span class="pg-book">EDUCATION</span>
+                    <span class="pg-book">OPPORTUNITY</span>
+                    <span class="pg-book">BETTER TOMORROW</span>
+                </div>
+                <div class="pg-script pg-scene-script">
+                    <span>“Together</span><span>for Better</span><span>Futures”</span>
+                    <svg viewBox="0 0 160 30" class="pg-swoosh"><path d="M4 24 C44 12 96 6 156 4" pathLength="100"/></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login -->
+        <section class="pg-login-side">
+            <div class="pg-login-card pg-glass pg-intro" id="loginCard" style="--d:.1s" data-spotlight>
+                <div class="pg-login-head">
+                    <span class="pg-login-badge" aria-hidden="true">
+                        <svg viewBox="0 0 64 72">
+                            <defs>
+                                <linearGradient id="badgeGrad" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0" stop-color="#3b82f6"/><stop offset=".55" stop-color="#6d4bf5"/><stop offset="1" stop-color="#a855f7"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M32 2 L60 12 V34 C60 52 48 64 32 70 C16 64 4 52 4 34 V12 Z" fill="url(#badgeGrad)"/>
+                            <path d="M32 2 L60 12 V34 C60 52 48 64 32 70 Z" fill="rgba(255,255,255,.12)"/>
+                        </svg>
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <h2>Admin Login</h2>
+                    <p>Secure Access Only</p>
                 </div>
 
                 {% if locked %}
                 <div class="alert alert-danger" role="alert">
-                    <i class="fas fa-ban"></i> 
+                    <i class="fas fa-ban"></i>
                     <strong>Account Locked!</strong><br>
                     Too many failed login attempts. Please try again in {{ remaining_minutes }} minutes.
                 </div>
                 {% endif %}
 
-                <div id="loginMessage" class="alert d-none" role="alert"></div>
+                <div id="loginMessage" class="alert d-none" role="alert" aria-live="assertive"></div>
 
-                <form id="loginForm" {% if locked %}style="display: none;"{% endif %}>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Username <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="username" required autocomplete="off">
-                        <small class="text-muted"><i class="fas fa-info-circle"></i> Case-sensitive</small>
+                <form id="loginForm" {% if locked %}style="display: none;"{% endif %} novalidate>
+                    <div class="pg-login-field">
+                        <label for="username">Username <span class="req">*</span></label>
+                        <div class="pg-login-control">
+                            <i class="fas fa-user" aria-hidden="true"></i>
+                            <input type="text" class="form-control" id="username" required autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter your username">
+                        </div>
+                        <small><i class="fas fa-info-circle"></i> Case-sensitive</small>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Password <span class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password" required>
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                    <div class="pg-login-field">
+                        <label for="password">Password <span class="req">*</span></label>
+                        <div class="pg-login-control">
+                            <i class="fas fa-lock" aria-hidden="true"></i>
+                            <input type="password" class="form-control" id="password" required placeholder="Enter your password">
+                            <button class="pg-eye" type="button" onclick="togglePassword()" aria-label="Show password" aria-pressed="false" id="toggleBtn">
                                 <i class="fas fa-eye" id="toggleIcon"></i>
                             </button>
                         </div>
-                        <small class="text-muted"><i class="fas fa-info-circle"></i> Case-sensitive</small>
+                        <small><i class="fas fa-info-circle"></i> Case-sensitive</small>
+                        <small class="pg-caps" id="capsWarning" hidden><i class="fas fa-triangle-exclamation"></i> Caps Lock is on</small>
                     </div>
 
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="remember">
-                        <label class="form-check-label" for="remember">
-                            Remember me for this session
-                        </label>
-                    </div>
+                    <label class="pg-login-check" for="remember">
+                        <input type="checkbox" id="remember">
+                        <span>Remember me for this session</span>
+                    </label>
 
-                    <button type="submit" class="btn btn-danger btn-custom w-100" id="loginBtn">
+                    <button type="submit" class="pg-btn pg-btn-grad pg-login-btn" id="loginBtn" data-magnetic>
                         <i class="fas fa-sign-in-alt"></i> Login
                     </button>
                 </form>
 
-                <hr class="my-4">
+                <div class="pg-login-or"><span>OR</span></div>
 
-                <div class="text-center">
-                    <a href="/" class="text-muted">
-                        <i class="fas fa-arrow-left"></i> Back to Home
-                    </a>
-                </div>
+                <a href="/" class="pg-login-back">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
             </div>
-        </div>
 
-        <div class="alert alert-warning mt-3">
-            <i class="fas fa-shield-alt"></i>
-            <strong>Security Notice:</strong> 
-            <ul class="mb-0 mt-2">
-                <li>Maximum 3 login attempts allowed</li>
-                <li>Account locks for 15 minutes after failed attempts</li>
-                <li>Auto-logout after 30 minutes of inactivity</li>
-                <li>All login attempts are logged</li>
-            </ul>
-        </div>
-        
-        <div class="text-center mt-3">
-            <small class="text-muted">
+            <div class="pg-login-notice pg-glass pg-intro" style="--d:.22s">
+                <h3><i class="fas fa-shield-alt"></i>Security Notice:</h3>
+                <ul>
+                    <li>Maximum 3 login attempts allowed</li>
+                    <li>Account locks for 15 minutes after failed attempts</li>
+                    <li>Auto-logout after 30 minutes of inactivity</li>
+                    <li>All login attempts are logged</li>
+                </ul>
+            </div>
+
+            <p class="pg-login-kbd pg-intro" style="--d:.3s">
                 <i class="fas fa-keyboard"></i> Keyboard Shortcut: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd> (from homepage)
-            </small>
-        </div>
+            </p>
+
+            <footer class="pg-login-foot">
+                <p class="mb-0">&copy; 2026 PathGuide. All rights reserved.</p>
+                <p class="mb-0">
+                    {% if language == 'ta' %}
+                    உங்கள் தனிப்பட்ட தரவு மற்றும் இடம் விருப்பமானது மற்றும் வழிகாட்டுதலுக்கு மட்டுமே பயன்படுத்தப்படுகிறது.
+                    {% else %}
+                    Your personal data and location are optional and used only for guidance.
+                    {% endif %}
+                </p>
+            </footer>
+        </section>
     </div>
-</div>
+</main>
 
 <script>
     function togglePassword() {
         const passwordInput = document.getElementById('password');
         const toggleIcon = document.getElementById('toggleIcon');
-        
+        const toggleBtn = document.getElementById('toggleBtn');
+
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
             toggleIcon.className = 'fas fa-eye-slash';
@@ -124,20 +180,62 @@
             passwordInput.type = 'password';
             toggleIcon.className = 'fas fa-eye';
         }
+        const shown = passwordInput.type === 'text';
+        toggleBtn.setAttribute('aria-pressed', shown ? 'true' : 'false');
+        toggleBtn.setAttribute('aria-label', shown ? 'Hide password' : 'Show password');
     }
-    
+
+    // "Remember me for this session": keep the username (never the password) for this browser tab
+    (function () {
+        const usernameInput = document.getElementById('username');
+        const remember = document.getElementById('remember');
+        if (!usernameInput || !remember) return;
+        try {
+            const saved = sessionStorage.getItem('pgAdminUser');
+            if (saved) {
+                usernameInput.value = saved;
+                remember.checked = true;
+                document.getElementById('password').focus();
+            } else {
+                usernameInput.focus();
+            }
+        } catch (e) {}
+    })();
+
+    // Caps Lock hint for the case-sensitive password
+    document.getElementById('password')?.addEventListener('keyup', (event) => {
+        if (typeof event.getModifierState !== 'function') return;
+        document.getElementById('capsWarning').hidden = !event.getModifierState('CapsLock');
+    });
+
+    function shakeCard() {
+        const card = document.getElementById('loginCard');
+        card.classList.remove('is-shake');
+        void card.offsetWidth;
+        card.classList.add('is-shake');
+    }
+
     document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         const loginBtn = document.getElementById('loginBtn');
         const messageDiv = document.getElementById('loginMessage');
-        
+
+        if (!username || !password) {
+            messageDiv.className = 'alert alert-danger';
+            messageDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Please enter your username and password.';
+            messageDiv.classList.remove('d-none');
+            shakeCard();
+            (username ? document.getElementById('password') : document.getElementById('username')).focus();
+            return;
+        }
+
         // Disable button and show loading
         loginBtn.disabled = true;
         loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Logging in...';
-        
+
         try {
             const response = await fetch('/admin-login', {
                 method: 'POST',
@@ -146,20 +244,29 @@
                 },
                 body: JSON.stringify({ username, password })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
+                try {
+                    if (document.getElementById('remember').checked) sessionStorage.setItem('pgAdminUser', username);
+                    else sessionStorage.removeItem('pgAdminUser');
+                } catch (err) {}
+
                 messageDiv.className = 'alert alert-success';
                 messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + data.message;
                 messageDiv.classList.remove('d-none');
-                
+
                 setTimeout(() => {
-                    window.location.href = data.redirect;
+                    if (window.pgNavigate) {
+                        window.pgNavigate(data.redirect);
+                    } else {
+                        window.location.href = data.redirect;
+                    }
                 }, 1000);
             } else {
                 messageDiv.className = 'alert alert-danger';
-                
+
                 if (data.locked) {
                     messageDiv.innerHTML = `
                         <i class="fas fa-ban"></i> <strong>Account Locked!</strong><br>
@@ -169,12 +276,13 @@
                 } else {
                     messageDiv.innerHTML = `
                         <i class="fas fa-exclamation-triangle"></i> ${data.message}
-                        ${data.remaining_attempts ? `<br><strong>${data.remaining_attempts} attempt(s) remaining</strong>` : ''}
+                        ${data.remaining_attempts && !/attempt/i.test(data.message) ? `<br><strong>${data.remaining_attempts} attempt(s) remaining</strong>` : ''}
                     `;
                 }
-                
+
                 messageDiv.classList.remove('d-none');
-                
+                shakeCard();
+
                 // Re-enable button
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
@@ -183,10 +291,20 @@
             messageDiv.className = 'alert alert-danger';
             messageDiv.innerHTML = '<i class="fas fa-times-circle"></i> Connection error. Please try again.';
             messageDiv.classList.remove('d-none');
-            
+
             loginBtn.disabled = false;
             loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         }
     });
+
+    document.getElementById('loginCard').addEventListener('animationend', (event) => {
+        if (event.animationName === 'pgShake') event.currentTarget.classList.remove('is-shake');
+    });
 </script>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/pg-core.js') }}" defer></script>
 {% endblock %}

@@ -13,7 +13,7 @@ from urllib.parse import quote_plus
 
 DATASET_CANDIDATE_PATHS = [
     r"c:\Users\ASUS\Desktop\Projects\PathGuide AI\Theroy\Career Path Roles.csv",
-    os.path.join(os.path.dirname(__file__), "Career Path Roles.csv"),
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "Career Path Roles.csv"),
 ]
 
 _DATASET_CACHE: List[Dict[str, str]] = []

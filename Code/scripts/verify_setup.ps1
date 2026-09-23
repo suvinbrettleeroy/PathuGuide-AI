@@ -1,6 +1,9 @@
 # PathGuide - Setup Verification Script
 # This script checks if everything is set up correctly
 
+# Work from the Code folder (this script lives in Code\scripts)
+Set-Location (Split-Path $PSScriptRoot -Parent)
+
 Write-Host ""
 Write-Host "================================================" -ForegroundColor Cyan
 Write-Host "   PathGuide - Setup Verification" -ForegroundColor Cyan
@@ -23,11 +26,11 @@ try {
 Write-Host ""
 Write-Host "Checking project files..." -ForegroundColor Yellow
 $requiredFiles = @(
-    "app.py",
-    "config.py",
+    "backend\app.py",
+    "backend\config.py",
     "requirements.txt",
-    "init_db.py",
-    "README.md"
+    "backend\init_db.py",
+    "..\README.md"
 )
 
 foreach ($file in $requiredFiles) {
@@ -42,7 +45,7 @@ foreach ($file in $requiredFiles) {
 # Check 3: Directories
 Write-Host ""
 Write-Host "Checking directories..." -ForegroundColor Yellow
-$requiredDirs = @("models", "ml", "utils", "templates")
+$requiredDirs = @("backend\models", "backend\ml", "backend\utils", "frontend\templates")
 
 foreach ($dir in $requiredDirs) {
     if (Test-Path $dir) {
@@ -70,7 +73,7 @@ if (Test-Path "pathguide.db") {
     Write-Host "✅ Database file exists" -ForegroundColor Green
 } else {
     Write-Host "⚠️  Database not initialized" -ForegroundColor Yellow
-    Write-Host "   Run: python init_db.py" -ForegroundColor Gray
+    Write-Host "   Run: python backend\init_db.py" -ForegroundColor Gray
 }
 
 # Summary
@@ -84,7 +87,7 @@ if ($allGood) {
     Write-Host "Your PathGuide project is ready! 🎉" -ForegroundColor Green
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Yellow
-    Write-Host "1. Run: .\run.ps1" -ForegroundColor White
+    Write-Host "1. Run: .\scripts\run.ps1" -ForegroundColor White
     Write-Host "2. Open: http://127.0.0.1:5000" -ForegroundColor White
     Write-Host ""
 } else {

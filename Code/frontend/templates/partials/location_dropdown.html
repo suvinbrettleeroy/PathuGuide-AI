@@ -1,0 +1,31 @@
+<div class="dropdown">
+    <button class="btn btn-sm dropdown-toggle location-pill" type="button" id="navLocationMenuBtn" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <i class="fas fa-location-dot me-1"></i>
+        <span id="navLocationText">{% if language == 'ta' %}நேரடி இடம்{% else %}Live Location{% endif %}</span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end p-3 location-menu" aria-labelledby="navLocationMenuBtn">
+        <div class="form-check form-switch d-flex align-items-center justify-content-between mb-2">
+            <label class="form-check-label fw-semibold" for="navLocationSwitch">
+                {% if language == 'ta' %}தானியங்கி கண்டறிதல்{% else %}Auto Detection{% endif %}
+            </label>
+            <input class="form-check-input" type="checkbox" role="switch" id="navLocationSwitch" style="width: 2.6rem; height: 1.35rem;">
+        </div>
+
+        <div class="location-status mb-2" id="navLocationStatus">
+            {% if language == 'ta' %}இடம் முடக்கப்பட்டுள்ளது{% else %}Location is off{% endif %}
+        </div>
+
+        <button type="button" class="btn btn-outline-primary btn-sm w-100 mb-2" id="navDetectNowBtn">
+            <i class="fas fa-crosshairs me-1"></i>
+            {% if language == 'ta' %}இப்போது கண்டறிக{% else %}Detect Now{% endif %}
+        </button>
+
+        <div class="small fw-semibold text-secondary mb-1">{% if language == 'ta' %}கைமுறை உள்ளீடு{% else %}Manual Entry{% endif %}</div>
+        <input id="navDistrict" class="form-control form-control-sm mb-2" placeholder="{% if language == 'ta' %}மாவட்டம்{% else %}District{% endif %}">
+        <input id="navCity" class="form-control form-control-sm mb-2" placeholder="{% if language == 'ta' %}நகரம்{% else %}City{% endif %}">
+        <button type="button" class="btn btn-success btn-sm w-100" id="navSaveManualBtn">
+            <i class="fas fa-save me-1"></i>
+            {% if language == 'ta' %}இடத்தை சேமி{% else %}Save Location{% endif %}
+        </button>
+    </div>
+</div>

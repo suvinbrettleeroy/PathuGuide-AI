@@ -1,0 +1,81 @@
+{# Shared by every body.pg-ui page. Expects `language`; set `ta` and `pg_page` in the page. #}
+{% from "partials/pg_logo.html" import pg_logo %}
+{% set on_home = pg_page == 'home' %}
+<footer class="pg-footer" id="about">
+    <svg class="pg-leaf lf-footer" data-parallax="-0.12" aria-hidden="true"><use href="#pg-frond"/></svg>
+    <div class="pg-container pg-footer-grid">
+        <div class="pg-footer-brand" data-reveal="up">
+            <a class="pg-brand" href="/" aria-label="{{ 'PathGuide முகப்பு' if ta else 'PathGuide home' }}">{{ pg_logo('108px') }}</a>
+            <p>{{ 'தொழில் வழிகாட்டுதல் மற்றும் தமிழ்நாடு அரசு தேர்வுத் தயாரிப்புக்கான உங்கள் நம்பகமான துணை.' if ta else 'Your trusted companion for career guidance and Tamil Nadu government exam preparation.' }}</p>
+        </div>
+
+        <nav class="pg-footer-col" data-reveal="up" data-delay="1" aria-label="{{ 'விரைவு இணைப்புகள்' if ta else 'Quick Links' }}">
+            <h4>{{ 'விரைவு இணைப்புகள்' if ta else 'Quick Links' }}</h4>
+            <ul>
+                <li><a href="{{ '#top' if on_home else '/' }}">{{ 'முகப்பு' if ta else 'Home' }}</a></li>
+                <li><a href="/select-path/career" data-path="career">{{ 'தொழில்' if ta else 'Career' }}</a></li>
+                <li><a href="/select-path/govt_exam" data-path="govt_exam">{{ 'TN தேர்வுகள்' if ta else 'TN Exams' }}</a></li>
+                <li><a href="{{ '#features' if on_home else '/#features' }}">{{ 'அம்சங்கள்' if ta else 'Features' }}</a></li>
+                <li><a href="{{ '#about' if on_home else '/#about' }}">{{ 'எங்களைப் பற்றி' if ta else 'About' }}</a></li>
+            </ul>
+        </nav>
+
+        <nav class="pg-footer-col" data-reveal="up" data-delay="2" aria-label="{{ 'உதவி' if ta else 'Support' }}">
+            <h4>{{ 'உதவி' if ta else 'Support' }}</h4>
+            <ul>
+                <li><a href="#" data-bs-toggle="modal" data-bs-target="#helpModal">{{ 'உதவி மையம்' if ta else 'Help Center' }}</a></li>
+                <li><a href="#" data-bs-toggle="modal" data-bs-target="#helpModal" data-focus="helpContact">{{ 'தொடர்பு கொள்ள' if ta else 'Contact Us' }}</a></li>
+                <li><a href="https://github.com/suvinbrettleeroy/PathuGuide-AI/issues" target="_blank" rel="noopener">{{ 'கருத்து' if ta else 'Feedback' }}</a></li>
+                <li><a href="https://github.com/suvinbrettleeroy/PathuGuide-AI/issues/new" target="_blank" rel="noopener">{{ 'சிக்கலைப் புகாரளி' if ta else 'Report an Issue' }}</a></li>
+            </ul>
+        </nav>
+
+        <div class="pg-footer-col" data-reveal="up" data-delay="3">
+            <h4>{{ 'எங்களைப் பின்தொடருங்கள்' if ta else 'Follow Us' }}</h4>
+            <div class="pg-social">
+                <button type="button" data-soon aria-label="Instagram" data-magnetic><i class="fab fa-instagram"></i></button>
+                <button type="button" data-soon aria-label="LinkedIn" data-magnetic><i class="fab fa-linkedin"></i></button>
+                <button type="button" data-soon aria-label="YouTube" data-magnetic><i class="fab fa-youtube"></i></button>
+                <button type="button" data-soon aria-label="X" data-magnetic>
+                    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2Zm-1.1 18h1.7L8.3 3.9H6.5L17.8 20Z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <form class="pg-newsletter pg-glass" id="pgNewsletter" data-reveal="up" data-delay="4" novalidate>
+            <span class="pg-3d indigo sm"><i class="fas fa-envelope-open-text"></i></span>
+            <div class="pg-newsletter-text">
+                <h4>{{ 'புதுப்பிப்புகளைப் பெறுங்கள்' if ta else 'Stay Updated' }}</h4>
+                <p>{{ 'சமீபத்திய தகவல்கள் மற்றும் வளங்களைப் பெறுங்கள்.' if ta else 'Get the latest updates and resources.' }}</p>
+            </div>
+            <div class="pg-newsletter-field">
+                <label class="visually-hidden" for="pgNewsletterEmail">{{ 'மின்னஞ்சல்' if ta else 'Email' }}</label>
+                <input id="pgNewsletterEmail" type="email" placeholder="{{ 'உங்கள் மின்னஞ்சலை உள்ளிடவும்' if ta else 'Enter your email' }}" autocomplete="email">
+                <button type="submit" aria-label="{{ 'சமர்ப்பி' if ta else 'Subscribe' }}" data-magnetic><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div class="pg-container pg-footer-bottom">
+        <div>
+            <p class="mb-0">&copy; 2026 PathGuide. All rights reserved.</p>
+            <p class="pg-footer-note">
+                {% if language == 'ta' %}
+                உங்கள் தனிப்பட்ட தரவு மற்றும் இடம் விருப்பமானது மற்றும் வழிகாட்டுதலுக்கு மட்டுமே பயன்படுத்தப்படுகிறது.
+                {% else %}
+                Your personal data and location are optional and used only for guidance.
+                {% endif %}
+            </p>
+        </div>
+        <div class="pg-legal">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">{{ 'தனியுரிமை' if ta else 'Privacy' }}</a>
+            <span aria-hidden="true">|</span>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">{{ 'விதிமுறைகள்' if ta else 'Terms' }}</a>
+            <span aria-hidden="true">|</span>
+            <a href="#" data-bs-toggle="modal" data-bs-target="#cookiesModal">{{ 'குக்கீகள்' if ta else 'Cookies' }}</a>
+        </div>
+    </div>
+
+</footer>
+
+{% include "partials/pg_modals.html" %}

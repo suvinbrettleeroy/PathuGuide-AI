@@ -1,0 +1,68 @@
+{# Shared by every body.pg-ui page. Expects `language`; set `ta` and `pg_page` in the page. #}
+<div class="modal fade pg-modal" id="privacyModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{% if language == 'ta' %}தனியுரிமை கொள்கை{% else %}Privacy Policy{% endif %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>{% if language == 'ta' %}பாத்கைடு உங்கள் தனியுரிமையை மதிக்கிறது...{% else %}PathGuide respects your privacy...{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade pg-modal" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{% if language == 'ta' %}பயன்பாட்டு விதிமுறைகள்{% else %}Terms of Use{% endif %}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>{% if language == 'ta' %}இந்த சேவையைப் பயன்படுத்துவதன் மூலம்...{% else %}By using this service...{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade pg-modal" id="cookiesModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ 'குக்கீகள்' if ta else 'Cookies' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">{{ 'உங்கள் மொழி, இடம் மற்றும் நீங்கள் உள்ளிடும் விவரங்களை நினைவில் வைக்க PathGuide ஒரு அமர்வு குக்கீயை மட்டுமே பயன்படுத்துகிறது. விளம்பர அல்லது கண்காணிப்பு குக்கீகள் இல்லை.' if ta else 'PathGuide uses a single session cookie to remember your language, location and the details you enter. There are no advertising or tracking cookies.' }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade pg-modal" id="helpModal" tabindex="-1" aria-labelledby="helpModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalTitle">{{ 'உதவி மையம்' if ta else 'Help Center' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ol class="pg-steps">
+                    <li><strong>{{ 'பாதையைத் தேர்ந்தெடுங்கள்' if ta else 'Choose a path' }}</strong>{{ 'கல்லூரி தொழில் பாதை அல்லது தமிழ்நாடு அரசு தேர்வுகள்.' if ta else 'College Career Path or Tamil Nadu Government Exams.' }}</li>
+                    <li><strong>{{ 'உங்கள் விவரங்களை நிரப்புங்கள்' if ta else 'Fill in your details' }}</strong>{{ 'கல்வி, இலக்கு மற்றும் தினசரி படிப்பு நேரம்.' if ta else 'Your education, goal and daily study time.' }}</li>
+                    <li><strong>{{ 'உங்கள் திட்டத்தைப் பெறுங்கள்' if ta else 'Get your plan' }}</strong>{{ 'திறன்கள், படிப்படியான திட்டம் மற்றும் வெற்றி மதிப்பெண்.' if ta else 'Skills, a step-by-step roadmap and a success score.' }}</li>
+                </ol>
+                <div class="pg-help-contact" id="helpContact">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <strong>{{ 'தொடர்பு & கருத்து' if ta else 'Contact & feedback' }}</strong>
+                        <p>{{ 'கேள்விகள் அல்லது பரிந்துரைகள்? எங்கள் GitHub பக்கத்தில் ஒரு issue திறக்கவும்.' if ta else 'Questions or suggestions? Open an issue on our GitHub page.' }}</p>
+                        <a href="https://github.com/suvinbrettleeroy/PathuGuide-AI/issues" target="_blank" rel="noopener">github.com/suvinbrettleeroy/PathuGuide-AI <i class="fas fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

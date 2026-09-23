@@ -5,14 +5,23 @@ Career & Government Exam Guidance System
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from datetime import datetime, timedelta
 import os
+import sys
 import secrets
 import webbrowser
 import threading
+
+# Project folders: backend/, frontend/ and data/ sit side by side under Code/
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, 'data')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'frontend', 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'frontend', 'static')
+sys.path.insert(0, DATA_DIR)
+
 from career_data import CAREER_HIERARCHY, TN_DISTRICTS, get_cities_for_district
 from career_output_generator import build_career_output
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 app.secret_key = secrets.token_hex(32)
 
 # Configuration
@@ -496,11 +505,12 @@ def admin_login():
             attempt_data = login_attempts[client_ip]
             if attempt_data['locked_until'] and datetime.now() < attempt_data['locked_until']:
                 remaining_time = (attempt_data['locked_until'] - datetime.now()).seconds // 60
-                return render_template('admin_login.html', 
-                                     locked=True, 
+                return render_template('admin_login.html',
+                                     language=session.get('language', 'en'),
+                                     locked=True,
                                      remaining_minutes=remaining_time)
-        
-        return render_template('admin_login.html', locked=False)
+
+        return render_template('admin_login.html', language=session.get('language', 'en'), locked=False)
     
     # Handle login
     client_ip = request.remote_addr

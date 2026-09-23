@@ -1,0 +1,16 @@
+{# Shared by every body.pg-ui page. Expects `language`; set `ta` and `pg_page` in the page. #}
+<script>
+    // Mark JS as available and skip the intro curtain on repeat visits in this tab.
+    (function () {
+        var root = document.documentElement;
+        root.classList.add('pg-js');
+        try {
+            if (sessionStorage.getItem('pgIntroSeen')) { root.classList.add('pg-seen'); }
+            else { sessionStorage.setItem('pgIntroSeen', '1'); }
+        } catch (e) {}
+    })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pg-core.css') }}">

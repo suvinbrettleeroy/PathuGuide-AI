@@ -1,6 +1,9 @@
 # PathGuide Run Script
 # This script automates the startup process
 
+# Work from the Code folder (this script lives in Code\scripts)
+Set-Location (Split-Path $PSScriptRoot -Parent)
+
 Write-Host "================================================" -ForegroundColor Cyan
 Write-Host "   PathGuide - Career Guidance System" -ForegroundColor Cyan
 Write-Host "================================================" -ForegroundColor Cyan
@@ -31,7 +34,7 @@ if ($pipList -notmatch "Flask") {
 if (-Not (Test-Path "pathguide.db")) {
     Write-Host "❌ Database not found!" -ForegroundColor Red
     Write-Host "Initializing database..." -ForegroundColor Yellow
-    python init_db.py
+    python backend\init_db.py
     Write-Host "✅ Database initialized!" -ForegroundColor Green
 }
 
@@ -52,4 +55,4 @@ Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Gray
 Write-Host ""
 
 # Run the application
-python app.py
+python backend\app.py
