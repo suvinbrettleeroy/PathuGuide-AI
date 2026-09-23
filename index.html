@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PathGuide — Career &amp; Government Exam Guidance</title>
+<meta name="description" content="PathGuide is a bilingual Flask application that guides students through career paths and Tamil Nadu government exam preparation.">
+<link rel="icon" href="Code/frontend/static/img/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="Code/frontend/static/img/brand/apple-touch-icon.png">
+<style>
+  :root{
+    --bg:#0b0e1a;
+    --bg-soft:#11162a;
+    --card:#151b34;
+    --text:#eef1fb;
+    --text-dim:#a7b0cf;
+    --accent:#6d7bff;
+    --accent-2:#a855f7;
+    --accent-3:#22c1a8;
+    --border:rgba(255,255,255,0.08);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(900px 500px at 15% -10%, rgba(109,123,255,0.22), transparent 60%),
+      radial-gradient(800px 500px at 100% 0%, rgba(168,85,247,0.18), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* Banner */
+  .notice{
+    background:linear-gradient(90deg, rgba(109,123,255,0.16), rgba(168,85,247,0.16));
+    border-bottom:1px solid var(--border);
+    font-size:14px;
+    color:var(--text-dim);
+    text-align:center;
+    padding:10px 16px;
+  }
+  .notice strong{color:var(--text);}
+
+  /* Nav */
+  header.nav{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:blur(14px);
+    background:rgba(11,14,26,0.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1120px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;text-decoration:none;}
+  .brand img{width:40px;height:40px;border-radius:50%;box-shadow:0 4px 16px rgba(109,123,255,0.4), 0 0 0 2px rgba(255,255,255,0.9);}
+  .nav-links{display:flex;gap:26px;font-size:14px;color:var(--text-dim);}
+  .nav-links a{text-decoration:none;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-cta{
+    font-size:14px;font-weight:600;
+    padding:8px 16px;border-radius:999px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    text-decoration:none;color:#fff;
+  }
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* Hero */
+  .hero{padding:88px 0 60px;text-align:center;}
+  .hero .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--accent-3);
+    background:rgba(34,193,168,0.12);
+    border:1px solid rgba(34,193,168,0.3);
+    padding:6px 14px;border-radius:999px;margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:clamp(34px,6vw,58px);
+    margin:0 0 18px;
+    line-height:1.08;
+    background:linear-gradient(120deg,#fff 30%,var(--accent) 70%,var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{
+    max-width:640px;margin:0 auto 34px;
+    color:var(--text-dim);font-size:18px;
+  }
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:12px;font-weight:600;font-size:15px;
+    text-decoration:none;transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 30px rgba(109,123,255,0.35);}
+  .btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text);}
+
+  .hero-img{
+    margin:56px auto 0;max-width:900px;border-radius:var(--radius);
+    overflow:hidden;border:1px solid var(--border);
+    box-shadow:0 30px 80px rgba(0,0,0,0.45);
+    position:relative;
+  }
+  .hero-img img{width:100%;height:380px;object-fit:cover;filter:saturate(1.05) contrast(1.02);}
+  .hero-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(11,14,26,0.65), transparent 45%);
+  }
+
+  section{padding:70px 0;}
+  .eyebrow{
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:10px;
+  }
+  h2{font-size:clamp(26px,4vw,36px);margin:0 0 14px;}
+  .section-lead{color:var(--text-dim);max-width:640px;margin-bottom:44px;}
+
+  /* Feature grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px;transition:transform .2s ease, border-color .2s ease;
+  }
+  .card:hover{transform:translateY(-4px);border-color:rgba(109,123,255,0.4);}
+  .card .icon{
+    width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-size:20px;margin-bottom:16px;
+    background:linear-gradient(135deg, rgba(109,123,255,0.25), rgba(168,85,247,0.25));
+  }
+  .card h3{margin:0 0 8px;font-size:17px;}
+  .card p{margin:0;color:var(--text-dim);font-size:14px;}
+
+  /* Gallery */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .gallery figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);position:relative;}
+  .gallery img{height:220px;width:100%;object-fit:cover;transition:transform .4s ease;}
+  .gallery figure:hover img{transform:scale(1.06);}
+  .gallery figcaption{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:14px 16px;font-size:13px;color:#fff;
+    background:linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+  }
+  @media (max-width:820px){ .gallery{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){ .gallery{grid-template-columns:1fr;} }
+
+  /* Stack */
+  .stack-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{
+    font-size:13px;font-weight:600;padding:8px 16px;border-radius:999px;
+    background:var(--bg-soft);border:1px solid var(--border);color:var(--text-dim);
+  }
+
+  /* Run locally */
+  .code-card{
+    background:#090c17;border:1px solid var(--border);border-radius:var(--radius);
+    padding:26px 28px;font-family:'Cascadia Code',Consolas,monospace;font-size:13.5px;
+    color:#c9d3f5;overflow-x:auto;
+  }
+  .code-card .c{color:#6ee7c5;}
+  .code-card .l{display:block;margin:4px 0;}
+
+  /* Team */
+  .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+  .team .card{text-align:left;}
+  .team .role{color:var(--accent-3);font-size:13px;font-weight:600;margin-bottom:6px;}
+
+  footer{
+    border-top:1px solid var(--border);padding:40px 0;text-align:center;
+    color:var(--text-dim);font-size:13px;
+  }
+  footer a{color:var(--accent);text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="notice">
+  <strong>Static showcase page.</strong> This GitHub Pages site is a read-only overview — the full app is a Flask server and needs to run locally. See “Run it locally” below.
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="Code/frontend/static/img/brand/pathguide-logo-256.webp" alt="PathGuide logo">
+      PathGuide
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#stack">Tech Stack</a>
+      <a href="#run">Run Locally</a>
+      <a href="#team">Team</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/suvinbrettleeroy/PathuGuide-AI" target="_blank" rel="noopener">View Repo</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <span class="badge">🎓 College Project — Flask · Bilingual · EN / TA</span>
+    <h1>Career &amp; Government Exam<br>Guidance, Made Personal</h1>
+    <p class="lead">
+      PathGuide helps students in Tamil Nadu plan a career path or prepare for
+      government exams — with personalized roadmaps, a bilingual interface,
+      and an admin dashboard to manage it all.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="https://github.com/suvinbrettleeroy/PathuGuide-AI" target="_blank" rel="noopener">View Source on GitHub</a>
+      <a class="btn btn-ghost" href="#run">Run It Locally</a>
+    </div>
+    <div class="hero-img">
+      <img src="Code/frontend/static/img/home/hero-student.jpg" alt="Student planning their career path">
+    </div>
+  </section>
+
+  <section id="features" class="wrap">
+    <div class="eyebrow">What it does</div>
+    <h2>Two guided paths, one platform</h2>
+    <p class="section-lead">Students choose their track from the dashboard, fill a short form, and get a roadmap built around their answers.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🧭</div>
+        <h3>Career Path Guidance</h3>
+        <p>Degree → Department → Domain → Role mapping with a generated study plan, salary outlook, and course/project suggestions.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏛️</div>
+        <h3>TN Government Exam Prep</h3>
+        <p>Exam–job mapping, syllabus breakdown, a study roadmap by timeline, and a physical fitness eligibility checker.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>Bilingual Interface</h3>
+        <p>Every page toggles between English and Tamil, including forms and generated output.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔐</div>
+        <h3>Admin Dashboard</h3>
+        <p>A separate, protected panel for the team to manage content, with its own light/dark theme.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📍</div>
+        <h3>Live Location Detection</h3>
+        <p>Detects the student's location to tailor recommendations and coaching center suggestions.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎨</div>
+        <h3>Custom Design System</h3>
+        <p>A hand-built visual identity — brand logo, motion, and a shared component library across every page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="wrap">
+    <div class="eyebrow">Visual identity</div>
+    <h2>Designed around the journey</h2>
+    <p class="section-lead">Imagery used across the app's pages, echoing the climb from student to career.</p>
+    <div class="gallery">
+      <figure>
+        <img src="Code/frontend/static/img/home/college-campus.jpg" alt="College campus">
+        <figcaption>Dashboard — where the journey starts</figcaption>
+      </figure>
+      <figure>
+        <img src="Code/frontend/static/img/career/summit-arms.jpg" alt="Reaching a summit">
+        <figcaption>Career Path — reaching the goal</figcaption>
+      </figure>
+      <figure>
+        <img src="Code/frontend/static/img/exam/thiruvalluvar.jpg" alt="Thiruvalluvar statue, Tamil Nadu">
+        <figcaption>Government Exams — rooted in Tamil Nadu</figcaption>
+      </figure>
+      <figure>
+        <img src="Code/frontend/static/img/home/goals-valley.jpg" alt="Valley representing goals ahead">
+        <figcaption>Planning — the road ahead</figcaption>
+      </figure>
+      <figure>
+        <img src="Code/frontend/static/img/career/hiker-cliff.jpg" alt="Hiker overlooking a cliff">
+        <figcaption>Study Plan — the climb</figcaption>
+      </figure>
+      <figure>
+        <img src="Code/frontend/static/img/home/tn-government.jpg" alt="Tamil Nadu government building">
+        <figcaption>Exam Track — government services</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="stack" class="wrap">
+    <div class="eyebrow">Under the hood</div>
+    <h2>Built with</h2>
+    <div class="stack-row">
+      <span class="pill">Python 3</span>
+      <span class="pill">Flask</span>
+      <span class="pill">Jinja2</span>
+      <span class="pill">NumPy</span>
+      <span class="pill">scikit-learn</span>
+      <span class="pill">Vanilla JS</span>
+      <span class="pill">Custom CSS design system</span>
+      <span class="pill">SQLite (planned)</span>
+    </div>
+  </section>
+
+  <section id="run" class="wrap">
+    <div class="eyebrow">Try it yourself</div>
+    <h2>Run it locally</h2>
+    <p class="section-lead">Since GitHub Pages can't run a Python server, clone the repo and run PathGuide on your own machine:</p>
+    <div class="code-card">
+      <span class="l"><span class="c">$</span> git clone https://github.com/suvinbrettleeroy/PathuGuide-AI.git</span>
+      <span class="l"><span class="c">$</span> cd PathuGuide-AI/Code</span>
+      <span class="l"><span class="c">$</span> python -m venv venv &amp;&amp; venv\Scripts\activate</span>
+      <span class="l"><span class="c">$</span> pip install -r requirements.txt</span>
+      <span class="l"><span class="c">$</span> python app.py</span>
+      <span class="l"><span class="c">#</span> then open http://127.0.0.1:5000</span>
+    </div>
+  </section>
+
+  <section id="team" class="wrap">
+    <div class="eyebrow">Who built it</div>
+    <h2>Team</h2>
+    <div class="team">
+      <div class="card">
+        <div class="role">Lead · System Design · UI/UX</div>
+        <h3>Suvin Brettlee Roy B</h3>
+        <p>Core idea, architecture planning, developer.</p>
+      </div>
+      <div class="card">
+        <div class="role">Data &amp; ML</div>
+        <h3>Duraimurugan K</h3>
+        <p>Data collection and preprocessing, success prediction and recommendation system.</p>
+      </div>
+      <div class="card">
+        <div class="role">Testing &amp; Docs</div>
+        <h3>Brain Benton Nelson</h3>
+        <p>Output modules, documentation, debugging.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    © 2026 PathGuide — Educational Project. Source on
+    <a href="https://github.com/suvinbrettleeroy/PathuGuide-AI" target="_blank" rel="noopener">GitHub</a>.
+  </div>
+</footer>
+
+</body>
+</html>
