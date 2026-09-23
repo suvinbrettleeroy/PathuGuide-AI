@@ -1,223 +1,241 @@
 # PathGuide
 
-## Complete Machine Learning-Based Career and Tamil Nadu Government Exam Guidance System
+**Career and Tamil Nadu Government Exam Guidance System**
 
-### 🎯 Features
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Flask](https://img.shields.io/badge/Flask-2.3-black)
+![Language](https://img.shields.io/badge/Language-English%20%7C%20தமிழ்-orange)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
-- **Module 1: Dashboard** - Entry point with language toggle and path selection
-- **Module 2: Career Path** - Personalized career guidance with ML predictions
-- **Module 3: Government Exams** - Complete TN exam preparation with fitness checks
-- **Module 4: Admin Panel** - Secure content management system
+## About
 
-### 🛠️ Technology Stack
+PathGuide is a bilingual (English / தமிழ்) web app that helps students plan their future. Many students don't know which career suits their degree, or how to prepare for Tamil Nadu government exams. PathGuide gives them clear, personalized guidance in their own language.
 
-- **Backend:** Python 3.8+, Flask 2.3
-- **Database:** SQLAlchemy, SQLite
-- **Machine Learning:** Scikit-learn, NumPy, Pandas
-- **Frontend:** Bootstrap 5, JavaScript
-- **Languages:** English, Tamil (Bilingual)
+It offers two paths:
 
-### 📦 Installation
+- **Career Path:** pick a degree, department, domain and role, and get a detailed career plan with a study plan, courses, projects, internships and salary details.
+- **TN Government Exams:** get preparation guidance for Tamil Nadu exams such as TNPSC and TNUSRB, with a preparation plan and a success estimate.
 
-1. **Clone the repository:**
-```bash
-cd "C:\Users\ASUS\Desktop\Projects\PathGuide\Code"
-```
+An admin dashboard lets staff manage feature toggles, the welcome banner, reports and backups.
 
-2. **Create virtual environment:**
-```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-```
+## Highlights
 
-3. **Install dependencies:**
-```powershell
-pip install -r requirements.txt
-```
+- Bilingual interface: switch between English and Tamil at any time
+- 1000 career roles across degrees, departments and domains
+- Personalized plans based on the student's choices and location
+- Responsive design for mobile, tablet and desktop
 
-4. **Initialize database:**
-```powershell
-python init_db.py
-```
 
-5. **Run the application:**
-```powershell
-python app.py
-```
+An admin dashboard lets staff manage feature toggles, the welcome banner and reports.
 
-6. **Access the application:**
-- Main App: http://127.0.0.1:5000
-- Admin Panel: http://127.0.0.1:5000/admin-login
-  - Username: `Darkknignt` (case-sensitive)
-  - Password: `Suv001` (case-sensitive)
+---
 
-### 📁 Project Structure
+## Features
+
+### Dashboard
+- English / Tamil language toggle across the whole app
+- Live location detection with Tamil Nadu district and city selection
+- Path selection: Career Path or Government Exams
+- Saved profiles: resume, view, rename and delete
+- Resume last activity
+- Data-deletion request option
+- Configurable welcome banner (set from the admin panel)
+
+### Career Path
+- Cascading dropdowns: Degree → Department → Domain → Role
+- Career plan generated from a dataset of 1000 roles
+- Weekly study plan
+- Recommended courses, projects and internships
+- Salary information for the chosen role
+- City-based guidance using the selected district
+- Save and resume progress
+
+### Government Exams
+- Exam input form with qualification and preparation duration
+- Exam preparation plan for Tamil Nadu exams (TNPSC, TNUSRB)
+- Success-score estimate based on the preparation details
+- Physical fitness check (BMI and eligibility) for uniformed services
+
+### Admin Panel
+- Login-protected dashboard with logout
+- Feature toggles to turn modules on or off
+- Welcome banner editor
+- Report export
+- Audit-log export
+- Backup trigger
+- Light and dark theme
+
+### Machine Learning
+- Success predictor (Random Forest)
+- Recommendation engine for study plans and roadmaps
+- Daily plan generator
+- Fitness checker
+
+### User Interface
+- Fully bilingual interface (English and Tamil)
+- Responsive layout for mobile, tablet and desktop
+- Shared design system with a consistent brand and logo
+- Light and dark theme on the admin dashboard
+- Smooth page transitions and scroll animations
+
+
+---
+
+## Tech Stack
+
+| Layer     | Technology                                    |
+|-----------|-----------------------------------------------|
+| Backend   | Python 3.8+, Flask                            |
+| Data      | Python data modules + CSV role dataset        |
+| ML / Data | scikit-learn, NumPy, Pandas, joblib           |
+| Frontend  | Jinja2 templates, custom CSS/JS design system |
+| Languages | English, Tamil                                |
+
+---
+
+## Project Structure
 
 ```
 PathGuide/
-├── app.py                  # Main Flask application
-├── config.py               # Configuration settings
-├── requirements.txt        # Python dependencies
-├── init_db.py             # Database initialization
+├── README.md
+├── index.html                  # Static GitHub Pages landing page
+├── requirements.txt
 │
-├── models/                 # Database models
-│   ├── __init__.py
-│   ├── database.py
-│   ├── user.py            # User models
-│   ├── career.py          # Career path models
-│   ├── exam.py            # Government exam models
-│   └── admin.py           # Admin models
-│
-├── ml/                     # Machine Learning components
-│   ├── __init__.py
-│   ├── success_predictor.py      # Success rate prediction
-│   ├── recommendation_engine.py   # Study plan generation
-│   ├── daily_plan_generator.py   # Daily task generator
-│   └── fitness_checker.py        # Fitness eligibility checker
-│
-├── utils/                  # Utility functions
-│   ├── __init__.py
-│   ├── language.py        # Language management
-│   ├── security.py        # Security features
-│   └── analytics.py       # Analytics tracking
-│
-├── templates/             # HTML templates
-│   ├── base.html
-│   ├── index.html         # Dashboard
-│   ├── admin_login.html   # Admin login
-│   ├── career_input.html  # Career input form
-│   ├── career_output.html # Career guidance output
-│   ├── exam_input.html    # Exam input form
-│   └── exam_output.html   # Exam preparation output
-│
-└── models/                # Trained ML models (auto-generated)
-    └── success_predictor.pkl
+└── Code/
+    ├── app.py                  # Launcher: runs backend/app.py
+    ├── requirements.txt        # Python dependencies
+    ├── .env.example            # Example environment settings
+    │
+    ├── backend/
+    │   ├── app.py                       # Flask app and routes
+    │   ├── career_output_generator.py   # Builds the career plan
+    │   ├── config.py                    # Configuration settings
+    │   ├── init_db.py                   # Database seeding script
+    │   ├── ml/                          # Success predictor, recommendation
+    │   │                                #   engine, daily plan, fitness checker
+    │   ├── models/                      # Database models
+    │   └── utils/                       # Language, security, analytics helpers
+    │
+    ├── data/
+    │   ├── career_data.py               # Degree → Dept → Domain → Role data
+    │   ├── role_content.py              # Role content
+    │   └── Career Path Roles.csv        # Role dataset
+    │
+    ├── frontend/
+    │   ├── templates/                   # Jinja2 pages
+    │   │   └── partials/                # Shared nav, footer, logo, modals
+    │   └── static/
+    │       ├── css/                     # pg-core, brand, page stylesheets
+    │       ├── js/                      # pg-core, home, admin scripts
+    │       └── img/                     # Brand logo and page imagery
+    │
+    ├── docs/                            # Project summary, quickstart, architecture
+    └── scripts/                         # run.ps1, verify_setup.ps1
 ```
 
-### 🚀 Key Features
+---
 
-#### Module 1: Dashboard
-- ✅ Bilingual support (Tamil/English)
-- ✅ Language toggle
-- ✅ Live location detection
-- ✅ Path selection (Career/Govt Exam)
-- ✅ Saved profiles
-- ✅ Hidden admin access
+## Getting Started
 
-#### Module 2: Career Path
-- ✅ Smart form with filtered dropdowns
-- ✅ ML-based success prediction
-- ✅ Weekly study plan generation
-- ✅ Daily task automation
-- ✅ Salary estimation (India + 7 countries)
-- ✅ Course recommendations
-- ✅ Project suggestions
-- ✅ Internship matching
+### Prerequisites
+- Python 3.8 or newer
+- Git
 
-#### Module 3: Government Exams
-- ✅ Exam-Job mapping
-- ✅ Complete syllabus display
-- ✅ Study roadmap (6/12/18/24 months)
-- ✅ Physical fitness checker
-- ✅ Daily study plan
-- ✅ Coaching center recommendations
-- ✅ Mock test plans
+### Installation
 
-#### Module 4: Admin Panel
-- ✅ Secure login (case-sensitive)
-- ✅ Content management
-- ✅ Analytics dashboard
-- ✅ Feature toggles
-- ✅ Audit logging
-- ✅ Version control
+1. **Clone the repository and open the `Code` folder**
+   ```powershell
+   git clone https://github.com/<your-username>/PathGuide.git
+   cd PathGuide\Code
+   ```
 
-### 🔐 Security Features
+2. **Create and activate a virtual environment**
+   ```powershell
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   ```
 
-- Case-sensitive login credentials
-- Maximum 3 login attempts
-- 30-minute account lockout
-- Session timeout (60 minutes)
-- Activity logging
-- CSRF protection
-- XSS prevention
+3. **Install dependencies**
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
-### 📊 Machine Learning Models
+4. **Run the app**
+   ```powershell
+   python app.py
+   ```
+   Or use the helper script, which does steps 2–4 for you:
+   ```powershell
+   .\scripts\run.ps1
+   ```
 
-1. **Success Predictor:** Random Forest Classifier
-   - Predicts success rate based on study hours, roadmap duration, and alignment
-   - Provides personalized feedback and suggestions
+5. **Open it in your browser**
+   - Main app: http://127.0.0.1:5000
+   - Admin login: http://127.0.0.1:5000/admin-login
 
-2. **Recommendation Engine:**
-   - Generates weekly study plans
-   - Creates exam preparation roadmaps
-   - Adapts to user preferences
+### Configuration
+Copy `.env.example` to `.env` and set your own values. Set your own admin
+credentials and a strong `SECRET_KEY`. Never commit real credentials.
 
-3. **Daily Plan Generator:**
-   - Auto-generates daily tasks
-   - Updates every 24 hours
-   - Tracks progress
+---
 
-4. **Fitness Checker:**
-   - BMI calculation
-   - Eligibility verification
-   - Improvement plan generation
+## Routes
 
-### 🌐 Bilingual Support
+| Route                      | Purpose                     |
+|----------------------------|-----------------------------|
+| `/`                        | Dashboard                   |
+| `/career/input`            | Career form                 |
+| `/career/output`           | Career plan                 |
+| `/exam/input`              | Exam form                   |
+| `/exam/output`             | Exam preparation plan       |
+| `/admin-login`, `/admin`   | Admin login and dashboard   |
+| `/api/career/*`            | Dropdown data and progress  |
 
-- All UI elements in Tamil and English
-- Dynamic language switching
-- Content stored in both languages
-- Translation management system
+---
 
-### 📱 Responsive Design
+## Machine Learning Components
 
-- Mobile-friendly interface
-- Tablet optimized
-- Desktop enhanced
-- Cross-browser compatible
+The `backend/ml/` package contains:
 
-### 🔄 Data Privacy
+- **Success Predictor:** Random Forest–based success-rate estimate
+- **Recommendation Engine:** study-plan and roadmap generation
+- **Daily Plan Generator:** daily task generation
+- **Fitness Checker:** BMI and eligibility checks for uniformed services
 
-- Optional data collection
-- User consent required
-- Easy data deletion
-- No third-party sharing
-- GDPR compliant
+> **Status:** the running app currently uses the career data and generator
+> modules directly. The database models, full ML pipeline and `init_db.py`
+> are in the codebase but are still being integrated.
 
-### 🧪 Testing
+---
 
-Run tests:
+## Testing
+
 ```powershell
 pytest
 ```
 
-### 📖 Documentation
+---
 
-- User Manual: `docs/user_manual.md`
-- Admin Manual: `docs/admin_manual.md`
-- API Documentation: `docs/api.md`
-- Development Guide: `docs/development.md`
+## Team
 
-### 🤝 Contributing
-
-This is a college project. For queries, contact the project team.
-
-### 📄 License
-
-Educational Project - All Rights Reserved
-
-### 👥 Team
-1. Suvin Brettlee Roy B - Lead, Core idea, System design and architecture planning, Developer, Designed UI/UX
-2. Duraimurugan K - Data Preprocessing, Data collection, Developer, Worked on success prediction and recommendation system 
-3. Brain Benton Nelson - Tester, Documentation, Developed output modules, Debugging
-
-### 🙏 Acknowledgments
-
-- Tamil Nadu Public Service Commission (TNPSC)
-- Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)
-- Bootstrap Team
-- Flask Community
+| Name                     | Role                                                                     |
+|--------------------------|--------------------------------------------------------------------------|
+| Suvin Brettlee Roy B     | Team Lead and ML Developer: core idea, system architecture, Flask backend, admin panel and UI/UX design |
+| Duraimurugan K           | Data and ML Developer: data collection and preprocessing, success prediction and recommendation system |
+| Brain Benton Nelson      | Tester and Documentation: output modules, testing, debugging and project documentation |
 
 ---
 
-**© 2026 PathGuide. All rights reserved.**
+## Acknowledgments
+
+- Tamil Nadu Public Service Commission (TNPSC)
+- Tamil Nadu Uniformed Services Recruitment Board (TNUSRB)
+- Flask community
+
+---
+
+## License
+
+Educational Project. All Rights Reserved.
+
+© 2026 PathGuide
