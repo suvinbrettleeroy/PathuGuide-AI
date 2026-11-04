@@ -45,6 +45,11 @@ python init_db.py
 python app.py
 ```
 
+For Render deployment, use this start command from the repository root:
+```bash
+gunicorn pathguide.app
+```
+
 6. **Access the application:**
 - Main App: http://127.0.0.1:5000
 - Admin Panel: http://127.0.0.1:5000/admin-login
